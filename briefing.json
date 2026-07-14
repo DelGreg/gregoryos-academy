@@ -758,5 +758,118 @@
       "Présentation de 3 minutes"
     ],
     "oral": "Conclusion, méthode, résultat, limites, prochaine étape."
+  },
+  "financePerso": {
+    "signal": "VERT",
+    "titre": "V9 : le PEE devient une poche pilotée par l’échéance 2029, pas par les prévisions de marché",
+    "synthese": "Les documents fournis identifient un support monétaire risque 1/7 et horizon un mois, un support obligataire risque 2/7 et horizon trois ans, puis des supports comportant davantage d’actions. L’assistant classe désormais chaque fonds selon son rôle réel dans ton projet.",
+    "indicateurs": [
+      {
+        "nom": "Crédit habitat France",
+        "valeur": "3,12 %",
+        "date": "mai 2026",
+        "source": "Banque de France",
+        "url": "https://webstat.banque-france.fr/fr/themes/credit-et-titres-de-dette/credit/cout-du-credit/taux-des-credits-aux-menages/"
+      },
+      {
+        "nom": "Inflation France",
+        "valeur": "1,8 %",
+        "date": "juin 2026",
+        "source": "INSEE",
+        "url": "https://www.insee.fr/fr/statistiques/9021808"
+      },
+      {
+        "nom": "Livret A",
+        "valeur": "1,5 %",
+        "date": "1er février–31 juillet 2026",
+        "source": "Service-Public.fr",
+        "url": "https://www.service-public.fr/particuliers/vosdroits/F2365"
+      },
+      {
+        "nom": "Taux d’effort HCSF",
+        "valeur": "35 % max.",
+        "date": "règle en vigueur",
+        "source": "HCSF",
+        "url": "https://www.economie.gouv.fr/hcsf/mesures/mesure-relative-loctroi-de-credits-immobiliers"
+      }
+    ],
+    "lecturePourVous": [
+      "Votre prêt immobilier actuel à 0,95 % est très inférieur aux nouveaux taux moyens : le rembourser par anticipation n’est pas naturellement prioritaire.",
+      "Votre projet 2029 impose de distinguer le capital réellement mobilisable de l’épargne retraite ou encore exposée aux marchés.",
+      "La part du PEE investie dans l’action BNP doit être identifiée : salaire, carrière et patrimoine concentrés sur le même groupe créent un risque spécifique.",
+      "La LLD se termine avant la période d’achat visée : sa disparition peut améliorer la capacité de financement, sous réserve de ne pas la remplacer par une charge équivalente."
+    ],
+    "poches": [
+      {
+        "nom": "Sécurité",
+        "regle": "Réserve immédiatement disponible pour les imprévus et les dépenses suivant l’achat.",
+        "statut": "À renseigner séparément de l’apport."
+      },
+      {
+        "nom": "Maison 2029",
+        "regle": "Apport, frais, déménagement, travaux initiaux et marge de négociation.",
+        "statut": "À sécuriser progressivement jusqu’à l’achat."
+      },
+      {
+        "nom": "Long terme",
+        "regle": "Retraite et capital dont l’horizon dépasse dix ans.",
+        "statut": "À préserver autant que possible."
+      }
+    ],
+    "vigilances": [
+      "Ne pas compter 100 % d’un placement volatil comme apport garanti.",
+      "Vérifier les conditions de déblocage et la fiscalité de chaque enveloppe.",
+      "Conserver une réserve après la signature, pas seulement atteindre l’apport demandé.",
+      "Tester le financement avec un scénario de taux et de prix moins favorable."
+    ],
+    "declencheurs": [
+      "Écart à l’apport cible supérieur à 5 k€",
+      "Taux futur supérieur de 0,50 point au scénario",
+      "Capital projet encore fortement exposé aux marchés à moins de 18 mois",
+      "Taux d’effort proche de 35 %"
+    ],
+    "decision": "Renseigner les montants par support et le payeur des frais d’entrée. Le moteur calculera ensuite la somme PEE qui doit être sécurisée et la concentration réelle en action BNP.",
+    "note": "Projection pédagogique personnalisée. Elle ne remplace pas l’analyse d’un conseiller disposant de vos contrats, de leur fiscalité et des revenus complets du foyer.",
+    "investissement": {
+      "verdict": "Abondement atteint : pour l’argent indispensable à la maison, je privilégierais Multipar Monétaire SR Part E. Je limiterais Multipar Solidaire Oblig SR Part E à une poche minoritaire et je sortirais du calcul de l’apport tous les supports actions, équilibrés et BNP.",
+      "pea": {
+        "orientation": "Pas de nouveaux versements destinés à la maison sur des actions du PEA. Conserver le PEA ouvert pour son ancienneté et le long terme.",
+        "pourquoi": "L’achat est prévu dans environ trois ans ; l’AMF recommande un horizon d’au moins cinq ans pour les actions, plus raisonnablement dix ans ou davantage.",
+        "fiscalite": "Après cinq ans, les gains retirés sont exonérés d’impôt sur le revenu mais restent soumis aux prélèvements sociaux. Cette fiscalité favorable ne supprime pas le risque de perte."
+      },
+      "pee": {
+        "orientation": "Socle maison : Multipar Monétaire SR Part E. Complément possible : Multipar Solidaire Oblig SR Part E, dans une proportion réduite et décroissante. Aucun nouveau risque actions pour combler l’objectif.",
+        "pourquoi": "Le monétaire est classé 1/7 avec un horizon d’un mois. L’obligataire est classé 2/7 sur trois ans. Les supports équilibrés ou actions ont des horizons de quatre à cinq ans et peuvent subir une perte au moment de l’achat.",
+        "fiscalite": "Le déblocage pour acquisition de la résidence principale est possible sous conditions. L’application ne suppose pas que les frais d’entrée sont pris en charge : ce point doit être confirmé."
+      },
+      "quasiSecurise": {
+        "definition": "Ni le PEA ni le PEE ne garantissent un rendement. Le caractère quasi sécurisé vient uniquement du support : livret réglementé, capital garanti contractuellement ou fonds monétaire/taux court très peu volatil.",
+        "supports": "Dans votre PEE, rechercher les fonds classés monétaire, taux court, garanti ou prudent. Lire le DIC : niveau de risque, durée recommandée, frais et éventuelle garantie.",
+        "limite": "Un fonds obligataire ou prudent peut perdre de la valeur. Un ETF actions, un fonds actions ou une action BNP ne convient pas au capital indispensable à 2029."
+      },
+      "macroMicro": {
+        "macro": "Des taux immobiliers plus élevés augmentent l’apport nécessaire pour maintenir une mensualité donnée ; une inflation plus faible améliore le pouvoir d’achat mais peut réduire le rendement des supports monétaires.",
+        "micro": "La fin de LLD en 2029, l’équité nette de vente, l’abondement et la concentration du PEE sont plus déterminants que les variations quotidiennes du CAC 40.",
+        "impact": "L’assistant n’orientera vers davantage de risque que pour un capital explicitement classé long terme, jamais pour combler un manque d’apport indispensable."
+      }
+    }
+  },
+  "peeV9": {
+    "hypothese": "Abondement maximal déjà atteint",
+    "regime": "Le rendement monétaire suit les taux courts en euros. Il peut diminuer si la BCE baisse ses taux, mais ce mouvement ne transforme pas les fonds actions en supports adaptés à une échéance immobilière fixe.",
+    "orientation": "Poche maison PEE : Multipar Monétaire SR Part E en socle, Multipar Solidaire Oblig SR Part E en complément minoritaire seulement. Les autres supports sont réservés au surplus long terme.",
+    "macro": [
+      "Taux BCE élevés ou stables : le rendement attendu du monétaire reste proche de l’€STR diminué des frais.",
+      "Baisse des taux BCE : rendement du monétaire en baisse ; comparer le net avec Livret A, LDDS ou compte à terme sans augmenter automatiquement le risque.",
+      "Hausse des rendements obligataires ou des spreads : risque de baisse temporaire du fonds Solidaire Oblig.",
+      "Hausse ou baisse des actions : aucune modification de la poche maison ne doit être fondée sur une prévision de court terme."
+    ],
+    "controles": [
+      "Confirmer si les frais d’entrée maximum de 1,25 % sont supportés par l’entreprise ou par le salarié.",
+      "Renseigner l’allocation PEE réelle et le montant exact destiné à l’achat.",
+      "Vérifier le délai et les justificatifs de déblocage pour acquisition de la résidence principale.",
+      "Ne pas compter les scénarios intermédiaires des DIC comme rendements attendus."
+    ],
+    "verdict": "Si j’étais à ta place aujourd’hui, avec l’abondement déjà obtenu, je ne chercherais pas de rendement supplémentaire avec l’apport. Je construirais une trajectoire automatique vers le monétaire, avec une poche obligataire limitée et décroissante à l’approche de 2029."
   }
 }

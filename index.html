@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<title>GrégoryOS Performance V6</title>
+<title>GrégoryOS Performance V9</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GrégoryOS">
@@ -241,6 +241,81 @@ function answerScenario(btn,i,correct,explanation){
 .version{display:inline-flex;align-items:center;gap:6px;background:var(--card2);border-radius:999px;padding:6px 10px;font-size:.75rem;font-weight:700;color:var(--text2)}
 @media(max-width:380px){.cap-grid,.method-grid,.habit-grid{grid-template-columns:1fr}.mastery-row{grid-template-columns:80px 1fr 38px}}
 
+
+/* ---------- V7 : Pilotage financier personnel ---------- */
+.finance-personal{border-left:4px solid #34c759}
+.finance-signal{display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 14px;border-radius:15px;background:var(--card2)}
+.finance-signal .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.finance-signal.green .dot{background:#34c759;box-shadow:0 0 0 6px rgba(52,199,89,.12)}
+.finance-signal.amber .dot{background:#ff9f0a;box-shadow:0 0 0 6px rgba(255,159,10,.12)}
+.finance-signal.red .dot{background:#ff453a;box-shadow:0 0 0 6px rgba(255,69,58,.12)}
+.finance-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.finance-kpi{background:var(--card2);border-radius:14px;padding:12px}
+.finance-kpi b{display:block;font-size:1.25rem}
+.finance-kpi span{display:block;color:var(--text2);font-size:.77rem;margin-top:3px;line-height:1.35}
+.finance-bar{height:11px;background:var(--card2);border-radius:999px;overflow:hidden;margin-top:10px}
+.finance-bar>div{height:100%;background:linear-gradient(90deg,#34c759,#0a84ff);border-radius:999px}
+.finance-pockets{display:grid;gap:9px;margin-top:11px}
+.finance-pocket{background:var(--card2);border-radius:14px;padding:12px}
+.finance-pocket b{display:block}
+.finance-pocket span{display:block;color:var(--text2);font-size:.82rem;line-height:1.45;margin-top:4px}
+.finance-indicators{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+.finance-indicator{background:var(--card2);padding:11px;border-radius:13px}
+.finance-indicator b{display:block;font-size:.96rem}
+.finance-indicator span{display:block;font-size:.76rem;color:var(--text2);margin-top:3px}
+.finance-indicator a{display:inline-block;color:var(--accent);font-size:.73rem;margin-top:5px;text-decoration:none;font-weight:700}
+.finance-settings{margin-top:14px}
+.finance-settings summary{font-weight:800;color:var(--accent);cursor:pointer}
+.finance-form{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.finance-form label{font-size:.72rem;color:var(--text2)}
+.finance-form input{width:100%;margin-top:4px;padding:10px;border-radius:11px;border:1px solid var(--sep);background:var(--card2);color:var(--text)}
+.finance-form .wide{grid-column:1/-1}
+.finance-note{font-size:.75rem;color:var(--text2);line-height:1.45;margin-top:10px}
+@media(min-width:700px){.finance-kpis{grid-template-columns:repeat(4,1fr)}.finance-indicators{grid-template-columns:repeat(4,1fr)}}
+
+
+/* ---------- V8 : stratégie PEA / PEE et vérité du financement ---------- */
+.truth-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
+.truth-card{background:var(--card2);border-radius:14px;padding:12px}
+.truth-card b{font-size:1.18rem;display:block}
+.truth-card span{font-size:.76rem;color:var(--text2);display:block;line-height:1.4;margin-top:4px}
+.invest-grid{display:grid;gap:10px;margin-top:12px}
+.invest-card{background:var(--card2);border-radius:15px;padding:13px}
+.invest-card h5{margin:0 0 6px;font-size:.94rem}
+.invest-card p{font-size:.82rem;line-height:1.45;color:var(--text2)}
+.invest-card .tax{margin-top:7px;padding-top:7px;border-top:1px solid var(--sep);font-size:.76rem}
+.warning-box{border:1px solid rgba(255,159,10,.35);background:rgba(255,159,10,.08);padding:12px;border-radius:14px;margin-top:12px}
+@media(min-width:700px){.truth-grid{grid-template-columns:repeat(4,1fr)}.invest-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+/* ---------- V9 : moteur PEE documenté ---------- */
+.pee-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-top:14px}
+.pee-badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:.68rem;font-weight:900;letter-spacing:.03em}
+.pee-badge.core{background:rgba(52,199,89,.14);color:#248a3d}
+.pee-badge.option{background:rgba(10,132,255,.12);color:#0a67c7}
+.pee-badge.long{background:rgba(175,82,222,.12);color:#8944ab}
+.pee-badge.avoid{background:rgba(255,69,58,.12);color:#d9342b}
+.pee-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
+.pee-summary>div{background:var(--card2);border-radius:14px;padding:11px}
+.pee-summary b{font-size:1.18rem;display:block}
+.pee-summary span{font-size:.73rem;color:var(--text2);display:block;line-height:1.35;margin-top:3px}
+.pee-meter{height:12px;background:var(--card2);border-radius:999px;overflow:hidden;display:flex;margin-top:12px}
+.pee-meter .m{background:#34c759}.pee-meter .o{background:#0a84ff}.pee-meter .r{background:#ff453a}
+.pee-catalog{display:grid;gap:10px;margin-top:12px}
+.pee-fund{background:var(--card2);border-radius:15px;padding:13px}
+.pee-fund-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.pee-fund h5{font-size:.92rem;margin:0;line-height:1.25}
+.pee-fund p{font-size:.78rem;color:var(--text2);line-height:1.42;margin-top:5px}
+.pee-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pee-chip{padding:4px 7px;border-radius:8px;background:var(--card);font-size:.67rem;font-weight:750}
+.pee-source{font-size:.66rem;color:var(--text3);margin-top:7px}
+.pee-plan{border:1px solid rgba(52,199,89,.28);background:rgba(52,199,89,.07);padding:13px;border-radius:15px;margin-top:12px}
+.pee-alert{border:1px solid rgba(255,159,10,.35);background:rgba(255,159,10,.08);padding:13px;border-radius:15px;margin-top:12px}
+.pee-fields{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.pee-fields label{font-size:.71rem;color:var(--text2)}
+.pee-fields input,.pee-fields select{width:100%;margin-top:4px;padding:10px;border-radius:11px;border:1px solid var(--sep);background:var(--card2);color:var(--text)}
+@media(min-width:700px){.pee-summary{grid-template-columns:repeat(4,1fr)}.pee-catalog{grid-template-columns:repeat(2,1fr)}}
+
 /* ---------- Barre d'onglets ---------- */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;
   background:color-mix(in srgb, var(--bg) 82%, transparent);
@@ -369,7 +444,7 @@ function answerScenario(btn,i,correct,explanation){
     </header>
     <div class="card audio-panel">
       <h3>🔊 Laboratoire audio</h3>
-      <p class="small muted" style="margin-top:4px">Touchez d’abord « Tester le son ». La V6 charge explicitement une voix anglaise et affiche l’état de lecture.</p>
+      <p class="small muted" style="margin-top:4px">Touchez d’abord « Tester le son ». La V9 charge explicitement une voix anglaise et affiche l’état de lecture.</p>
       <div class="audio-controls">
         <button class="primary-audio" id="audio-test" type="button">Tester le son</button>
         <button id="audio-slow" type="button">🐢 Lent</button>
@@ -420,6 +495,7 @@ function answerScenario(btn,i,correct,explanation){
       <div class="subhead">Carrière · santé · famille · immobilier · organisation · discipline numérique</div>
     </header>
     <div class="card" id="life-overview"></div>
+    <div class="card finance-personal" id="finance-personal"></div>
     <div class="life-grid" id="life-cards"></div>
     <div class="card" id="weight-lab"></div>
     <div class="card" id="habit-card"></div>
@@ -464,7 +540,7 @@ function answerScenario(btn,i,correct,explanation){
     </div>
     <div class="card audio-panel">
       <h3>🔈 Diagnostic du son</h3>
-      <p class="small muted" style="margin-top:5px">La V6 utilise une voix anglaise chargée par l’iPhone. Testez-la ici avant votre première séance.</p>
+      <p class="small muted" style="margin-top:5px">La V9 utilise une voix anglaise chargée par l’iPhone. Testez-la ici avant votre première séance.</p>
       <button class="primary" style="background:var(--english)" onclick="audioDiagnostic()">Tester : “Good morning, Grégory”</button>
       <div class="audio-status" id="profile-audio-status">Pas encore testé.</div>
     </div>
@@ -483,7 +559,7 @@ function answerScenario(btn,i,correct,explanation){
       <div class="update-status" id="briefing-import-status">Le dernier briefing installé reste enregistré uniquement sur cet iPhone.</div>
     </div>
     <div class="card">
-      <p class="small muted">Les données de progression, les notes, les habitudes et les enregistrements temporaires restent sur cet appareil.</p><p style="margin-top:8px"><span class="version">GrégoryOS Performance · V6</span></p>
+      <p class="small muted">Les données de progression, les notes, les habitudes et les enregistrements temporaires restent sur cet appareil.</p><p style="margin-top:8px"><span class="version">GrégoryOS Performance · V9</span></p>
       <button class="primary" style="background:var(--down)" onclick="resetAll()">Réinitialiser la progression</button>
     </div>
   </section>
@@ -551,6 +627,116 @@ let brightStats = store.get('bright_stats', {attempted:0, correct:0, listening:0
 let certState = store.get('cert_state', {sessions:0, minutes:0, deliverables:[], currentProject:'Certification Data Analyst'});
 let weightLog = store.get('weight_log', []);
 let weightSettings = store.get('weight_settings', {goal:'loss', target:'', current:''});
+const oldFinanceSettings = store.get('finance_settings_v8', store.get('finance_settings_v7', null));
+let financeSettings = store.get('finance_settings_v9', {
+  projectCapitalNow: oldFinanceSettings?.projectCapitalNow ?? 60,
+  emergencyBuffer: oldFinanceSettings?.emergencyBuffer ?? '',
+  expectedSaleEquity: oldFinanceSettings?.expectedSaleEquity ?? 60,
+  monthlySavings: oldFinanceSettings?.monthlySavings ?? 200,
+  expectedFutureInflows: oldFinanceSettings?.expectedFutureInflows ?? 19.2,
+  targetContribution: oldFinanceSettings?.targetContribution ?? 100,
+  targetPropertyPrice: oldFinanceSettings?.targetPropertyPrice ?? 400,
+  acquisitionCostsPct: oldFinanceSettings?.acquisitionCostsPct ?? 8,
+  targetDate: oldFinanceSettings?.targetDate ?? '2029-09-01',
+  referenceMortgageRate: oldFinanceSettings?.referenceMortgageRate ?? 3.12,
+  loanYears: oldFinanceSettings?.loanYears ?? 25,
+  targetMonthlyPayment: oldFinanceSettings?.targetMonthlyPayment ?? 1220,
+  currentMortgageRate: oldFinanceSettings?.currentMortgageRate ?? 0.95,
+  currentMortgagePayment: oldFinanceSettings?.currentMortgagePayment ?? 1070,
+  lldPayment: oldFinanceSettings?.lldPayment ?? 500,
+  lldEnd: oldFinanceSettings?.lldEnd ?? '2029-04-30',
+  householdNetIncome: oldFinanceSettings?.householdNetIncome ?? '',
+  peaBalance: oldFinanceSettings?.peaBalance ?? 0.8,
+  abondementReached:true,
+  peeHouseAmount:'',
+  peeEntryFeePayer:'unknown',
+  peeEntryFeePct:'',
+  peeMonetaire:'',
+  peeOblig:'',
+  peeModere:'',
+  peeEquilibre:'',
+  peeDynamique:'',
+  peeActionsEuro:'',
+  peeCroissance:'',
+  peeDiversifie:'',
+  peeBnpStock:'',
+  bnpConcentrationLimit:10
+});
+
+const PEE_FUNDS_V9 = [
+  {
+    id:'peeMonetaire',name:'Multipar Monétaire Socialement Responsable - Part E',risk:1,horizon:'1 mois',
+    role:'core',badge:'SOCLE MAISON',target:'85 à 100 % de la poche PEE indispensable',
+    exposure:'Fonds monétaire VNAV, objectif €STR net de frais, titres monétaires et obligataires courts de haute qualité.',
+    costs:'0,12 %/an, dont 0,05 % pris en charge par l’entreprise ; frais d’entrée jusqu’à 1,25 % selon convention.',
+    why:'C’est le support documenté le plus cohérent pour réduire la volatilité à trois ans. Il ne garantit toutefois pas le capital.',
+    source:'1024 3.pdf, pages 13 à 16'
+  },
+  {
+    id:'peeOblig',name:'Multipar Solidaire Oblig Socialement Responsable - Part E',risk:2,horizon:'3 ans',
+    role:'option',badge:'OPTION LIMITÉE',target:'0 à 15 % de la poche PEE indispensable',
+    exposure:'Au moins 75 % de titres de créance zone euro, indice indicatif 90 % obligations euro 3-5 ans + 10 % €STR, avec 5 à 15 % solidaire.',
+    costs:'0,59 %/an, dont 0,55 % pris en charge par l’entreprise ; transaction estimée 0,01 % ; entrée jusqu’à 1,25 %.',
+    why:'Peut compléter le monétaire si l’échéance reste supérieure à trois ans, mais sa valeur peut baisser lorsque les taux ou les spreads montent.',
+    source:'1024 3.pdf, pages 44 à 46'
+  },
+  {
+    id:'peeModere',name:'Multipar Solidaire Modéré Socialement Responsable',risk:2,horizon:'3 ans',
+    role:'option',badge:'SURPLUS SEULEMENT',target:'0 à 10 % et uniquement avec marge de sécurité',
+    exposure:'Allocation cible : 15 % actions, 65 % obligations, 12 % monétaire et 8 % actifs solidaires.',
+    costs:'Frais de gestion estimés à 0,65 %/an ; entrée jusqu’à 1,25 %.',
+    why:'Malgré un risque 2/7, il contient des actions et n’offre aucune protection. Il est moins pur que le fonds obligataire pour sécuriser une date d’achat.',
+    source:'1024 3.pdf, pages 37 à 40'
+  },
+  {
+    id:'peeEquilibre',name:'Multipar Solidaire Équilibre Socialement Responsable - Part E',risk:3,horizon:'4 ans',
+    role:'long',badge:'LONG TERME',target:'0 % de la poche maison indispensable',
+    exposure:'40 à 60 % actions, 30 à 55 % produits de taux et 5 à 15 % actifs solidaires.',
+    costs:'0,89 %/an, dont 0,85 % pris en charge par l’entreprise ; transaction estimée 0,04 %.',
+    why:'L’horizon recommandé dépasse presque l’échéance du projet et la part actions peut provoquer une moins-value au moment de l’achat.',
+    source:'1024 3.pdf, pages 29 à 32'
+  },
+  {
+    id:'peeDynamique',name:'Multipar Solidaire Dynamique Socialement Responsable - Part E',risk:4,horizon:'5 ans',
+    role:'long',badge:'LONG TERME',target:'0 % de la poche maison indispensable',
+    exposure:'65 à 85 % actions zone euro, 10 à 30 % produits obligataires et 5 à 15 % actifs solidaires.',
+    costs:'0,89 %/an, dont 0,85 % pris en charge par l’entreprise ; transaction estimée 0,03 %.',
+    why:'La volatilité actions et l’horizon de cinq ans sont incompatibles avec un capital indispensable en 2029.',
+    source:'1024 3.pdf, pages 21 à 24'
+  },
+  {
+    id:'peeActionsEuro',name:'Multipar Actions Socialement Responsable - Part E',risk:4,horizon:'5 ans',
+    role:'long',badge:'LONG TERME',target:'0 % de la poche maison indispensable',
+    exposure:'Au moins 90 % d’actions de la zone euro.',
+    costs:'0,70 %/an pris en charge par l’entreprise ; transaction estimée 0,03 % ; entrée jusqu’à 1,25 %.',
+    why:'Support de croissance à long terme, mais le document prévoit la possibilité de perdre tout ou partie du capital.',
+    source:'1024 3.pdf, pages 5 à 8'
+  },
+  {
+    id:'peeCroissance',name:'Multipar Croissance Inclusive - Part G',risk:4,horizon:'5 ans',
+    role:'long',badge:'LONG TERME',target:'0 % de la poche maison indispensable',
+    exposure:'Au moins 75 % d’actions mondiales sur le thème de la croissance inclusive, jusqu’à 20 % marchés émergents.',
+    costs:'Frais de gestion indiqués à 1,07 %/an ; incidence des coûts estimée à 2,27 %/an sur cinq ans.',
+    why:'Diversification mondiale utile au long terme, mais frais élevés et horizon insuffisant pour le projet maison.',
+    source:'1024 2.pdf, pages 4 à 6'
+  },
+  {
+    id:'peeDiversifie',name:'Multipar Diversifié Équilibre - Part I',risk:3,horizon:'4 ans',
+    role:'long',badge:'LONG TERME',target:'0 % de la poche maison indispensable',
+    exposure:'30 à 70 % actions, jusqu’à 70 % obligations et jusqu’à 30 % immobilier/non coté.',
+    costs:'Frais de gestion estimés à 1,03 %/an et transactions 0,06 % ; incidence estimée 1,67 %/an sur quatre ans.',
+    why:'Horizon de quatre ans, actifs potentiellement moins liquides et coûts supérieurs aux supports PEE E les plus simples.',
+    source:'1024 4.pdf, pages 4 à 6'
+  },
+  {
+    id:'peeBnpStock',name:'BNP Paribas Actionnariat / ESOP / ESOPAD',risk:6,horizon:'5 ans',
+    role:'avoid',badge:'CONCENTRATION BNP',target:'0 % de la poche maison indispensable',
+    exposure:'Exposition à une seule entreprise : l’action BNP Paribas.',
+    costs:'Frais courants très faibles selon les compartiments, mais le risque de concentration domine largement le coût.',
+    why:'Ton salaire, ta carrière et ce placement dépendent déjà du même groupe. Ce support ne doit pas financer une échéance immobilière fixe.',
+    source:'1024.pdf, pages 1 à 9'
+  }
+];
 let brightTimerHandle=null, brightSeconds=0;
 
 
@@ -688,6 +874,83 @@ function normalizeBriefing(x){
     immobilier:{titre:'Projet immobilier 2029',resume:'Garder une vision simple : apport, mensualité acceptable, calendrier et marge de sécurité.',reperes:['Épargne','Capacité d’emprunt','Marché local']},
     organisation:{titre:'Charge mentale',resume:'Capturer les pensées, décider plus tard et ne conserver que les prochaines étapes.',reperes:['Boîte mentale','Agenda','Rappels']},
     numerique:{titre:'Discipline numérique',resume:'Le trajet devient un temps de culture, d’anglais et de préparation au travail.',reperes:['Jeux hors trajet','Briefing','Musique choisie']}
+  };
+  x.financePerso=x.financePerso||{
+    signal:'VERT',
+    titre:'Trajectoire 2029 sous contrôle, à condition de sécuriser progressivement l’apport',
+    synthese:'Votre priorité financière est la maison de 2029, pas la recherche du rendement maximal. Le capital destiné au projet doit devenir progressivement moins volatil à mesure que l’échéance approche.',
+    indicateurs:[
+      {nom:'Crédit habitat France',valeur:'3,12 %',date:'mai 2026',source:'Banque de France',url:'https://webstat.banque-france.fr/fr/themes/credit-et-titres-de-dette/credit/cout-du-credit/taux-des-credits-aux-menages/'},
+      {nom:'Inflation France',valeur:'1,8 %',date:'juin 2026',source:'INSEE',url:'https://www.insee.fr/fr/statistiques/9021808'},
+      {nom:'Livret A',valeur:'1,5 %',date:'févr.–juil. 2026',source:'Service-Public.fr',url:'https://www.service-public.fr/particuliers/vosdroits/F2365'},
+      {nom:'Taux d’effort HCSF',valeur:'35 % max.',date:'règle en vigueur',source:'HCSF',url:'https://www.economie.gouv.fr/hcsf/mesures/mesure-relative-loctroi-de-credits-immobiliers'}
+    ],
+    lecturePourVous:[
+      'Votre prêt actuel à 0,95 % est très bon marché par rapport aux nouveaux crédits : le remboursement anticipé ne constitue pas la priorité naturelle du projet.',
+      'L’apport 2029 doit être séparé de l’épargne retraite et de l’épargne de long terme.',
+      'Vérifiez la concentration réelle du PEE en actions BNP : vos revenus et une partie de votre patrimoine ne doivent pas dépendre du même risque sans que ce soit volontaire.',
+      'À moins de trois ans de l’achat, la sécurisation du capital devient plus importante que la recherche de performance.'
+    ],
+    poches:[
+      {nom:'Sécurité',regle:'Épargne immédiatement disponible et sans risque pour les imprévus.',statut:'À renseigner dans vos paramètres privés.'},
+      {nom:'Maison 2029',regle:'Capital mobilisable pour apport, frais et marge de sécurité.',statut:'Priorité financière principale.'},
+      {nom:'Long terme',regle:'Retraite et placements dont l’horizon dépasse dix ans.',statut:'À ne pas sacrifier automatiquement pour l’achat.'}
+    ],
+    vigilances:[
+      'Ne pas compter une valeur de marché volatile comme un montant garanti à la date d’achat.',
+      'Distinguer PEE déblocable, PER potentiellement déblocable avec fiscalité et versements obligatoires restant bloqués.',
+      'Intégrer frais d’acquisition, déménagement, travaux et réserve après achat.',
+      'Ne pas dépasser une mensualité qui fragilise la vie familiale, même si la banque accepte le dossier.'
+    ],
+    declencheurs:[
+      'Écart prévisionnel à l’apport supérieur à 5 000 €',
+      'Taux immobilier de référence supérieur de 0,50 point au scénario',
+      'Capital projet exposé aux marchés à moins de 18 mois de l’achat',
+      'Taux d’effort estimé proche de 35 %'
+    ],
+    decision:'Aucune opération financière urgente n’est justifiée uniquement par les données du jour. La décision utile est de maintenir une trajectoire lisible et de ne réagir qu’aux changements matériels.',
+    investissement:{
+      verdict:'Pour l’argent indispensable à la maison 2029, ne pas rechercher de performance actions. Le rendement attendu doit venir surtout de l’abondement employeur et des supports prudents réellement disponibles.',
+      pea:{
+        orientation:'Réserver le PEA au capital dont vous n’aurez pas besoin pour l’achat.',
+        pourquoi:'Un horizon de trois ans ne permet pas de considérer les actions comme sécurisées. Une baisse au mauvais moment pourrait réduire l’apport.',
+        fiscalite:'Après cinq ans, les gains retirés du PEA sont exonérés d’impôt sur le revenu mais restent soumis aux prélèvements sociaux.'
+      },
+      pee:{
+        orientation:'L’abondement étant déjà atteint, orienter la poche maison vers Multipar Monétaire SR Part E ; conserver au maximum une poche minoritaire en Multipar Solidaire Oblig Part E si l’échéance et la tolérance à une baisse temporaire le permettent.',
+        pourquoi:'Les documents du plan montrent que le monétaire est classé 1/7 avec un horizon d’un mois, alors que les supports actions sont classés 4/7 à 6/7 et recommandés sur cinq ans.',
+        fiscalite:'Le déblocage anticipé pour la résidence principale est possible sous conditions ; les sommes sont exonérées d’impôt sur le revenu et les gains restent soumis aux prélèvements sociaux.'
+      },
+      quasiSecurise:{
+        definition:'Un rendement réellement quasi sécurisé suppose un capital garanti contractuellement, un livret réglementé ou un support monétaire très peu volatil. Aucun rendement futur n’est garanti par le seul fait d’utiliser un PEA ou un PEE.',
+        supports:'À rechercher dans le PEE : fonds monétaire, taux court, garanti ou prudent. Vérifier le DIC, les frais, le niveau de risque et la durée recommandée.',
+        limite:'Un fonds obligataire ou prudent peut encore baisser ; un fonds actions ou une action BNP peut subir une perte importante.'
+      },
+      macroMicro:{
+        macro:'Taux, inflation et marchés déterminent le coût du futur crédit et la rémunération des supports prudents.',
+        micro:'Votre priorité dépend aussi de la fin de LLD, de la valeur nette de vente, de l’abondement et de la concentration du PEE en BNP.',
+        impact:'L’orientation ne change que si une donnée matérielle modifie l’apport, la mensualité ou le risque de perte avant 2029.'
+      }
+    },
+    note:'Outil de pilotage et de pédagogie, pas recommandation d’achat ou de vente de titres.'
+  };
+  x.peeV9=x.peeV9||{
+    hypothese:'Abondement maximal déjà atteint',
+    regime:'Le support monétaire reste le socle de la poche maison ; aucune anticipation de marché ne justifie d’exposer l’apport aux actions.',
+    orientation:'Pour les versements d’épargne salariale destinés à 2029 : monétaire en priorité. Le fonds obligataire est une option minoritaire, seulement tant que l’échéance reste supérieure à trois ans.',
+    macro:[
+      'Baisse des taux BCE : rendement futur du monétaire en baisse, mais risque de perte toujours inférieur aux fonds actions.',
+      'Hausse des taux ou des spreads : le fonds obligataire peut subir une moins-value temporaire.',
+      'Rallye actions : ne pas poursuivre la hausse avec l’argent de la maison.',
+      'Correction actions : ne pas transformer l’apport en pari de rebond.'
+    ],
+    controles:[
+      'Vérifier qui supporte les frais d’entrée maximum de 1,25 %.',
+      'Renseigner les montants exacts par support.',
+      'Séparer la part PEE nécessaire à la maison du surplus réellement long terme.',
+      'Débloquer uniquement dans le cadre et les délais applicables à la résidence principale.'
+    ],
+    verdict:'Abondement atteint : je n’ajouterais pas de risque actions pour chercher du rendement. Je sécuriserais la part indispensable à 2029 selon une trajectoire monétaire puis, au maximum, obligataire minoritaire.'
   };
   x.performance=x.performance||{
     diagnostic:[
@@ -1307,6 +1570,175 @@ function weightTrend(){if(weightLog.length<2)return null;const a=weightLog[0].we
 function addWeight(){const w=Number(document.getElementById('weight-value').value);if(!w||w<30||w>250){toast('Poids invalide');return}const goal=document.getElementById('weight-goal').value,target=document.getElementById('weight-target').value;weightSettings.goal=goal;weightSettings.target=target;weightSettings.current=w;weightLog.push({date:todayKey,weight:w});weightLog=weightLog.slice(-90);store.set('weight_settings',weightSettings);store.set('weight_log',weightLog);renderWeight();toast('Mesure enregistrée')}
 function renderWeight(){const z=document.getElementById('weight-lab');if(!z)return;const last=weightLog.length?weightLog[weightLog.length-1].weight:'—',trend=weightTrend(),goalLabels={loss:'Perte de poids',maintain:'Maintien',gain:'Prise de poids'};z.innerHTML='<h3>⚖️ Poids & forme</h3><p class="small muted" style="margin-top:4px">Suivi de tendance, sans obsession quotidienne. L’objectif est configurable.</p><div class="weight-summary"><div><b>'+last+'</b><span>Dernière mesure kg</span></div><div><b>'+(trend===null?'—':(trend>0?'+':'')+trend)+'</b><span>Évolution kg</span></div><div><b>'+esc(weightSettings.target||'—')+'</b><span>Cible kg</span></div></div><div class="weight-form"><select id="weight-goal"><option value="loss" '+(weightSettings.goal==='loss'?'selected':'')+'>Perte de poids</option><option value="maintain" '+(weightSettings.goal==='maintain'?'selected':'')+'>Maintien</option><option value="gain" '+(weightSettings.goal==='gain'?'selected':'')+'>Prise de poids</option></select><input id="weight-target" type="number" step="0.1" inputmode="decimal" value="'+esc(weightSettings.target||'')+'" placeholder="Poids cible"><input id="weight-value" type="number" step="0.1" inputmode="decimal" placeholder="Poids du jour"><button onclick="addWeight()">Enregistrer</button></div>'+(weightLog.length?'<div class="weight-list">'+weightLog.slice(-7).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.date)+'</span><b>'+x.weight.toFixed(1)+' kg</b></div>').join('')+'</div>':'')+'<div class="keybox"><b>Lecture utile —</b> Regardez la tendance sur plusieurs semaines. Une mesure isolée varie avec l’eau, les repas et l’heure.</div>'}
 
+
+/* ---------- V7 : cockpit financier personnel ---------- */
+function fnum(v, fallback=0){
+  const n=Number(String(v??'').replace(',','.'));
+  return Number.isFinite(n)?n:fallback;
+}
+function monthsTo(dateStr){
+  const target=new Date(dateStr||'2029-09-01T12:00:00');
+  const now=new Date();
+  return Math.max(0,Math.round((target-now)/(1000*60*60*24*30.4375)));
+}
+function monthlyLoan(capitalK, annualRate, years){
+  const p=Math.max(0,fnum(capitalK))*1000, n=Math.max(1,Math.round(fnum(years,25)*12)), r=fnum(annualRate)/1200;
+  if(!r)return p/n;
+  return p*r/(1-Math.pow(1+r,-n));
+}
+function maxLoanFromPayment(payment, annualRate, years){
+  const m=Math.max(0,fnum(payment)), n=Math.max(1,Math.round(fnum(years,25)*12)), r=fnum(annualRate)/1200;
+  if(!r)return m*n/1000;
+  return (m*(1-Math.pow(1+r,-n))/r)/1000;
+}
+function saveFinanceSettings(){
+  const ids=['projectCapitalNow','emergencyBuffer','expectedSaleEquity','monthlySavings','expectedFutureInflows','targetContribution','targetPropertyPrice','acquisitionCostsPct','targetDate','referenceMortgageRate','loanYears','targetMonthlyPayment','currentMortgageRate','currentMortgagePayment','lldPayment','lldEnd','householdNetIncome','peaBalance','peeHouseAmount','peeEntryFeePct','peeMonetaire','peeOblig','peeModere','peeEquilibre','peeDynamique','peeActionsEuro','peeCroissance','peeDiversifie','peeBnpStock','bnpConcentrationLimit'];
+  ids.forEach(k=>{const el=document.getElementById('fin-'+k);if(!el)return;financeSettings[k]=(el.type==='date'?el.value:(el.value===''?'':fnum(el.value)))});const feePayer=document.getElementById('fin-peeEntryFeePayer');if(feePayer)financeSettings.peeEntryFeePayer=feePayer.value;
+  store.set('finance_settings_v9',financeSettings);
+  renderFinancePersonal();
+  toast('Paramètres financiers enregistrés sur cet iPhone');
+}
+function peeFundAmount(id){return Math.max(0,fnum(financeSettings[id]));}
+function peeStats(){
+  const a={};PEE_FUNDS_V9.forEach(f=>a[f.id]=peeFundAmount(f.id));
+  const total=Object.values(a).reduce((x,y)=>x+y,0);
+  const monetary=a.peeMonetaire||0, oblig=a.peeOblig||0, moderate=a.peeModere||0;
+  const bnp=a.peeBnpStock||0;
+  const longRisk=Math.max(0,total-monetary-oblig-moderate);
+  const house=Math.min(total,Math.max(0,fnum(financeSettings.peeHouseAmount,total)));
+  const months=monthsTo(financeSettings.targetDate);
+  const targetMonetaryPct=months<=12?1:months<=24?.95:months<=36?.90:.85;
+  const targetObligPct=1-targetMonetaryPct;
+  const targetMonetary=house*targetMonetaryPct;
+  const targetOblig=house*targetObligPct;
+  const coreCapacity=monetary+Math.min(oblig,targetOblig);
+  const uncovered=Math.max(0,house-coreCapacity);
+  const bnpPct=total?bnp/total*100:0;
+  return {a,total,monetary,oblig,moderate,longRisk,bnp,house,months,targetMonetaryPct,targetObligPct,targetMonetary,targetOblig,coreCapacity,uncovered,bnpPct};
+}
+function finSelect(id,label,value,options){
+  return '<label>'+esc(label)+'<select id="fin-'+id+'">'+options.map(o=>'<option value="'+esc(o[0])+'" '+(String(value)===String(o[0])?'selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select></label>';
+}
+function renderPeeCatalog(){
+  return '<div class="pee-catalog">'+PEE_FUNDS_V9.map(f=>
+    '<div class="pee-fund"><div class="pee-fund-top"><h5>'+esc(f.name)+'</h5><span class="pee-badge '+esc(f.role)+'">'+esc(f.badge)+'</span></div>'+
+    '<div class="pee-meta"><span class="pee-chip">Risque '+f.risk+'/7</span><span class="pee-chip">Horizon '+esc(f.horizon)+'</span><span class="pee-chip">'+esc(f.target)+'</span></div>'+
+    '<p><b>Composition :</b> '+esc(f.exposure)+'</p><p><b>Pourquoi :</b> '+esc(f.why)+'</p><p><b>Frais :</b> '+esc(f.costs)+'</p><div class="pee-source">Source : '+esc(f.source)+'</div></div>'
+  ).join('')+'</div>';
+}
+function renderFinancePersonal(){
+  const z=document.getElementById('finance-personal');if(!z)return;
+  const d=B.financePerso||{}, inv=d.investissement||{}, pv=B.peeV9||{}, months=monthsTo(financeSettings.targetDate);
+  const monthlyBuild=fnum(financeSettings.monthlySavings)*months/1000;
+  const projected=fnum(financeSettings.projectCapitalNow)+fnum(financeSettings.expectedSaleEquity)+fnum(financeSettings.expectedFutureInflows)+monthlyBuild;
+  const target=fnum(financeSettings.targetContribution,100);
+  const gap=projected-target;
+  const totalCost=fnum(financeSettings.targetPropertyPrice,400)*(1+fnum(financeSettings.acquisitionCostsPct,8)/100);
+  const loanAtTarget=Math.max(0,totalCost-target);
+  const loanAtProjection=Math.max(0,totalCost-projected);
+  const payTarget=monthlyLoan(loanAtTarget,financeSettings.referenceMortgageRate,financeSettings.loanYears);
+  const payProjection=monthlyLoan(loanAtProjection,financeSettings.referenceMortgageRate,financeSettings.loanYears);
+  const maxLoan=maxLoanFromPayment(financeSettings.targetMonthlyPayment,financeSettings.referenceMortgageRate,financeSettings.loanYears);
+  const contributionNeeded=Math.max(0,totalCost-maxLoan);
+  const income=fnum(financeSettings.householdNetIncome);
+  const effort=income?payProjection/income*100:null;
+  const pct=Math.max(0,Math.min(100,projected/Math.max(1,target)*100));
+  const p=peeStats();
+  const signal=String(d.signal||'VERT').toUpperCase();
+  const cls=(p.uncovered>5||p.bnpPct>20)?'red':(p.uncovered>0||p.bnpPct>fnum(financeSettings.bnpConcentrationLimit,10)||financeSettings.peeEntryFeePayer==='unknown')?'amber':signal.includes('ROUGE')?'red':signal.includes('ORANGE')?'amber':'green';
+  const money=x=>Number.isFinite(x)?x.toLocaleString('fr-FR',{maximumFractionDigits:1})+' k€':'—';
+  const euro=x=>Number.isFinite(x)?Math.round(x).toLocaleString('fr-FR')+' €':'—';
+  const indicators=listify(d.indicateurs);
+  const pea=inv.pea||{}, pee=inv.pee||{}, qs=inv.quasiSecurise||{}, mm=inv.macroMicro||{};
+  const mPct=p.total?p.monetary/p.total*100:0,oPct=p.total?p.oblig/p.total*100:0,rPct=Math.max(0,100-mPct-oPct);
+  const localVerdict=!p.total?
+    'Renseigne tes montants PEE par support : sans l’allocation réelle, je peux classer les fonds mais pas mesurer le risque de ton apport.' :
+    p.uncovered>0?
+      'Une partie de la somme PEE destinée à la maison reste exposée à des supports non adaptés à l’échéance. À ta place, je sécuriserais progressivement '+money(p.uncovered)+' supplémentaires vers le monétaire, avec au maximum '+money(p.targetOblig)+' en obligataire.' :
+      p.bnpPct>fnum(financeSettings.bnpConcentrationLimit,10)?
+        'La poche maison peut être couverte, mais la concentration BNP dépasse ton seuil personnel. À ta place, je ne renforcerais plus cette exposition et je l’affecterais uniquement au long terme.' :
+        'La poche PEE indispensable peut être couverte par le monétaire et l’obligataire dans la limite prévue. Aucune prise de risque supplémentaire n’est nécessaire aujourd’hui.';
+  z.innerHTML=
+    '<h3>💶 Pilotage financier personnel · V9 PEE documentée</h3>'+
+    '<p class="small muted" style="margin-top:4px">Abondement considéré comme déjà atteint. Les orientations sont fondées sur les DIC que tu as fournis, pas sur une promesse de rendement.</p>'+
+    '<div class="finance-signal '+cls+'"><div class="dot"></div><div><b>'+esc(d.titre||'Lecture de votre trajectoire')+'</b><p class="small muted" style="margin-top:3px">'+esc(d.synthese||'')+'</p></div></div>'+
+    '<h4 style="margin-top:16px">🧮 Vérité du financement</h4>'+
+    '<div class="truth-grid">'+
+      '<div class="truth-card"><b>'+money(totalCost)+'</b><span>Coût cible avec frais estimés</span></div>'+
+      '<div class="truth-card"><b>'+money(loanAtTarget)+'</b><span>Crédit nécessaire avec 100 k€ d’apport</span></div>'+
+      '<div class="truth-card"><b>'+euro(payTarget)+'</b><span>Mensualité indicative avec 100 k€, hors assurance</span></div>'+
+      '<div class="truth-card"><b>'+money(contributionNeeded)+'</b><span>Apport nécessaire pour viser '+euro(fnum(financeSettings.targetMonthlyPayment,1220))+'/mois</span></div>'+
+    '</div>'+
+    '<div class="finance-kpis">'+
+      '<div class="finance-kpi"><b>'+money(projected)+'</b><span>Capital projeté à la date cible*</span></div>'+
+      '<div class="finance-kpi"><b>'+(gap>=0?'+':'')+money(gap)+'</b><span>Écart avec l’apport cible</span></div>'+
+      '<div class="finance-kpi"><b>'+euro(payProjection)+'</b><span>Mensualité indicative avec capital projeté</span></div>'+
+      '<div class="finance-kpi"><b>'+(effort===null?'—':effort.toFixed(1)+' %')+'</b><span>Taux d’effort indicatif</span></div>'+
+    '</div>'+
+    '<div class="finance-bar"><div style="width:'+pct+'%"></div></div>'+
+    '<p class="finance-note">La projection n’intègre aucun rendement futur du PEA ou du PEE. Les marchés peuvent améliorer ou dégrader le montant réellement disponible.</p>'+
+    '<div class="pee-head"><div><h4>🏦 Moteur PEE réel</h4><p class="small muted">'+esc(pv.hypothese||'Abondement maximal déjà atteint')+'</p></div><span class="pee-badge core">DIC 2025-2026</span></div>'+
+    '<div class="pee-summary">'+
+      '<div><b>'+money(p.total)+'</b><span>PEE renseigné dans l’app</span></div>'+
+      '<div><b>'+money(p.house)+'</b><span>Part PEE destinée à la maison</span></div>'+
+      '<div><b>'+money(p.uncovered)+'</b><span>Part maison non couverte par la trajectoire monétaire/obligataire</span></div>'+
+      '<div><b>'+p.bnpPct.toFixed(1)+' %</b><span>Concentration du PEE en action BNP</span></div>'+
+    '</div>'+
+    (p.total?'<div class="pee-meter"><div class="m" style="width:'+mPct+'%"></div><div class="o" style="width:'+oPct+'%"></div><div class="r" style="width:'+rPct+'%"></div></div><p class="finance-note">Vert : monétaire · Bleu : obligataire · Rouge : autres supports de marché.</p>':'')+
+    '<div class="pee-plan"><b>Trajectoire automatique à '+p.months+' mois de l’achat</b><p class="small" style="margin-top:5px">Pour la part PEE indispensable : environ '+Math.round(p.targetMonetaryPct*100)+' % monétaire et au maximum '+Math.round(p.targetObligPct*100)+' % obligataire. Les supports modéré, équilibré, dynamique, actions et BNP sont classés hors poche maison.</p></div>'+
+    '<div class="pee-alert"><b>Si j’étais à ta place aujourd’hui</b><p class="small" style="margin-top:5px">'+esc(localVerdict)+'</p><p class="small muted" style="margin-top:6px">'+esc(pv.verdict||'')+'</p></div>'+
+    '<h4 style="margin-top:16px">🌍 Pourquoi l’orientation peut évoluer</h4><div class="finance-pockets">'+listify(pv.macro).map(x=>'<div class="finance-pocket"><span>'+esc(x)+'</span></div>').join('')+'</div>'+
+    '<h4 style="margin-top:16px">📚 Les supports de ton PEE</h4>'+renderPeeCatalog()+
+    '<h4 style="margin-top:16px">📊 PEA / PEE</h4>'+
+    '<div class="invest-grid">'+
+      '<div class="invest-card"><h5>PEA</h5><p><b>Orientation :</b> '+esc(pea.orientation||'')+'</p><p><b>Pourquoi :</b> '+esc(pea.pourquoi||'')+'</p><p class="tax"><b>Fiscalité :</b> '+esc(pea.fiscalite||'')+'</p></div>'+
+      '<div class="invest-card"><h5>PEE après abondement</h5><p><b>Orientation :</b> '+esc(pee.orientation||'')+'</p><p><b>Pourquoi :</b> '+esc(pee.pourquoi||'')+'</p><p class="tax"><b>Fiscalité :</b> '+esc(pee.fiscalite||'')+'</p></div>'+
+      '<div class="invest-card"><h5>Rendement quasi sécurisé</h5><p>'+esc(qs.definition||'')+'</p><p><b>Support concret du plan :</b> Multipar Monétaire Socialement Responsable Part E, sans garantie en capital.</p><p class="tax"><b>Limite :</b> '+esc(qs.limite||'')+'</p></div>'+
+      '<div class="invest-card"><h5>Macro → micro → projet</h5><p><b>Macro :</b> '+esc(mm.macro||'')+'</p><p><b>Micro :</b> '+esc(mm.micro||'')+'</p><p class="tax"><b>Impact :</b> '+esc(mm.impact||'')+'</p></div>'+
+    '</div>'+
+    (indicators.length?'<h4 style="margin-top:16px">📡 Repères actualisés</h4><div class="finance-indicators">'+indicators.map(x=>'<div class="finance-indicator"><b>'+esc(x.nom||'')+' · '+esc(x.valeur||'')+'</b><span>'+esc(x.date||'')+'</span>'+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.source||'Source')+' ↗</a>':'')+'</div>').join('')+'</div>':'')+
+    '<details class="finance-settings"><summary>Renseigner mon allocation PEE et mes hypothèses</summary>'+
+      '<h5 style="margin-top:12px">Allocation PEE actuelle (k€)</h5><div class="pee-fields">'+
+        finField('peeMonetaire','Monétaire SR E',financeSettings.peeMonetaire)+
+        finField('peeOblig','Solidaire Oblig E',financeSettings.peeOblig)+
+        finField('peeModere','Solidaire Modéré',financeSettings.peeModere)+
+        finField('peeEquilibre','Solidaire Équilibre E',financeSettings.peeEquilibre)+
+        finField('peeDynamique','Solidaire Dynamique E',financeSettings.peeDynamique)+
+        finField('peeActionsEuro','Actions SR E',financeSettings.peeActionsEuro)+
+        finField('peeCroissance','Croissance Inclusive G',financeSettings.peeCroissance)+
+        finField('peeDiversifie','Diversifié Équilibre I',financeSettings.peeDiversifie)+
+        finField('peeBnpStock','Action BNP / ESOP',financeSettings.peeBnpStock)+
+        finField('peeHouseAmount','Montant du PEE prévu pour la maison (k€)',financeSettings.peeHouseAmount)+
+        finField('bnpConcentrationLimit','Seuil personnel d’alerte BNP (%)',financeSettings.bnpConcentrationLimit)+
+        finField('peeEntryFeePct','Frais d’entrée réellement appliqués (%)',financeSettings.peeEntryFeePct)+
+        finSelect('peeEntryFeePayer','Qui paie les frais d’entrée ?',financeSettings.peeEntryFeePayer,[['unknown','À vérifier'],['company','Entreprise'],['employee','Moi'],['none','Aucun frais appliqué']])+
+      '</div>'+
+      '<h5 style="margin-top:14px">Projet immobilier</h5><div class="finance-form">'+
+        finField('projectCapitalNow','Capital projet mobilisable actuel (k€)',financeSettings.projectCapitalNow)+
+        finField('emergencyBuffer','Épargne de précaution (k€)',financeSettings.emergencyBuffer)+
+        finField('expectedSaleEquity','Équité nette attendue de la vente (k€)',financeSettings.expectedSaleEquity)+
+        finField('monthlySavings','Épargne mensuelle (€)',financeSettings.monthlySavings)+
+        finField('expectedFutureInflows','Flux futurs nets prévus (k€)',financeSettings.expectedFutureInflows)+
+        finField('targetContribution','Apport cible (k€)',financeSettings.targetContribution)+
+        finField('targetPropertyPrice','Prix cible hors frais (k€)',financeSettings.targetPropertyPrice)+
+        finField('acquisitionCostsPct','Frais d’acquisition estimés (%)',financeSettings.acquisitionCostsPct)+
+        finField('targetDate','Date cible',financeSettings.targetDate,'date')+
+        finField('referenceMortgageRate','Taux futur de référence (%)',financeSettings.referenceMortgageRate)+
+        finField('loanYears','Durée du futur crédit (ans)',financeSettings.loanYears)+
+        finField('targetMonthlyPayment','Mensualité maximale souhaitée (€)',financeSettings.targetMonthlyPayment)+
+        finField('householdNetIncome','Revenu net mensuel du foyer (€)',financeSettings.householdNetIncome)+
+        finField('peaBalance','Solde PEA actuel (k€)',financeSettings.peaBalance)+
+        finField('currentMortgageRate','Taux du prêt actuel (%)',financeSettings.currentMortgageRate)+
+        finField('currentMortgagePayment','Mensualité actuelle (€)',financeSettings.currentMortgagePayment)+
+        finField('lldPayment','LLD mensuelle (€)',financeSettings.lldPayment)+
+        finField('lldEnd','Fin de la LLD',financeSettings.lldEnd,'date')+
+      '</div><button class="primary" onclick="saveFinanceSettings()">Enregistrer sur cet iPhone</button></details>'+
+    '<p class="finance-note">'+esc(d.note||'')+' Les scénarios des DIC sont des illustrations réglementaires et non des prévisions.</p>';
+}
+function finField(id,label,value,type){
+  return '<label>'+esc(label)+'<input id="fin-'+id+'" type="'+(type||'number')+'" '+(type==='date'?'':'step="0.1" inputmode="decimal"')+' value="'+esc(value??'')+'"></label>';
+}
+
 /* ---------- Assistant personnel & vie ---------- */
 const PERSONAL_CAPS=[
   {i:'💼',t:'Carrière',d:'Devenir un analyste reconnu, clair et fiable'},
@@ -1325,7 +1757,7 @@ function lifeCard(cls,icon,obj){return '<div class="card life-card '+cls+'"><h3>
 function renderLife(){
   const v=B.vie||{}, a=B.assistant||{};
   document.getElementById('life-overview').innerHTML='<h3>🧭 Votre cap</h3><p style="margin-top:7px">'+esc(a.message||'Un système simple pour progresser sans dépendre de la motivation.')+'</p><div class="cap-grid">'+PERSONAL_CAPS.map(x=>'<div class="cap"><div class="ci">'+x.i+'</div><b>'+esc(x.t)+'</b><span>'+esc(x.d)+'</span></div>').join('')+'</div>';
-  document.getElementById('life-cards').innerHTML=lifeCard('health','🏃',v.sante||{})+lifeCard('family','👨‍👩‍👦',v.famille||{})+lifeCard('home','🏠',v.immobilier||{})+lifeCard('','🧠',v.organisation||{})+lifeCard('digital','📵',v.numerique||{});renderWeight();
+  document.getElementById('life-cards').innerHTML=lifeCard('health','🏃',v.sante||{})+lifeCard('family','👨‍👩‍👦',v.famille||{})+lifeCard('home','🏠',v.immobilier||{})+lifeCard('','🧠',v.organisation||{})+lifeCard('digital','📵',v.numerique||{});renderFinancePersonal();renderWeight();
   const habits=[['briefing','📰 Briefing ouvert','Trajet utile'],['english','🇬🇧 Anglais pratiqué','Même 5 minutes'],['sport','🏃 Activité physique','Tapis ou marche'],['family','👨‍👩‍👦 Temps famille','Téléphone posé']];
   document.getElementById('habit-card').innerHTML='<h3>📊 Suivi personnel</h3><p class="small muted" style="margin-top:4px">Un constat, pas une injonction. Touchez seulement ce qui a réellement été fait.</p><div class="habit-grid">'+habits.map(h=>'<button class="habit '+(lifeLog[h[0]]?'done':'')+'" onclick="toggleHabit('+jsq(h[0])+')"><b>'+h[1]+(lifeLog[h[0]]?' ✓':'')+'</b><span>'+h[2]+'</span></button>').join('')+'</div>';
   document.getElementById('brain-dump').value=store.get('brain_dump','');
@@ -1374,7 +1806,7 @@ function resetAll(){
   if(!confirm('Effacer toute la progression (XP, série, vocabulaire) ?')) return;
   store.clear();
   profile={xp:0,streak:1,bestStreak:1,lastVisit:todayKey,quizOk:0};
-  daily={read:[],quizDone:false,vocabDone:false,exoDone:false}; srs={}; knowledgeSrs={}; lifeLog={};performanceState={analystAnswers:{},executiveAnswers:{},selfScores:{},completedCases:0};brightStats={attempted:0,correct:0,listening:0,reading:0,grammar:0,vocabulary:0,target:'B1'};certState={sessions:0,minutes:0,deliverables:[],currentProject:'Certification Data Analyst'};weightLog=[];weightSettings={goal:'loss',target:'',current:''};
+  daily={read:[],quizDone:false,vocabDone:false,exoDone:false}; srs={}; knowledgeSrs={}; lifeLog={};performanceState={analystAnswers:{},executiveAnswers:{},selfScores:{},completedCases:0};brightStats={attempted:0,correct:0,listening:0,reading:0,grammar:0,vocabulary:0,target:'B1'};certState={sessions:0,minutes:0,deliverables:[],currentProject:'Certification Data Analyst'};weightLog=[];weightSettings={goal:'loss',target:'',current:''};financeSettings={projectCapitalNow:60,emergencyBuffer:'',expectedSaleEquity:60,monthlySavings:200,expectedFutureInflows:19.2,targetContribution:100,targetPropertyPrice:400,acquisitionCostsPct:8,targetDate:'2029-09-01',referenceMortgageRate:3.12,loanYears:25,targetMonthlyPayment:1220,currentMortgageRate:0.95,currentMortgagePayment:1070,lldPayment:500,lldEnd:'2029-04-30',householdNetIncome:'',peaBalance:0.8,abondementReached:true,peeHouseAmount:'',peeEntryFeePayer:'unknown',peeEntryFeePct:'',peeMonetaire:'',peeOblig:'',peeModere:'',peeEquilibre:'',peeDynamique:'',peeActionsEuro:'',peeCroissance:'',peeDiversifie:'',peeBnpStock:'',bnpConcentrationLimit:10};try{localStorage.removeItem('goa_finance_settings_v9')}catch(e){};
   save(); renderAll(); toast('Progression réinitialisée');
 }
 

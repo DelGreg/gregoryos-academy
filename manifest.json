@@ -1,6 +1,6 @@
 {
-  "name": "GrégoryOS Performance V6",
-  "short_name": "Performance",
+  "name": "GrégoryOS Performance V9",
+  "short_name": "GrégoryOS",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
