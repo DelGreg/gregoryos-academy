@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<title>GrégoryOS Performance V9</title>
+<title>GrégoryOS Performance V11</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GrégoryOS">
@@ -97,11 +97,13 @@ body{
 .une h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin:6px 0}
 .une p{font-size:.92rem;color:var(--text2);line-height:1.5}
 
+
+
 function answerScenario(btn,i,correct,explanation){
-  const card=btn.closest('.card'); card.querySelectorAll('.qopt').forEach((b,j)=>{b.disabled=true;if(j===correct)b.classList.add('correct')});
-  if(i!==correct) btn.classList.add('wrong');
-  const z=card.querySelector('#scenario-explain'); if(z) z.innerHTML='<div class="explain">'+esc(explanation)+'</div>';
-  if(i===correct) gainXP(10,'charisme');
+  const card=btn.closest('.card');card.querySelectorAll('.qopt').forEach((b,j)=>{b.disabled=true;if(j===correct)b.classList.add('correct')});
+  if(i!==correct)btn.classList.add('wrong');
+  const z=card.querySelector('#scenario-explain');if(z)z.innerHTML='<div class="explain">'+esc(explanation)+'</div>';
+  if(i===correct)gainXP(10,'charisme');
 }
 
 /* ---------- Marchés ---------- */
@@ -316,6 +318,143 @@ function answerScenario(btn,i,correct,explanation){
 .pee-fields input,.pee-fields select{width:100%;margin-top:4px;padding:10px;border-radius:11px;border:1px solid var(--sep);background:var(--card2);color:var(--text)}
 @media(min-width:700px){.pee-summary{grid-template-columns:repeat(4,1fr)}.pee-catalog{grid-template-columns:repeat(2,1fr)}}
 
+
+/* ---------- V10 : saisie fiable, confidentialité et diagnostic Bright ---------- */
+button,input,select,textarea{font-family:inherit}
+input,select,textarea{
+  font-size:16px!important;
+  -webkit-user-select:text!important;
+  user-select:text!important;
+  pointer-events:auto!important;
+  touch-action:manipulation;
+}
+.edit-data-btn{margin-top:12px;background:var(--life)}
+.data-sheet{
+  position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.42);
+  display:none;align-items:flex-end;justify-content:center;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)
+}
+.data-sheet.open{display:flex}
+.data-panel{
+  width:min(680px,100%);max-height:94dvh;overflow-y:auto;
+  background:var(--bg);border-radius:24px 24px 0 0;
+  padding:14px 16px calc(22px + env(safe-area-inset-bottom));
+  box-shadow:0 -12px 40px rgba(0,0,0,.24);
+  -webkit-overflow-scrolling:touch
+}
+.data-panel-head{
+  position:sticky;top:-14px;z-index:3;background:var(--bg);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0 10px;border-bottom:1px solid var(--sep)
+}
+.data-panel-head h2{font-size:1.15rem}
+.data-close{border:none;background:var(--card2);color:var(--text);border-radius:999px;padding:10px 14px;font-weight:800}
+.data-section{background:var(--card);border-radius:17px;padding:14px;margin-top:12px;box-shadow:var(--shadow)}
+.data-section h3{font-size:1rem;margin-bottom:4px}
+.data-form{display:grid;grid-template-columns:1fr;gap:11px;margin-top:12px}
+.data-field{display:block;font-size:.79rem;color:var(--text2);font-weight:700}
+.data-field input,.data-field select{
+  display:block;width:100%;height:50px;margin-top:6px;padding:0 13px;
+  border-radius:13px;border:1px solid var(--sep);
+  background:var(--card2);color:var(--text);outline:none;
+  position:relative;z-index:2
+}
+.data-field input:focus,.data-field select:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)
+}
+.data-save{
+  position:sticky;bottom:0;width:100%;border:none;border-radius:14px;
+  background:var(--accent);color:#fff;padding:14px;margin-top:14px;
+  font-size:1rem;font-weight:850;z-index:4
+}
+.autosave-note{font-size:.76rem;color:var(--text2);line-height:1.4;margin-top:8px}
+.privacy-toggle{
+  position:fixed;top:calc(10px + env(safe-area-inset-top));right:10px;z-index:110;
+  border:1px solid var(--sep);border-radius:999px;padding:9px 12px;
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  color:var(--text);font-size:.76rem;font-weight:850;
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:var(--shadow)
+}
+body.privacy-on #finance-personal,
+body.privacy-on #weight-lab,
+body.privacy-on .private-data{
+  position:relative;overflow:hidden
+}
+body.privacy-on #finance-personal>*,
+body.privacy-on #weight-lab>*,
+body.privacy-on .private-data>*{
+  filter:blur(11px);opacity:.38;pointer-events:none!important;user-select:none
+}
+body.privacy-on #finance-personal:after,
+body.privacy-on #weight-lab:after,
+body.privacy-on .private-data:after{
+  content:"🔒 Données masquées";
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:1rem;color:var(--text);background:color-mix(in srgb,var(--card) 62%,transparent);
+  z-index:5
+}
+body.privacy-on .data-sheet input.sensitive-input{
+  -webkit-text-security:disc
+}
+.data-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.data-tools button,.data-tools label{
+  border:none;border-radius:13px;padding:12px;font-weight:800;text-align:center;cursor:pointer
+}
+.data-export{background:var(--accent);color:#fff}
+.data-import{background:var(--card2);color:var(--text)}
+.data-import input{display:none}
+.backup-warning{font-size:.75rem;color:var(--text2);line-height:1.45;margin-top:9px}
+
+.bright-exam-card{border-left:4px solid var(--english)}
+.bright-exam-intro{background:linear-gradient(145deg,var(--english),#3c3fcf);color:#fff;border-radius:16px;padding:15px;margin-top:10px}
+.bright-exam-intro p{color:#fff;opacity:.92;margin-top:6px}
+.exam-progress{height:10px;background:var(--card2);border-radius:999px;overflow:hidden;margin-top:12px}
+.exam-progress>div{height:100%;background:var(--english);transition:width .25s}
+.exam-nav{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:.78rem;color:var(--text2)}
+.exam-question{margin-top:14px}
+.exam-option{
+  display:block;width:100%;text-align:left;border:1px solid var(--sep);
+  background:var(--card2);color:var(--text);border-radius:14px;
+  padding:13px;margin-top:9px;font-size:.94rem;font-weight:650
+}
+.exam-option:active{transform:scale(.99)}
+.exam-audio{
+  width:100%;border:none;border-radius:14px;background:var(--english);color:#fff;
+  padding:13px;font-weight:850;margin-top:10px
+}
+.exam-clock{font-variant-numeric:tabular-nums;font-weight:850;color:var(--english)}
+.exam-results{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:12px}
+.exam-result{background:var(--card2);border-radius:14px;padding:12px}
+.exam-result b{font-size:1.2rem;display:block}
+.exam-result span{font-size:.73rem;color:var(--text2);display:block;margin-top:3px}
+.skill-bars{display:grid;gap:9px;margin-top:12px}
+.skill-line{display:grid;grid-template-columns:96px 1fr 42px;gap:8px;align-items:center;font-size:.76rem}
+.skill-line .bar{height:9px;background:var(--card2);border-radius:999px;overflow:hidden}
+.skill-line .bar>div{height:100%;background:var(--english)}
+.solution-item{background:var(--card2);border-radius:13px;padding:11px;margin-top:8px}
+.solution-item b{font-size:.82rem}
+.solution-item p{font-size:.78rem;color:var(--text2);margin-top:4px;line-height:1.42}
+.exam-history{display:grid;gap:8px;margin-top:10px}
+.history-row{display:grid;grid-template-columns:82px 52px 1fr 44px;gap:7px;align-items:center;font-size:.74rem}
+.history-row .bar{height:8px;background:var(--card2);border-radius:999px;overflow:hidden}
+.history-row .bar>div{height:100%;background:var(--english)}
+@media(min-width:560px){.data-form{grid-template-columns:1fr 1fr}.exam-results{grid-template-columns:repeat(4,1fr)}}
+
+
+/* ---------- V11 : sources vérifiables ---------- */
+.source-box{margin-top:14px;border:1px solid var(--sep);border-radius:15px;background:var(--card2);overflow:hidden}
+.source-box summary{cursor:pointer;list-style:none;padding:12px 13px;font-weight:850;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.source-box summary::-webkit-details-marker{display:none}.source-box summary:after{content:"＋";font-size:1.05rem;color:var(--text2)}.source-box[open] summary:after{content:"－"}
+.source-list{border-top:1px solid var(--sep);padding:3px 12px 12px}.source-item{padding:10px 0;border-bottom:1px solid var(--sep)}.source-item:last-child{border-bottom:none}
+.source-title{font-size:.82rem;font-weight:850;line-height:1.35}.source-meta{font-size:.69rem;color:var(--text2);line-height:1.4;margin-top:3px}.source-note{font-size:.73rem;color:var(--text2);line-height:1.42;margin-top:5px}
+.source-item a{display:inline-block;margin-top:6px;color:var(--accent);font-size:.73rem;font-weight:800;text-decoration:none}
+.source-tag{display:inline-flex;margin-left:6px;padding:3px 6px;border-radius:999px;font-size:.58rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;background:rgba(10,132,255,.11);color:var(--accent)}
+.source-tag.primary{background:rgba(52,199,89,.13);color:#248a3d}.source-tag.user{background:rgba(175,82,222,.12);color:#8944ab}.source-tag.analysis{background:rgba(255,159,10,.13);color:#c66d00}
+.source-library-search{width:100%;height:46px;border:1px solid var(--sep);border-radius:13px;padding:0 12px;background:var(--card2);color:var(--text);margin-top:10px}
+.source-library-grid{display:grid;gap:10px;margin-top:12px}.source-library-section{background:var(--card2);border-radius:15px;padding:12px}.source-library-section h4{font-size:.9rem}.source-count{font-size:.7rem;color:var(--text2);margin-top:3px}
+.news-source-badge{display:inline-flex;margin-top:8px;padding:4px 8px;border-radius:999px;background:var(--card2);font-size:.65rem;font-weight:800;color:var(--text2)}
+
 /* ---------- Barre d'onglets ---------- */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;
   background:color-mix(in srgb, var(--bg) 82%, transparent);
@@ -352,6 +491,7 @@ function answerScenario(btn,i,correct,explanation){
 </style>
 </head>
 <body>
+<button class="privacy-toggle" id="privacy-toggle" type="button" onclick="togglePrivacy()">🔒 Masquer</button>
 <div class="wrap" id="app">
 
   <!-- ===== ONGLET AUJOURD'HUI ===== -->
@@ -444,7 +584,7 @@ function answerScenario(btn,i,correct,explanation){
     </header>
     <div class="card audio-panel">
       <h3>🔊 Laboratoire audio</h3>
-      <p class="small muted" style="margin-top:4px">Touchez d’abord « Tester le son ». La V9 charge explicitement une voix anglaise et affiche l’état de lecture.</p>
+      <p class="small muted" style="margin-top:4px">Touchez d’abord « Tester le son ». La V11 charge explicitement une voix anglaise et affiche l’état de lecture.</p>
       <div class="audio-controls">
         <button class="primary-audio" id="audio-test" type="button">Tester le son</button>
         <button id="audio-slow" type="button">🐢 Lent</button>
@@ -485,6 +625,7 @@ function answerScenario(btn,i,correct,explanation){
     <div class="card" id="en-politesse"></div>
     <div class="card" id="en-pro"></div>
     <div class="card" id="en-roadmap"></div>
+    <div class="card bright-exam-card" id="bright-diagnostic"></div>
   </section>
 
   <!-- ===== ONGLET VIE ===== -->
@@ -538,9 +679,26 @@ function answerScenario(btn,i,correct,explanation){
       <h3>🧭 Vos caps personnels</h3>
       <div class="cap-grid" id="personal-caps"></div>
     </div>
+
+
+    <div class="card" id="source-library">
+      <h3>📚 Sources & fiabilité</h3>
+      <p class="small muted" style="margin-top:6px">Les informations factuelles indiquent leur origine, leur date et, lorsqu’il existe, un lien vers la source primaire.</p>
+      <input class="source-library-search" id="source-search" type="search" placeholder="Rechercher BCE, PEE, Bright, immobilier…" oninput="renderSourceLibrary(this.value)">
+      <div id="source-library-body"></div>
+    </div>
+    <div class="card private-data" id="data-management">
+      <h3>💾 Données locales & sauvegarde</h3>
+      <p class="small muted" style="margin-top:6px">Tes saisies restent sur cet iPhone et survivent aux mises à jour GitHub. Une sauvegarde chiffrée n’est pas créée automatiquement : exporte ponctuellement un fichier privé dans Fichiers.</p>
+      <div class="data-tools">
+        <button class="data-export" type="button" onclick="exportPrivateData()">Exporter</button>
+        <label class="data-import">Restaurer<input type="file" accept="application/json" onchange="importPrivateData(event)"></label>
+      </div>
+      <p class="backup-warning">Le fichier exporté contient des informations personnelles. Conserve-le dans un emplacement privé et ne le partage pas.</p>
+    </div>
     <div class="card audio-panel">
       <h3>🔈 Diagnostic du son</h3>
-      <p class="small muted" style="margin-top:5px">La V9 utilise une voix anglaise chargée par l’iPhone. Testez-la ici avant votre première séance.</p>
+      <p class="small muted" style="margin-top:5px">La V11 utilise une voix anglaise chargée par l’iPhone. Testez-la ici avant votre première séance.</p>
       <button class="primary" style="background:var(--english)" onclick="audioDiagnostic()">Tester : “Good morning, Grégory”</button>
       <div class="audio-status" id="profile-audio-status">Pas encore testé.</div>
     </div>
@@ -559,10 +717,22 @@ function answerScenario(btn,i,correct,explanation){
       <div class="update-status" id="briefing-import-status">Le dernier briefing installé reste enregistré uniquement sur cet iPhone.</div>
     </div>
     <div class="card">
-      <p class="small muted">Les données de progression, les notes, les habitudes et les enregistrements temporaires restent sur cet appareil.</p><p style="margin-top:8px"><span class="version">GrégoryOS Performance · V9</span></p>
+      <p class="small muted">Les données de progression, les notes, les habitudes et les enregistrements temporaires restent sur cet appareil.</p><p style="margin-top:8px"><span class="version">GrégoryOS Performance · V11</span></p>
       <button class="primary" style="background:var(--down)" onclick="resetAll()">Réinitialiser la progression</button>
     </div>
   </section>
+</div>
+
+
+<!-- ===== FEUILLE DE SAISIE V10 ===== -->
+<div class="data-sheet" id="data-sheet" role="dialog" aria-modal="true" aria-labelledby="data-sheet-title">
+  <div class="data-panel">
+    <div class="data-panel-head">
+      <h2 id="data-sheet-title">Saisie</h2>
+      <button class="data-close" type="button" onclick="closeDataSheet()">Fermer</button>
+    </div>
+    <div id="data-sheet-body"></div>
+  </div>
 </div>
 
 <!-- ===== FEUILLE DE DÉTAIL ===== -->
@@ -601,7 +771,7 @@ function answerScenario(btn,i,correct,explanation){
 </nav>
 <script>
 /* =====================================================================
-   GrégoryOS Performance V6 — assistant personnel et moteur d’apprentissage
+   GrégoryOS Performance V11 — assistant personnel et moteur d’apprentissage
    Architecture : interface fixe + contenu quotidien dans briefing.json.
    Remplacez briefing.json chaque matin, ne touchez jamais à ce fichier.
    ===================================================================== */
@@ -627,6 +797,9 @@ let brightStats = store.get('bright_stats', {attempted:0, correct:0, listening:0
 let certState = store.get('cert_state', {sessions:0, minutes:0, deliverables:[], currentProject:'Certification Data Analyst'});
 let weightLog = store.get('weight_log', []);
 let weightSettings = store.get('weight_settings', {goal:'loss', target:'', current:''});
+let privacySettings = store.get('privacy_settings_v10', {masked:false, autoMask:true});
+let brightExam = store.get('bright_exam_v10', {active:false,index:0,answers:[],startedAt:null,duration:2100,history:[],lastResult:null});
+let brightExamTimer = null;
 const oldFinanceSettings = store.get('finance_settings_v8', store.get('finance_settings_v7', null));
 let financeSettings = store.get('finance_settings_v9', {
   projectCapitalNow: oldFinanceSettings?.projectCapitalNow ?? 60,
@@ -737,6 +910,47 @@ const PEE_FUNDS_V9 = [
     source:'1024.pdf, pages 1 à 9'
   }
 ];
+
+
+const STATIC_SOURCES_V11={
+pee:[
+{title:'BNP Paribas Actionnariat France — DIC',publisher:'BNP Paribas Asset Management Europe',date:'20/08/2025',location:'Document fourni · pages 1 à 3',quality:'Document primaire',kind:'user',note:'Risque 6/7, exposition concentrée à l’action BNP Paribas, horizon recommandé de cinq ans.'},
+{title:'Multipar Monétaire Socialement Responsable Part E — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 13 à 16',quality:'Document primaire',kind:'user',note:'Risque 1/7, horizon d’un mois, référence €STR diminuée des frais, sans garantie de capital.'},
+{title:'Multipar Solidaire Oblig Socialement Responsable Part E — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 44 à 46',quality:'Document primaire',kind:'user',note:'Risque 2/7, horizon de trois ans, exposition majoritaire aux titres de créance de la zone euro.'},
+{title:'Multipar Solidaire Modéré — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 37 à 40',quality:'Document primaire',kind:'user'},
+{title:'Multipar Solidaire Équilibre Part E — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 29 à 32',quality:'Document primaire',kind:'user'},
+{title:'Multipar Solidaire Dynamique Part E — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 21 à 24',quality:'Document primaire',kind:'user'},
+{title:'Multipar Actions Socialement Responsable Part E — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 5 à 8',quality:'Document primaire',kind:'user'},
+{title:'Multipar Croissance Inclusive Part G — DIC',publisher:'BNP Paribas Asset Management Europe',date:'Document 2025-2026',location:'Document fourni · pages 4 à 6',quality:'Document primaire',kind:'user'},
+{title:'Multipar Diversifié Équilibre — DIC',publisher:'BNP Paribas Asset Management Europe',date:'29/04/2026',location:'Document fourni · pages 1 à 3 de la part correspondante',quality:'Document primaire',kind:'user',note:'Risque 3/7, horizon quatre ans, allocation diversifiée avec 30 à 70 % d’actions.'}
+],
+financePerso:[
+{title:'Taux des crédits nouveaux à l’habitat',publisher:'Banque de France',date:'Mise à jour mensuelle',url:'https://webstat.banque-france.fr/fr/themes/credit-et-titres-de-dette/credit/cout-du-credit/taux-des-credits-aux-menages/',quality:'Source primaire',kind:'primary'},
+{title:'Mesure relative à l’octroi de crédits immobiliers',publisher:'Haut Conseil de stabilité financière',date:'Règle en vigueur',url:'https://www.economie.gouv.fr/hcsf/mesures/mesure-relative-loctroi-de-credits-immobiliers',quality:'Source officielle',kind:'primary'},
+{title:'Plan d’épargne en actions — fiscalité et retraits',publisher:'Service-Public.fr',date:'Fiche officielle',url:'https://www.service-public.fr/particuliers/vosdroits/F22449',quality:'Source officielle',kind:'primary'},
+{title:'Plan d’épargne entreprise — déblocage et fiscalité',publisher:'Service-Public.fr',date:'Fiche officielle',url:'https://www.service-public.fr/particuliers/vosdroits/F2142',quality:'Source officielle',kind:'primary'},
+{title:'Calculs de trajectoire immobilière',publisher:'GrégoryOS',date:'Calcul local',quality:'Calcul interne',kind:'analysis',note:'Les résultats utilisent les hypothèses saisies sur l’iPhone et ne supposent aucun rendement futur des marchés.'}
+],
+bright:[
+{title:'Bright General — présentation du test',publisher:'Bright Language',date:'Site officiel',url:'https://brightlanguage.com/bright-tests/',quality:'Source officielle',kind:'primary',note:'Le diagnostic GrégoryOS est une simulation pédagogique originale et non une certification officielle.'},
+{title:'Cadre européen commun de référence pour les langues',publisher:'Conseil de l’Europe',date:'Référentiel CECRL',url:'https://www.coe.int/fr/web/common-european-framework-reference-languages',quality:'Source primaire',kind:'primary'}
+],
+marches:[{title:'Sources des cours de marché',publisher:'Sources indiquées dans chaque édition quotidienne',date:'Horodatage du briefing',quality:'Données externes',kind:'primary',note:'Photographie disponible lors de la génération, pas un flux temps réel.'}],
+banque:[{title:'IFRS 9 — Financial Instruments',publisher:'IFRS Foundation',date:'Norme en vigueur',url:'https://www.ifrs.org/issued-standards/list-of-standards/ifrs-9-financial-instruments/',quality:'Source primaire',kind:'primary'}],
+metier:[{title:'Méthode d’analyse GrégoryOS',publisher:'GrégoryOS',date:'Édition quotidienne',quality:'Analyse pédagogique',kind:'analysis',note:'À rapprocher des procédures et données internes de BNP Paribas.'}],
+ia:[{title:'Sources IA de l’édition',publisher:'Documentation officielle des éditeurs',date:'Date du briefing',quality:'Sources primaires',kind:'primary'}],
+dataDeepDive:[{title:'Méthode Data GrégoryOS',publisher:'GrégoryOS',date:'Édition quotidienne',quality:'Méthode pédagogique',kind:'analysis',note:'Les contrôles sont à adapter aux règles internes et au modèle de données.'}],
+financeDeepDive:[{title:'Sources macrofinancières de l’édition',publisher:'BCE, Fed, Banque de France, INSEE, Eurostat ou source primaire citée',date:'Date du briefing',quality:'Sources primaires',kind:'primary'}],
+rennes:[
+{title:'Actualités et effectif du Stade Rennais FC',publisher:'Stade Rennais F.C.',date:'Mise à jour selon l’édition',url:'https://www.staderennais.com/',quality:'Source officielle',kind:'primary'},
+{title:'Compétitions et calendrier',publisher:'LFP / FFF / UEFA',date:'Mise à jour selon l’édition',quality:'Sources officielles',kind:'primary'}
+],
+comprendre:[{title:'Sources pédagogiques de l’édition',publisher:'Institutions ou organismes cités',date:'Date du briefing',quality:'Sources vérifiables',kind:'primary'}],
+culture:[{title:'Sources culturelles de l’édition',publisher:'Institution, ouvrage ou média cité',date:'Date du briefing',quality:'Source identifiée',kind:'primary'}],
+certification:[{title:'Consignes et livrables du parcours Data Analyst',publisher:'OpenClassrooms et documents du projet de Grégory',date:'Projet en cours',quality:'Documents de référence',kind:'user'}]
+};
+
+const BRIGHT_EXAM_BANK_V10 = [{"level":"A1","mode":"written","category":"grammar","prompt":"Choose the correct sentence.","options":["I am a data analyst.","I is a data analyst.","I be a data analyst."],"answer":0,"explanation":"With “I”, use “am”.","audio":""},{"level":"A1","mode":"written","category":"vocabulary","prompt":"What does “a meeting” mean?","options":["une échéance","une réunion","un chiffre"],"answer":1,"explanation":"“A meeting” means “une réunion”.","audio":""},{"level":"A1","mode":"written","category":"syntax","prompt":"Complete: I need ___ time.","options":["more","many","most"],"answer":0,"explanation":"“More time” is the correct expression.","audio":""},{"level":"A1","mode":"written","category":"grammar","prompt":"Complete: She ___ the report every Friday.","options":["send","sends","sending"],"answer":1,"explanation":"Third-person singular in the present simple takes -s.","audio":""},{"level":"A1","mode":"written","category":"reading","prompt":"Email: “The meeting is at 10 a.m. in Room 4.” Where is the meeting?","options":["At ten","In Room 4","On Friday"],"answer":1,"explanation":"The location is Room 4.","audio":""},{"level":"A1","mode":"written","category":"vocabulary","prompt":"Which word means “chiffres” in a report?","options":["figures","features","folders"],"answer":0,"explanation":"“Figures” means numerical data.","audio":""},{"level":"A1","mode":"listening","category":"listening","prompt":"What time is the meeting?","options":["Eight o’clock","Nine o’clock","Ten o’clock"],"answer":1,"explanation":"The speaker says nine o’clock.","audio":"The meeting starts at nine o’clock."},{"level":"A1","mode":"listening","category":"listening","prompt":"What does the speaker need?","options":["More time","A new computer","A taxi"],"answer":0,"explanation":"The speaker needs more time.","audio":"I need more time to check the report."},{"level":"A1","mode":"listening","category":"listening","prompt":"What should you do?","options":["Open the file","Close the office","Call the bank"],"answer":0,"explanation":"The instruction is to open the file.","audio":"Please open the file and check the first page."},{"level":"A1","mode":"listening","category":"listening","prompt":"Where is Sarah?","options":["At home","In a meeting","At the station"],"answer":1,"explanation":"Sarah is in a meeting.","audio":"Sarah is in a meeting. She will call you later."},{"level":"A1","mode":"listening","category":"listening","prompt":"Which day is the deadline?","options":["Monday","Thursday","Friday"],"answer":2,"explanation":"The deadline is Friday.","audio":"The deadline for this report is Friday."},{"level":"A1","mode":"listening","category":"listening","prompt":"What is wrong?","options":["The total is wrong","The email is late","The room is closed"],"answer":0,"explanation":"The speaker says the total is wrong.","audio":"The total is wrong. Please check the figures again."},{"level":"A2","mode":"written","category":"grammar","prompt":"Choose the correct sentence.","options":["I need to verify the data.","I need verify the data.","I need to verifying the data."],"answer":0,"explanation":"After “need”, use “to + verb”.","audio":""},{"level":"A2","mode":"written","category":"syntax","prompt":"Choose the natural question.","options":["Could you explain it to me?","Could you explain me it?","Could you to explain it me?"],"answer":0,"explanation":"The pattern is “explain something to someone”.","audio":""},{"level":"A2","mode":"written","category":"grammar","prompt":"Yesterday, we ___ the final report.","options":["finish","finished","have finish"],"answer":1,"explanation":"A completed action yesterday uses the past simple.","audio":""},{"level":"A2","mode":"written","category":"vocabulary","prompt":"“The figures are accurate” means:","options":["Les chiffres sont confidentiels.","Les chiffres sont exacts.","Les chiffres sont élevés."],"answer":1,"explanation":"“Accurate” means correct or exact.","audio":""},{"level":"A2","mode":"written","category":"reading","prompt":"Memo: “Please send the updated file before lunch. The manager needs it for the 2 p.m. meeting.” Why is the file needed?","options":["For a meeting","For a holiday","For payroll"],"answer":0,"explanation":"The manager needs it for the 2 p.m. meeting.","audio":""},{"level":"A2","mode":"written","category":"grammar","prompt":"Complete: This result is ___ than last month.","options":["good","better","best"],"answer":1,"explanation":"The comparative form of “good” is “better”.","audio":""},{"level":"A2","mode":"listening","category":"listening","prompt":"Why will the speaker send the file later?","options":["The data is incomplete","The computer is new","The manager is absent"],"answer":0,"explanation":"The data is not complete yet.","audio":"I will send the file after lunch because the data is not complete yet."},{"level":"A2","mode":"listening","category":"listening","prompt":"What does the manager ask for?","options":["A simple explanation","A longer report","A new database"],"answer":0,"explanation":"The manager asks for a simple explanation.","audio":"I understand the result, but could you explain the difference simply?"},{"level":"A2","mode":"listening","category":"listening","prompt":"What changed?","options":["The deadline","The team","The office"],"answer":0,"explanation":"The deadline moved from Thursday to Friday.","audio":"The deadline has changed. It is Friday now, not Thursday."},{"level":"A2","mode":"listening","category":"listening","prompt":"What is the main problem?","options":["Two files have different totals","The file is too large","The meeting is cancelled"],"answer":0,"explanation":"The totals do not match.","audio":"The two files do not have the same total. We need to find the difference."},{"level":"A2","mode":"listening","category":"listening","prompt":"When will the speaker be available?","options":["Before ten","After eleven","Tomorrow afternoon"],"answer":1,"explanation":"The speaker is available after eleven.","audio":"I have a meeting at ten, but I am available after eleven."},{"level":"A2","mode":"listening","category":"listening","prompt":"What should be checked first?","options":["The source data","The presentation colours","The email signature"],"answer":0,"explanation":"The source data should be checked first.","audio":"Before we change the chart, let us check the source data."},{"level":"B1","mode":"written","category":"grammar","prompt":"Complete: Although the total increased, the recovery rate ___.","options":["fell","fall","has falling"],"answer":0,"explanation":"“Although” introduces contrast; past simple is correct here.","audio":""},{"level":"B1","mode":"written","category":"vocabulary","prompt":"“The increase is mainly due to volume” means:","options":["La hausse est surtout due au volume.","Le volume a probablement baissé.","La hausse est égale au stock."],"answer":0,"explanation":"“Mainly due to” means principally caused by.","audio":""},{"level":"B1","mode":"written","category":"syntax","prompt":"Choose the most professional sentence.","options":["The result looks positive, but we need to confirm comparability.","The result is good, no need to check.","Maybe everything is okay, I think."],"answer":0,"explanation":"It states the conclusion and the required control.","audio":""},{"level":"B1","mode":"written","category":"grammar","prompt":"If the portfolio mix changes, the raw rate ___ misleading.","options":["may be","was being","has be"],"answer":0,"explanation":"“May be” expresses a possible consequence.","audio":""},{"level":"B1","mode":"written","category":"reading","prompt":"Report note: “Recoveries rose by 20%, while exposure entering collections rose by 18%. The share of guaranteed cases also increased.” What is the safest conclusion?","options":["Operational performance certainly improved by 20%.","The raw increase must be adjusted for volume and mix.","Guarantees reduced recoveries."],"answer":1,"explanation":"Volume and portfolio composition must be separated from performance.","audio":""},{"level":"B1","mode":"written","category":"grammar","prompt":"We ___ this control since January.","options":["use","have used","used yesterday"],"answer":1,"explanation":"“Since January” normally calls for the present perfect.","audio":""},{"level":"B1","mode":"listening","category":"listening","prompt":"What is the manager’s main concern?","options":["The result may reflect portfolio mix","The report is too short","The interest rate is fixed"],"answer":0,"explanation":"The manager wants the mix effect separated.","audio":"The recovery rate is higher, but the mix of the portfolio has changed. Please separate the mix effect before the committee."},{"level":"B1","mode":"listening","category":"listening","prompt":"What will the analyst do next?","options":["Recalculate with a constant perimeter","Delete the historical data","Change the conclusion immediately"],"answer":0,"explanation":"The analyst will use a constant perimeter.","audio":"I will recalculate the last two years with the same perimeter and send you the adjusted result."},{"level":"B1","mode":"listening","category":"listening","prompt":"Why is the conclusion not final?","options":["One source has not been reconciled","The manager dislikes charts","The meeting is next week"],"answer":0,"explanation":"A source still needs reconciliation.","audio":"The trend is clear, but the accounting source has not been fully reconciled yet."},{"level":"B1","mode":"listening","category":"listening","prompt":"What caused most of the improvement?","options":["Operational efficiency","Higher incoming volume","Lower interest rates"],"answer":1,"explanation":"Most of the change came from volume.","audio":"Only a small part of the improvement is operational. Most of the change comes from higher incoming volume."},{"level":"B1","mode":"listening","category":"listening","prompt":"What is requested for the meeting?","options":["A two-sentence conclusion","A twenty-page appendix","A new software licence"],"answer":0,"explanation":"The request is a concise executive conclusion.","audio":"For the meeting, give me the conclusion in two sentences: the main driver and the key limitation."},{"level":"B1","mode":"listening","category":"listening","prompt":"What does the speaker recommend?","options":["Monitor early payment incidents","Stop all lending","Ignore sector differences"],"answer":0,"explanation":"The speaker recommends an early-warning indicator.","audio":"Energy costs may affect small businesses with a delay. We should monitor early payment incidents by sector."},{"level":"B2","mode":"written","category":"grammar","prompt":"Choose the correct sentence.","options":["Had we used the old perimeter, the increase would have been smaller.","If we used the old perimeter, the increase will have been smaller.","Had we use the old perimeter, the increase was smaller."],"answer":0,"explanation":"This is an inverted third conditional.","audio":""},{"level":"B2","mode":"written","category":"vocabulary","prompt":"In risk reporting, “a leading indicator” is:","options":["An indicator that moves before the outcome","The largest value in a table","A legally mandatory ratio"],"answer":0,"explanation":"A leading indicator provides an early signal.","audio":""},{"level":"B2","mode":"written","category":"syntax","prompt":"Choose the best executive wording.","options":["The improvement is real but modest once portfolio effects are neutralised.","There are many things and maybe it is better.","The improvement is completely operational despite the mix."],"answer":0,"explanation":"It is concise, quantified in principle and appropriately cautious.","audio":""},{"level":"B2","mode":"written","category":"reading","prompt":"Analysis: “The standardised rate increased by 3%, but the confidence interval overlaps zero because the sample is small.” What follows?","options":["The improvement is proven.","The result is suggestive but statistically uncertain.","The rate necessarily fell."],"answer":1,"explanation":"The estimate is positive, but uncertainty prevents a firm conclusion.","audio":""},{"level":"B2","mode":"written","category":"grammar","prompt":"The data must ___ before the committee receives the report.","options":["be reconciled","reconcile","have reconcile"],"answer":0,"explanation":"A passive construction is required.","audio":""},{"level":"B2","mode":"written","category":"vocabulary","prompt":"“To rule out a data-quality issue” means:","options":["Écarter l’hypothèse d’un problème de qualité des données","Créer volontairement une anomalie","Réduire le nombre de contrôles"],"answer":0,"explanation":"“Rule out” means exclude after checking.","audio":""},{"level":"B2","mode":"listening","category":"listening","prompt":"What is the speaker’s conclusion?","options":["The apparent improvement is mostly methodological","The portfolio has no effect","The figures cannot be used at all"],"answer":0,"explanation":"Most of the change comes from the calculation rule.","audio":"The indicator improved sharply, but roughly four fifths of the movement comes from the new calculation rule rather than the underlying operation."},{"level":"B2","mode":"listening","category":"listening","prompt":"Why could higher rates initially help a bank?","options":["They may support net interest income","They eliminate credit risk","They reduce all funding costs"],"answer":0,"explanation":"Margins can initially improve before credit quality deteriorates.","audio":"Higher rates can support net interest income at first, although weaker demand and rising defaults may later offset that benefit."},{"level":"B2","mode":"listening","category":"listening","prompt":"What distinction does the speaker make?","options":["Correlation versus causation","Assets versus liabilities","Email versus telephone"],"answer":0,"explanation":"The speaker warns against causal interpretation.","audio":"The timing is consistent with the policy change, but that does not prove causation. We still need a control group."},{"level":"B2","mode":"listening","category":"listening","prompt":"What would invalidate the central scenario?","options":["Persistent wage and service inflation","A shorter presentation","A stable database name"],"answer":0,"explanation":"Persistent underlying inflation would invalidate the scenario.","audio":"Our central scenario assumes the energy shock fades. It would be invalidated if wage and service inflation remained persistently high."},{"level":"B2","mode":"listening","category":"listening","prompt":"What is the decision requested?","options":["Prioritise a targeted review of three sectors","Rewrite every historical report","Close the collections department"],"answer":0,"explanation":"The request is a targeted sector review.","audio":"The aggregate portfolio remains stable. I recommend a targeted review of transport, retail, and energy-intensive firms rather than a broad remediation plan."},{"level":"B2","mode":"listening","category":"listening","prompt":"Why is the raw rate insufficient?","options":["It combines performance and portfolio composition","It excludes every recovery","It is always lower than the standardised rate"],"answer":0,"explanation":"The raw rate mixes two effects.","audio":"The raw recovery rate combines operational performance with changes in portfolio composition, so it cannot be interpreted on its own."},{"level":"C1","mode":"written","category":"grammar","prompt":"Choose the correct inversion.","options":["Not until the data had been reconciled did we publish the conclusion.","Not until the data was reconciled we did publish the conclusion.","Not until had the data reconciled did we publish."],"answer":0,"explanation":"Negative fronting requires subject–auxiliary inversion.","audio":""},{"level":"C1","mode":"written","category":"vocabulary","prompt":"“The evidence is compelling but not conclusive” means:","options":["Les éléments sont solides mais ne permettent pas une certitude définitive.","Les données sont inutilisables.","La conclusion est juridiquement obligatoire."],"answer":0,"explanation":"Compelling evidence is persuasive; conclusive evidence settles the matter.","audio":""},{"level":"C1","mode":"written","category":"syntax","prompt":"Choose the most appropriately hedged statement.","options":["The policy appears to have contributed to the decline, although selection effects cannot yet be excluded.","The policy definitely caused the decline.","Nothing can be said under any circumstances."],"answer":0,"explanation":"It communicates a reasoned inference and its limitation.","audio":""},{"level":"C1","mode":"written","category":"reading","prompt":"Board note: “The portfolio’s headline default rate is unchanged. However, migration into early delinquency has accelerated in two vulnerable sectors, while cure rates have weakened.” What is the strongest interpretation?","options":["Current losses are already certain to surge.","The aggregate is stable, but forward-looking risk has deteriorated in selected segments.","No action or monitoring is required."],"answer":1,"explanation":"Leading indicators have worsened despite a stable headline measure.","audio":""},{"level":"C1","mode":"written","category":"grammar","prompt":"Complete: Were the assumption to prove false, the model ___ recalibration.","options":["would require","will requiring","has required"],"answer":0,"explanation":"This formal conditional uses “were… to” and “would”.","audio":""},{"level":"C1","mode":"written","category":"vocabulary","prompt":"In an executive report, “material” most nearly means:","options":["Significant enough to influence a decision","Made of physical matter only","Easy to calculate"],"answer":0,"explanation":"In finance, material means decision-relevant or significant.","audio":""},{"level":"C1","mode":"listening","category":"listening","prompt":"What is the speaker warning against?","options":["Treating a benign aggregate as evidence that all segments are safe","Using standardised rates","Reviewing vulnerable sectors"],"answer":0,"explanation":"The aggregate can conceal divergent segment-level risks.","audio":"The aggregate remains benign, but that should not be mistaken for broad-based resilience. A small number of sectors account for most of the deterioration in early arrears."},{"level":"C1","mode":"listening","category":"listening","prompt":"What is the proposed analytical approach?","options":["A counterfactual decomposition","A simple total without segmentation","A forecast based only on intuition"],"answer":0,"explanation":"The speaker proposes separating volume, composition and within-segment performance.","audio":"Rather than attributing the full movement to operations, we should construct a counterfactual decomposition of volume, composition, and within-segment performance."},{"level":"C1","mode":"listening","category":"listening","prompt":"Why might a rate cut fail to stimulate demand quickly?","options":["Transmission may be delayed by weak confidence and tighter credit standards","Consumers instantly borrow more","Banks stop measuring risk"],"answer":0,"explanation":"Confidence and lending standards can delay transmission.","audio":"Even if policy rates fall, demand may remain subdued because confidence is weak and lending standards have tightened. Transmission is therefore unlikely to be immediate."},{"level":"C1","mode":"listening","category":"listening","prompt":"What is the key governance point?","options":["The model output must remain traceable to controlled data and assumptions","The most complex model should always win","Documentation is optional if the result looks reasonable"],"answer":0,"explanation":"Traceability and controlled assumptions are the governance requirement.","audio":"The model may accelerate the analysis, but the final conclusion must remain traceable to controlled data, explicit assumptions, and an accountable reviewer."},{"level":"C1","mode":"listening","category":"listening","prompt":"What does the speaker imply about the positive result?","options":["It may be economically small despite statistical significance","It is certainly a major operational success","It should not be quantified"],"answer":0,"explanation":"Statistical significance does not guarantee practical importance.","audio":"The effect is statistically significant, yet its magnitude is modest. We should avoid presenting it as a transformative operational improvement."},{"level":"C1","mode":"listening","category":"listening","prompt":"What should the committee receive?","options":["A decision-ready conclusion with sensitivity and invalidation conditions","Every raw transaction without synthesis","Only the most optimistic scenario"],"answer":0,"explanation":"The committee needs a concise conclusion plus uncertainty and decision triggers.","audio":"The committee does not need another descriptive pack. It needs a decision-ready conclusion, the sensitivity to the main assumptions, and the conditions under which our central view would be invalidated."}];
 let brightTimerHandle=null, brightSeconds=0;
 
 
@@ -766,7 +980,173 @@ const GOALS_TOTAL = SECTIONS.length + 4; // marchés, quiz, flash midi, quiz du 
 
 /* ---------- Utilitaires ---------- */
 function save(){ store.set('profile',profile); store.set('daily_'+todayKey,daily); store.set('srs',srs); store.set('knowledge_srs',knowledgeSrs); store.set('life_'+todayKey,lifeLog); }
+
+/* ---------- V11 : citations et bibliothèque ---------- */
+function normaliseSource(x){if(!x)return null;if(typeof x==='string')return{title:x,quality:'Source identifiée'};return{title:x.title||x.titre||x.name||x.source||'Source',publisher:x.publisher||x.auteur||x.organisme||'',date:x.date||'',url:x.url||'',location:x.location||x.page||x.pages||'',note:x.note||x.description||'',quality:x.quality||x.type||'Source identifiée',kind:x.kind||''}}
+function sourcesFor(key,local){const all=[...listify(local).map(normaliseSource),...listify((B.sources||{})[key]).map(normaliseSource),...listify(STATIC_SOURCES_V11[key]).map(normaliseSource)].filter(Boolean),seen=new Set();return all.filter(x=>{const id=[x.title,x.publisher,x.url,x.location].join('|').toLowerCase();if(seen.has(id))return false;seen.add(id);return true})}
+function sourceTagClass(kind,quality){const t=(kind+' '+quality).toLowerCase();if(t.includes('user')||t.includes('fourni'))return'user';if(t.includes('analysis')||t.includes('interne')||t.includes('pédagog'))return'analysis';if(t.includes('primary')||t.includes('primaire')||t.includes('officiel'))return'primary';return''}
+function sourceBox(key,local,title){const list=sourcesFor(key,local);if(!list.length)return'';return'<details class="source-box"><summary>📚 '+esc(title||('Sources · '+list.length))+'</summary><div class="source-list">'+list.map(x=>'<div class="source-item"><div class="source-title">'+esc(x.title)+'<span class="source-tag '+sourceTagClass(x.kind,x.quality)+'">'+esc(x.quality||'Source')+'</span></div><div class="source-meta">'+esc([x.publisher,x.date,x.location].filter(Boolean).join(' · '))+'</div>'+(x.note?'<div class="source-note">'+esc(x.note)+'</div>':'')+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">Consulter la source ↗</a>':'')+'</div>').join('')+'</div></details>'}
+function newsSources(n){const a=listify(n.sources);if(a.length)return a;return n.source?[{title:n.source,date:n.dateSource||'',url:n.url||'',quality:'Source citée'}]:[]}
+function renderSourceLibrary(query){const z=document.getElementById('source-library-body');if(!z)return;const q=String(query||'').trim().toLowerCase(),labels={pee:'PEE et supports',financePerso:'Finances personnelles',bright:'Bright et CECRL',marches:'Marchés',banque:'Banque / IFRS 9',metier:'Métier',ia:'IA',financeDeepDive:'Finance approfondie',dataDeepDive:'Data approfondie',rennes:'Stade Rennais',comprendre:'Pédagogie économique',culture:'Culture générale',certification:'Certification'};const sec=Object.entries(labels).map(([key,label])=>({key,label,srcs:sourcesFor(key).filter(x=>!q||[label,x.title,x.publisher,x.date,x.location,x.note].join(' ').toLowerCase().includes(q))})).filter(x=>x.srcs.length);z.innerHTML=sec.length?'<div class="source-library-grid">'+sec.map(x=>'<div class="source-library-section"><h4>'+esc(x.label)+'</h4><div class="source-count">'+x.srcs.length+' source(s)</div>'+sourceBox('libraryOnly',x.srcs,'Afficher les références')+'</div>').join('')+'</div>':'<div class="keybox">Aucune source ne correspond à la recherche.</div>'}
+
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+
+/* ---------- V10 : confidentialité, saisie et sauvegarde ---------- */
+function applyPrivacy(){
+  document.body.classList.toggle('privacy-on',!!privacySettings.masked);
+  const b=document.getElementById('privacy-toggle');
+  if(b)b.textContent=privacySettings.masked?'👁 Afficher':'🔒 Masquer';
+}
+function togglePrivacy(){
+  privacySettings.masked=!privacySettings.masked;
+  store.set('privacy_settings_v10',privacySettings);
+  applyPrivacy();
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && privacySettings.autoMask){
+    privacySettings.masked=true;
+    store.set('privacy_settings_v10',privacySettings);
+  }else applyPrivacy();
+});
+window.addEventListener('pagehide',()=>{
+  if(privacySettings.autoMask){
+    privacySettings.masked=true;
+    store.set('privacy_settings_v10',privacySettings);
+  }
+});
+
+function dec(v){
+  const n=Number(String(v??'').trim().replace(/\s/g,'').replace(',','.'));
+  return Number.isFinite(n)?n:'';
+}
+function sheetField(id,label,value,kind='decimal'){
+  const inputmode=kind==='date'?'':(kind==='integer'?'numeric':'decimal');
+  const type=kind==='date'?'date':'text';
+  return '<label class="data-field">'+esc(label)+
+    '<input class="sensitive-input" id="sheet-'+id+'" type="'+type+'" '+
+    (inputmode?'inputmode="'+inputmode+'" ':'')+
+    'autocomplete="off" value="'+esc(value??'')+'"></label>';
+}
+function sheetSelect(id,label,value,opts){
+  return '<label class="data-field">'+esc(label)+'<select id="sheet-'+id+'">'+
+    opts.map(o=>'<option value="'+esc(o[0])+'" '+(String(o[0])===String(value)?'selected':'')+'>'+esc(o[1])+'</option>').join('')+
+    '</select></label>';
+}
+function openDataSheet(type){
+  const modal=document.getElementById('data-sheet'), body=document.getElementById('data-sheet-body'), title=document.getElementById('data-sheet-title');
+  if(!modal||!body)return;
+  if(type==='weight'){
+    title.textContent='Poids & forme';
+    body.innerHTML='<div class="data-section"><h3>Mes repères</h3><p class="small muted">La cible et le choix perte/maintien/prise sont conservés. Le poids du jour crée une nouvelle mesure uniquement lorsque tu appuies sur enregistrer.</p><div class="data-form">'+
+      sheetSelect('weightGoal','Objectif',weightSettings.goal,[['loss','Perte de poids'],['maintain','Maintien'],['gain','Prise de poids']])+
+      sheetField('weightTarget','Poids cible (kg)',weightSettings.target)+
+      sheetField('weightValue','Poids du jour (kg)','')+
+      sheetField('weightDate','Date de la mesure',todayKey,'date')+
+      '</div></div><button class="data-save" onclick="saveWeightSheet()">Enregistrer la mesure</button>';
+  }else{
+    title.textContent='Finances & allocation PEE';
+    body.innerHTML=
+      '<div class="data-section"><h3>PEE actuel</h3><p class="small muted">Indique les montants réellement détenus. Les champs restent enregistrés sur cet iPhone.</p><div class="data-form">'+
+      sheetField('peeMonetaire','Multipar Monétaire SR E (k€)',financeSettings.peeMonetaire)+
+      sheetField('peeOblig','Solidaire Oblig E (k€)',financeSettings.peeOblig)+
+      sheetField('peeModere','Solidaire Modéré (k€)',financeSettings.peeModere)+
+      sheetField('peeEquilibre','Solidaire Équilibre E (k€)',financeSettings.peeEquilibre)+
+      sheetField('peeDynamique','Solidaire Dynamique E (k€)',financeSettings.peeDynamique)+
+      sheetField('peeActionsEuro','Actions SR E (k€)',financeSettings.peeActionsEuro)+
+      sheetField('peeCroissance','Croissance Inclusive G (k€)',financeSettings.peeCroissance)+
+      sheetField('peeDiversifie','Diversifié Équilibre I (k€)',financeSettings.peeDiversifie)+
+      sheetField('peeBnpStock','Action BNP / ESOP (k€)',financeSettings.peeBnpStock)+
+      sheetField('peeHouseAmount','Montant du PEE destiné à la maison (k€)',financeSettings.peeHouseAmount)+
+      sheetField('bnpConcentrationLimit','Seuil d’alerte BNP (%)',financeSettings.bnpConcentrationLimit)+
+      sheetField('peeEntryFeePct','Frais d’entrée réellement appliqués (%)',financeSettings.peeEntryFeePct)+
+      sheetSelect('peeEntryFeePayer','Qui paie les frais d’entrée ?',financeSettings.peeEntryFeePayer,[['unknown','À vérifier'],['company','Entreprise'],['employee','Moi'],['none','Aucun frais appliqué']])+
+      '</div></div>'+
+      '<div class="data-section"><h3>Projet maison 2029</h3><div class="data-form">'+
+      sheetField('projectCapitalNow','Capital projet mobilisable actuel (k€)',financeSettings.projectCapitalNow)+
+      sheetField('emergencyBuffer','Épargne de précaution (k€)',financeSettings.emergencyBuffer)+
+      sheetField('expectedSaleEquity','Équité nette attendue de la vente (k€)',financeSettings.expectedSaleEquity)+
+      sheetField('monthlySavings','Épargne mensuelle (€)',financeSettings.monthlySavings)+
+      sheetField('expectedFutureInflows','Flux futurs nets prévus (k€)',financeSettings.expectedFutureInflows)+
+      sheetField('targetContribution','Apport cible (k€)',financeSettings.targetContribution)+
+      sheetField('targetPropertyPrice','Prix cible hors frais (k€)',financeSettings.targetPropertyPrice)+
+      sheetField('acquisitionCostsPct','Frais d’acquisition estimés (%)',financeSettings.acquisitionCostsPct)+
+      sheetField('targetDate','Date cible',financeSettings.targetDate,'date')+
+      sheetField('referenceMortgageRate','Taux futur de référence (%)',financeSettings.referenceMortgageRate)+
+      sheetField('loanYears','Durée du futur crédit (ans)',financeSettings.loanYears,'integer')+
+      sheetField('targetMonthlyPayment','Mensualité maximale souhaitée (€)',financeSettings.targetMonthlyPayment)+
+      sheetField('householdNetIncome','Revenu net mensuel du foyer (€)',financeSettings.householdNetIncome)+
+      sheetField('peaBalance','Solde PEA actuel (k€)',financeSettings.peaBalance)+
+      sheetField('currentMortgageRate','Taux du prêt actuel (%)',financeSettings.currentMortgageRate)+
+      sheetField('currentMortgagePayment','Mensualité actuelle (€)',financeSettings.currentMortgagePayment)+
+      sheetField('lldPayment','LLD mensuelle (€)',financeSettings.lldPayment)+
+      sheetField('lldEnd','Fin de la LLD',financeSettings.lldEnd,'date')+
+      '</div></div>'+
+      '<p class="autosave-note">Après validation, les données restent disponibles les jours suivants et après une nouvelle mise à jour GitHub, tant que le site conserve la même adresse et que les données Safari ne sont pas effacées.</p>'+
+      '<button class="data-save" onclick="saveFinanceSheet()">Enregistrer et fermer</button>';
+  }
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{const first=body.querySelector('input,select');if(first)first.focus({preventScroll:true})},120);
+}
+function closeDataSheet(){
+  const modal=document.getElementById('data-sheet');if(modal)modal.classList.remove('open');
+  document.body.style.overflow='';
+}
+function saveWeightSheet(){
+  const goal=document.getElementById('sheet-weightGoal').value;
+  const target=dec(document.getElementById('sheet-weightTarget').value);
+  const weight=dec(document.getElementById('sheet-weightValue').value);
+  const date=document.getElementById('sheet-weightDate').value||todayKey;
+  weightSettings.goal=goal;
+  weightSettings.target=target;
+  if(weight!=='' && weight>=30 && weight<=250){
+    weightSettings.current=weight;
+    weightLog.push({date,weight:Number(weight)});
+    weightLog.sort((a,b)=>a.date.localeCompare(b.date));
+    weightLog=weightLog.slice(-180);
+  }else if(weight!==''){
+    toast('Poids invalide : aucune mesure ajoutée');
+    return;
+  }
+  store.set('weight_settings',weightSettings);
+  store.set('weight_log',weightLog);
+  closeDataSheet();renderWeight();toast('Poids et cible enregistrés');
+}
+function saveFinanceSheet(){
+  const numeric=['projectCapitalNow','emergencyBuffer','expectedSaleEquity','monthlySavings','expectedFutureInflows','targetContribution','targetPropertyPrice','acquisitionCostsPct','referenceMortgageRate','loanYears','targetMonthlyPayment','householdNetIncome','peaBalance','currentMortgageRate','currentMortgagePayment','lldPayment','peeHouseAmount','peeEntryFeePct','peeMonetaire','peeOblig','peeModere','peeEquilibre','peeDynamique','peeActionsEuro','peeCroissance','peeDiversifie','peeBnpStock','bnpConcentrationLimit'];
+  numeric.forEach(k=>{const e=document.getElementById('sheet-'+k);if(e)financeSettings[k]=dec(e.value)});
+  ['targetDate','lldEnd'].forEach(k=>{const e=document.getElementById('sheet-'+k);if(e)financeSettings[k]=e.value});
+  const fee=document.getElementById('sheet-peeEntryFeePayer');if(fee)financeSettings.peeEntryFeePayer=fee.value;
+  store.set('finance_settings_v9',financeSettings);
+  store.set('finance_settings_v10',financeSettings);
+  closeDataSheet();renderFinancePersonal();toast('Données financières enregistrées');
+}
+function exportPrivateData(){
+  const data={version:10,exportedAt:new Date().toISOString(),items:{}};
+  try{
+    Object.keys(localStorage).filter(k=>k.startsWith('goa_')).forEach(k=>data.items[k]=localStorage.getItem(k));
+  }catch(e){}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='GregoryOS-sauvegarde-'+todayKey+'.json';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('Sauvegarde préparée');
+}
+function importPrivateData(event){
+  const file=event.target.files&&event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!data.items||typeof data.items!=='object')throw new Error('format');
+      Object.entries(data.items).forEach(([k,v])=>{if(k.startsWith('goa_')&&typeof v==='string')localStorage.setItem(k,v)});
+      alert('Sauvegarde restaurée. L’application va se recharger.');
+      location.reload();
+    }catch(e){alert('Fichier de sauvegarde invalide.')}
+  };
+  reader.readAsText(file);
+}
+
 function gainXP(n, why){ profile.xp += n; save(); refreshStats(); toast('+'+n+' XP · '+why); }
 function levelOf(xp){ return Math.floor(xp/200)+1; }
 function jsq(s){ return "'" + String(s??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/</g,'&lt;') + "'"; }
@@ -952,6 +1332,7 @@ function normalizeBriefing(x){
     ],
     verdict:'Abondement atteint : je n’ajouterais pas de risque actions pour chercher du rendement. Je sécuriserais la part indispensable à 2029 selon une trajectoire monétaire puis, au maximum, obligataire minoritaire.'
   };
+  x.sources=x.sources||{};
   x.performance=x.performance||{
     diagnostic:[
       {domaine:'Anglais · compréhension',niveau:'A2 indicatif',constat:'Compréhension des phrases professionnelles simples déjà correcte.'},
@@ -1089,22 +1470,22 @@ function openSection(id){
   if(id==='news')       return openNewsList();
   if(id==='banque')     { const b=B.banque||{}; openSheet('🏦 Focus Banque',
       '<div class="card"><h3>'+esc(b.titre||'')+'</h3>'+paras(b.contenu)+
-      (b.aRetenir?'<div class="keybox"><b>À retenir —</b> '+esc(b.aRetenir)+'</div>':'')+'</div>'); markRead(id); return; }
+      (b.aRetenir?'<div class="keybox"><b>À retenir —</b> '+esc(b.aRetenir)+'</div>':'')+sourceBox('banque',b.sources)+'</div>'); markRead(id); return; }
   if(id==='metier')     { const m=B.metier||{}; openSheet('🎯 Mon métier',
       '<div class="card"><h3>'+esc(m.titre||'')+'</h3>'+paras(m.contenu)+
-      (m.lienConcret?'<div class="keybox"><b>Dans votre quotidien —</b> '+esc(m.lienConcret)+'</div>':'')+'</div>'); markRead(id); return; }
+      (m.lienConcret?'<div class="keybox"><b>Dans votre quotidien —</b> '+esc(m.lienConcret)+'</div>':'')+sourceBox('metier',m.sources)+'</div>'); markRead(id); return; }
   if(id==='ia')         { const i=B.ia||{}; openSheet('🤖 IA & Data',
       '<div class="card"><h3>'+esc(i.titre||'')+'</h3>'+paras(i.contenu)+
-      (i.action?'<div class="keybox"><b>À tester —</b> '+esc(i.action)+'</div>':'')+'</div>'); markRead(id); return; }
+      (i.action?'<div class="keybox"><b>À tester —</b> '+esc(i.action)+'</div>':'')+sourceBox('ia',i.sources)+'</div>'); markRead(id); return; }
   if(id==='charisme')   { const c=B.charisme||{}; const sc=c.scenario||{}; openSheet('🎙️ Charisme & présence',
       '<div class="card charisma-card"><h3>'+esc(c.theme||'Charisme professionnel')+'</h3><p style="margin-top:8px">'+esc(c.concept||'')+'</p>'+paras(c.explication)+'</div>'+
       (sc.question?'<div class="card"><h3>Mise en situation</h3><p style="margin-top:8px">'+esc(sc.question)+'</p>'+listify(sc.options).map((o,i)=>'<button class="qopt" onclick="answerScenario(this,'+i+','+Number(sc.reponse||0)+','+jsq(sc.explication||'')+')">'+esc(o)+'</button>').join('')+'<div id="scenario-explain"></div></div>':'')); markRead(id); profile.charismeRead=(profile.charismeRead||0)+1; save(); return; }
   if(id==='comprendre') { const c=B.comprendre||{}; openSheet('💡 Comprendre',
       '<div class="card"><h3>'+esc(c.concept||'')+'</h3>'+paras(c.explication)+
-      (c.analogie?'<div class="keybox"><b>L\u2019analogie —</b> '+esc(c.analogie)+'</div>':'')+'</div>'); markRead(id); return; }
+      (c.analogie?'<div class="keybox"><b>L\u2019analogie —</b> '+esc(c.analogie)+'</div>':'')+sourceBox('comprendre',c.sources)+'</div>'); markRead(id); return; }
   if(id==='culture')    { const c=B.cultureGenerale||B.culture||{}; openSheet('📚 Culture générale',
       '<div class="card"><h3>'+esc(c.titre||'')+'</h3><p style="margin-top:10px">'+esc(c.lecon||c.anecdote||'')+'</p>'+ (listify(c.chronologie).length?'<div class="flow">'+listify(c.chronologie).map(x=>'<div>'+esc(x)+'</div>').join('')+'</div>':'')+
-      ((c.pourBriller||c.question)?'<div class="keybox"><b>À retenir —</b> '+esc(c.pourBriller||'Essayez de reformuler la leçon sans regarder.')+'</div>':'')+'</div>'); markRead(id); profile.cultureRead=(profile.cultureRead||0)+1; save(); return; }
+      ((c.pourBriller||c.question)?'<div class="keybox"><b>À retenir —</b> '+esc(c.pourBriller||'Essayez de reformuler la leçon sans regarder.')+'</div>':'')+sourceBox('culture',c.sources)+'</div>'); markRead(id); profile.cultureRead=(profile.cultureRead||0)+1; save(); return; }
   if(id==='rennes')     { const r=B.rennes||{}; openSheet('⚽ Stade Rennais FC',
       '<div class="card"><h3>Actualités</h3>'+paras(r.actu)+'</div>'+
       '<div class="card"><h3>Match & classement</h3><p style="margin-top:8px">'+esc(r.match||'—')+'</p><p style="margin-top:6px" class="muted">'+esc(r.classement||'')+'</p></div>'+
@@ -1113,14 +1494,14 @@ function openSection(id){
       (listify(r.actifs).length?'<div class="card"><h3>💎 Actifs sportifs du club</h3><p class="small muted" style="margin-top:5px">Joueurs sous contrat, jeunes à potentiel et valeur sportive — uniquement avec données vérifiées.</p><div class="asset-list">'+listify(r.actifs).map(a=>'<div class="asset-row"><div class="asset-head"><span>'+esc(a.nom||'')+'</span><span>'+esc(a.valeur||'non disponible')+'</span></div><div class="asset-meta">'+esc([a.poste,a.age,a.contrat,a.statut].filter(Boolean).join(' · '))+(a.potentiel?'<br><b>Potentiel :</b> '+esc(a.potentiel):'')+(a.risque?'<br><b>Point de vigilance :</b> '+esc(a.risque):'')+'</div></div>').join('')+'</div></div>':'')+
       (r.focusJoueur?'<div class="card" style="border-left:4px solid var(--rennes)"><h3>🔴⚫ Focus : '+esc(r.focusJoueur.nom||'')+'</h3>'+
         '<p style="margin-top:8px"><b>'+esc(r.focusJoueur.poste||'')+'</b> · '+esc(r.focusJoueur.valeur||'')+'</p>'+
-        '<p style="margin-top:8px" class="muted">'+esc(r.focusJoueur.note||'')+'</p></div>':'')); markRead(id); return; }
+        '<p style="margin-top:8px" class="muted">'+esc(r.focusJoueur.note||'')+'</p></div>':'')+'<div class="card">'+sourceBox('rennes',r.sources,'Sources Stade Rennais')+'</div>'); markRead(id); return; }
 }
 
 function openNewsList(){
   const html = (B.news||[]).map((n,i)=>
     '<button class="une" style="margin-top:12px" onclick="openNews('+i+')"><div class="band" style="background:'+(SECTIONS[0].color)+'"></div>'+
     '<div class="inner"><div class="cat">'+esc(n.categorie||'')+'</div><h2 style="font-size:1.05rem">'+esc(n.titre)+'</h2>'+
-    '<p>'+esc(n.resume)+'</p></div></button>').join('');
+    '<p>'+esc(n.resume)+'</p><span class="news-source-badge">📚 '+newsSources(n).length+' source(s)</span></div></button>').join('');
   openSheet('📰 Breaking News', html + '<p class="small muted" style="margin-top:14px;text-align:center">Touchez une info pour le décryptage complet.</p>');
 }
 
@@ -1142,7 +1523,7 @@ function openNews(i){
       (imp.metier?'<div class="imp" style="border-color:var(--metier)"><b>🎯 Mon métier</b><span>'+esc(imp.metier)+'</span></div>':'')+
     '</div>'+
     (n.pourBriller?'<div class="keybox"><b>💬 Pour l\u2019expliquer simplement —</b> '+esc(n.pourBriller)+'</div>':'')+
-    (n.source?(n.url?'<a class="source-link" target="_blank" rel="noopener" href="'+esc(n.url)+'">Source : '+esc(n.source)+' ↗</a>':'<p class="small muted" style="margin-top:12px">Source : '+esc(n.source)+'</p>'):'')+'</div>');
+    sourceBox('newsOnly',newsSources(n),'Sources de cette information')+'</div>');
   markRead('news');
 }
 
@@ -1214,7 +1595,7 @@ function renderAcademy(){
 function openMarketsSheet(){
   const m=B.marches||{};
   const rows=listify(m.indices).map(x=>{const v=Number(x.variation)||0;return '<div class="mkt">'+sparkline(x.spark,v>=0)+'<div class="name"><b>'+esc(x.nom)+'</b><span>'+esc(x.commentaire||'')+'</span></div><div class="val"><b class="mono">'+esc(x.valeur)+'</b><span class="pill '+(v>=0?'up':'down')+'">'+(v>=0?'▲ +':'▼ ')+v.toFixed(2).replace('.',',')+' %</span></div></div>'}).join('');
-  openSheet('📈 Marchés','<div class="card"><p>'+esc(m.commentaire||'')+'</p></div><div class="card">'+rows+'</div><div class="card"><h3>À surveiller</h3><ul class="watch">'+listify(m.aSurveiller).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>');
+  openSheet('📈 Marchés','<div class="card"><p>'+esc(m.commentaire||'')+'</p>'+sourceBox('marches',m.sources,'Sources des cours et commentaires')+'</div><div class="card">'+rows+'</div><div class="card"><h3>À surveiller</h3><ul class="watch">'+listify(m.aSurveiller).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>');
   if(!daily.marketsSeen){daily.marketsSeen=true;save();gainXP(10,'marchés consultés');refreshStats()}
 }
 
@@ -1230,7 +1611,7 @@ function deepDiveHtml(obj,icon){
     (listify(obj.mecanisme||obj.methode).length?'<div class="flow">'+listify(obj.mecanisme||obj.methode).map((x,i)=>'<div><b>'+(i+1)+'.</b> '+esc(x)+'</div>').join('')+'</div>':'')+
     (listify(obj.controles).length?'<h3 style="margin-top:14px">Contrôles</h3><div class="chips">'+listify(obj.controles).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div>':'')+
     (obj.scenarios?'<div class="impact" style="margin-top:12px"><div class="imp"><b>Central</b><span>'+esc(scenarios.central||'')+'</span></div><div class="imp"><b>Haussier</b><span>'+esc(scenarios.haut||'')+'</span></div><div class="imp"><b>Baissier</b><span>'+esc(scenarios.bas||'')+'</span></div></div>':'')+
-    '<div class="keybox"><b>Question d’analyste —</b> '+esc(obj.question||'')+'</div>';
+    '<div class="keybox"><b>Question d’analyste —</b> '+esc(obj.question||'')+'</div>'+sourceBox(obj===B.financeDeepDive?'financeDeepDive':'dataDeepDive',obj.sources);
 }
 function answerKey(prefix){return prefix+'-'+(B.date||todayKey)}
 function saveLabAnswer(type){
@@ -1248,14 +1629,112 @@ function executiveLabHtml(){
   const a=B.executiveDrill||{}, saved=((performanceState.executiveAnswers||{})[answerKey('executive')]||'');
   return '<h3>🎙️ '+esc(a.titre||'Communication exécutive')+'</h3><p style="margin-top:7px">'+esc(a.situation||'')+'</p><div class="keybox"><b>Contrainte —</b> '+esc(a.contrainte||'')+'</div><textarea class="lab-textarea" id="executive-answer" placeholder="Votre réponse en deux phrases maximum…">'+esc(saved)+'</textarea><div class="lab-actions"><button class="saveanswer" onclick="saveLabAnswer(\'executive\')">Enregistrer</button><button class="reveal" onclick="revealModel(\'executive\')">Voir la réponse forte</button></div><div class="lab-actions"><button class="saveanswer" onclick="coachLab(\'executive\',\'chatgpt\')">Correction ChatGPT</button><button class="reveal" onclick="coachLab(\'executive\',\'claude\')">Correction Claude</button></div><div class="model-answer" id="executive-model"><div class="keybox"><b>Réponse forte —</b> '+esc(a.modele||'')+'</div><div class="chips">'+listify(a.criteres).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div><div class="score-choices"><button onclick="setSelfScore(\'executive\',1,this)">1 · Flou</button><button onclick="setSelfScore(\'executive\',2,this)">2 · Clair</button><button onclick="setSelfScore(\'executive\',3,this)">3 · Impactant</button></div></div>';
 }
+
+/* ---------- V10 : diagnostic Bright approfondi ---------- */
+function brightLevelIndex(level){return ['A1','A2','B1','B2','C1'].indexOf(level)}
+function brightRemaining(){
+  if(!brightExam.active||!brightExam.startedAt)return brightExam.duration||2100;
+  return Math.max(0,(brightExam.duration||2100)-Math.floor((Date.now()-brightExam.startedAt)/1000));
+}
+function formatClock(sec){return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
+function startBrightExam(){
+  if(!confirm('Démarrer le diagnostic de 60 questions ? Prévois environ 35 minutes, du calme et des écouteurs.'))return;
+  brightExam={...brightExam,active:true,index:0,answers:[],startedAt:Date.now(),duration:2100};
+  store.set('bright_exam_v10',brightExam);renderBrightDiagnostic();startBrightExamTimer();
+}
+function resumeBrightExam(){brightExam.active=true;store.set('bright_exam_v10',brightExam);renderBrightDiagnostic();startBrightExamTimer()}
+function abandonBrightExam(){
+  if(!confirm('Abandonner ce test en cours ? Les réponses de cette session seront effacées.'))return;
+  brightExam.active=false;brightExam.index=0;brightExam.answers=[];brightExam.startedAt=null;
+  store.set('bright_exam_v10',brightExam);clearInterval(brightExamTimer);renderBrightDiagnostic();
+}
+function startBrightExamTimer(){
+  clearInterval(brightExamTimer);
+  brightExamTimer=setInterval(()=>{
+    const c=document.getElementById('bright-exam-clock');if(c)c.textContent=formatClock(brightRemaining());
+    if(brightRemaining()<=0){clearInterval(brightExamTimer);finishBrightExam(true)}
+  },1000);
+}
+function chooseBrightExam(answer){
+  if(!brightExam.active)return;
+  brightExam.answers[brightExam.index]=answer;
+  brightExam.index++;
+  store.set('bright_exam_v10',brightExam);
+  if(brightExam.index>=BRIGHT_EXAM_BANK_V10.length)finishBrightExam(false);
+  else renderBrightDiagnostic();
+}
+function estimateBrightLevel(byLevel){
+  const order=['A1','A2','B1','B2','C1'];
+  let result='Pré-A1';
+  for(let i=0;i<order.length;i++){
+    const current=byLevel[order[i]]||{correct:0,total:0};
+    const currentPct=current.total?current.correct/current.total:0;
+    const lowerOk=order.slice(0,i).every(l=>{
+      const x=byLevel[l];return x&&x.total&&x.correct/x.total>=0.67;
+    });
+    if(currentPct>=0.58&&lowerOk)result=order[i];else break;
+  }
+  return result;
+}
+function finishBrightExam(timeout){
+  clearInterval(brightExamTimer);
+  const answers=brightExam.answers.slice();
+  while(answers.length<BRIGHT_EXAM_BANK_V10.length)answers.push(null);
+  let correct=0;const byLevel={},byCat={},byMode={};
+  BRIGHT_EXAM_BANK_V10.forEach((q,i)=>{
+    const ok=answers[i]===q.answer;if(ok)correct++;
+    [byLevel[q.level]||(byLevel[q.level]={correct:0,total:0}),
+     byCat[q.category]||(byCat[q.category]={correct:0,total:0}),
+     byMode[q.mode]||(byMode[q.mode]={correct:0,total:0})].forEach(x=>{x.total++;if(ok)x.correct++});
+  });
+  const score=Math.round(correct/BRIGHT_EXAM_BANK_V10.length*100);
+  const level=estimateBrightLevel(byLevel);
+  const result={date:new Date().toISOString(),score,correct,total:60,level,byLevel,byCat,byMode,answers,timeout:!!timeout};
+  brightExam.active=false;brightExam.index=0;brightExam.answers=[];brightExam.startedAt=null;
+  brightExam.lastResult=result;brightExam.history=[...(brightExam.history||[]),result].slice(-12);
+  store.set('bright_exam_v10',brightExam);
+  brightStats.target='B1';store.set('bright_stats',brightStats);
+  renderBrightDiagnostic();renderProfile();toast('Diagnostic terminé : niveau indicatif '+level);
+}
+function pctObj(x){return x&&x.total?Math.round(x.correct/x.total*100):0}
+function brightSkillBars(obj){
+  return '<div class="skill-bars">'+Object.entries(obj||{}).map(([k,v])=>{const p=pctObj(v);return '<div class="skill-line"><span>'+esc(k)+'</span><div class="bar"><div style="width:'+p+'%"></div></div><b>'+p+'%</b></div>'}).join('')+'</div>';
+}
+function renderBrightDiagnostic(){
+  const z=document.getElementById('bright-diagnostic');if(!z)return;
+  if(brightExam.active){
+    const q=BRIGHT_EXAM_BANK_V10[brightExam.index],p=Math.round(brightExam.index/BRIGHT_EXAM_BANK_V10.length*100);
+    z.innerHTML='<h3>🧭 Diagnostic Bright V10</h3><div class="exam-progress"><div style="width:'+p+'%"></div></div>'+
+      '<div class="exam-nav"><span>Question '+(brightExam.index+1)+' / 60 · '+esc(q.level)+' · '+esc(q.category)+'</span><span class="exam-clock" id="bright-exam-clock">'+formatClock(brightRemaining())+'</span></div>'+
+      '<div class="exam-question">'+
+      (q.mode==='listening'?'<button class="exam-audio" onclick="speak('+jsq(q.audio)+',\'en-GB\',.82)">🔊 Écouter l’énoncé</button>':'')+
+      '<h3 style="margin-top:12px">'+esc(q.prompt)+'</h3>'+
+      q.options.map((o,i)=>'<button class="exam-option" onclick="chooseBrightExam('+i+')">'+esc(o)+'</button>').join('')+
+      '</div><button class="primary" style="background:var(--down)" onclick="abandonBrightExam()">Abandonner la session</button>';
+    return;
+  }
+  const r=brightExam.lastResult,h=brightExam.history||[];
+  z.innerHTML='<h3>🧭 Diagnostic Bright approfondi</h3>'+
+    '<div class="bright-exam-intro"><h3>60 questions originales · compréhension écrite et orale</h3><p>Grammaire, vocabulaire, syntaxe, lecture et écoute, répartis de A1 à C1. Les réponses ne sont pas corrigées avant la fin afin de préserver la valeur du diagnostic.</p></div>'+
+    '<p class="small muted" style="margin-top:10px">Ce test interne reproduit les compétences du Bright mais ne constitue ni le test officiel ni une certification. Le niveau CECRL est une estimation pédagogique.</p>'+
+    (r?'<div class="exam-results"><div class="exam-result"><b>'+esc(r.level)+'</b><span>Niveau indicatif</span></div><div class="exam-result"><b>'+r.score+' %</b><span>Score global</span></div><div class="exam-result"><b>'+pctObj(r.byMode.listening)+' %</b><span>Compréhension orale</span></div><div class="exam-result"><b>'+pctObj(r.byMode.written)+' %</b><span>Partie écrite</span></div></div>'+
+      '<h4 style="margin-top:14px">Résultats par niveau</h4>'+brightSkillBars(r.byLevel)+
+      '<h4 style="margin-top:14px">Résultats par compétence</h4>'+brightSkillBars(r.byCat)+
+      '<details style="margin-top:14px"><summary style="font-weight:850;color:var(--english)">Voir les solutions et mes erreurs</summary>'+
+      BRIGHT_EXAM_BANK_V10.map((q,i)=>{const ok=r.answers[i]===q.answer;return '<div class="solution-item"><b>'+(ok?'✅':'❌')+' '+(i+1)+'. '+esc(q.prompt)+'</b><p>Ta réponse : '+(r.answers[i]===null?'Aucune':esc(q.options[r.answers[i]]))+'<br>Solution : <b>'+esc(q.options[q.answer])+'</b><br>'+esc(q.explanation)+'</p></div>'}).join('')+
+      '</details>':'')+
+    (h.length?'<h4 style="margin-top:14px">Évolution</h4><div class="exam-history">'+h.slice().reverse().map(x=>'<div class="history-row"><span>'+esc(x.date.slice(0,10))+'</span><b>'+esc(x.level)+'</b><div class="bar"><div style="width:'+x.score+'%"></div></div><b>'+x.score+'%</b></div>').join('')+'</div>':'')+
+    '<button class="primary" style="background:var(--english)" onclick="startBrightExam()">'+(r?'Repasser le diagnostic':'Commencer le diagnostic')+'</button>'+sourceBox('bright',null,'Références du diagnostic');
+}
+
 function startBrightTimer(){clearInterval(brightTimerHandle);brightSeconds=45;const z=document.getElementById('bright-timer');if(z)z.textContent='00:45';brightTimerHandle=setInterval(()=>{brightSeconds--;if(z)z.textContent='00:'+String(Math.max(0,brightSeconds)).padStart(2,'0');if(brightSeconds<=0){clearInterval(brightTimerHandle);toast('Temps écoulé : répondez puis lisez l’explication.')}},1000)}
 function brightQuestionHtml(q,type,listen){if(!q)return '';return '<div class="scenario-box"><div class="qmeta">'+esc(type)+'</div>'+(listen?'<button class="listen-btn" onclick="speak('+jsq(q.audio||'')+',\'en-GB\',.72);startBrightTimer()">🔊 Écouter · 45 s</button>':'<div class="timer"><span>Temps conseillé</span><b>45 s</b></div>')+'<h3 style="margin-top:10px">'+esc(q.question||'')+'</h3>'+listify(q.options).map((o,i)=>'<button class="qopt" onclick="answerBright(this,'+i+','+Number(q.reponse||0)+','+jsq(q.explication||'')+','+jsq(type)+')">'+esc(o)+'</button>').join('')+'<div class="bright-explain"></div></div>'}
 function answerBright(btn,i,correct,explanation,type){const box=btn.closest('.scenario-box');box.querySelectorAll('.qopt').forEach((b,j)=>{b.disabled=true;if(j===correct)b.classList.add('correct')});if(i!==correct)btn.classList.add('wrong');box.querySelector('.bright-explain').innerHTML='<div class="explain">'+esc(explanation)+'</div>';brightStats.attempted++;if(i===correct){brightStats.correct++;const key=String(type).toLowerCase().includes('oral')?'listening':String(type).toLowerCase().includes('écrit')?'reading':String(type).toLowerCase().includes('gram')?'grammar':'vocabulary';brightStats[key]=(brightStats[key]||0)+1;gainXP(10,'Bright')};store.set('bright_stats',brightStats);renderBrightHeader()}
 function renderBrightHeader(){const z=document.getElementById('bright-summary');if(!z)return;const pct=brightStats.attempted?Math.round(brightStats.correct/brightStats.attempted*100):0;z.innerHTML='<div class="bright-grid"><div class="bright-stat"><b>'+pct+' %</b><span>Précision cumulée</span></div><div class="bright-stat"><b>'+brightStats.attempted+'</b><span>Questions traitées</span></div><div class="bright-stat"><b>'+esc(brightStats.target)+'</b><span>Cible fin 2026</span></div><div class="bright-stat"><b>120</b><span>Questions test complet</span></div></div>'}
-function brightLabHtml(){const b=B.bright||{};return '<h3>🇬🇧 Bright Accelerator</h3><div class="exam-banner"><h3>'+esc(b.objectif||'Objectif intermédiaire')+'</h3><p>'+esc(b.format||'')+'</p></div><div id="bright-summary"></div>'+brightQuestionHtml(b.listening,'Compréhension orale',true)+brightQuestionHtml(b.reading,'Compréhension écrite',false)+brightQuestionHtml(b.grammar,'Grammaire',false)+brightQuestionHtml(b.vocabulary,'Vocabulaire',false)+'<a class="official-link" href="https://brightlanguage.com/bright-tests/" target="_blank" rel="noopener">Format officiel Bright ↗</a>'}
+function brightLabHtml(){const b=B.bright||{};return '<h3>🇬🇧 Bright Accelerator</h3><div class="exam-banner"><h3>'+esc(b.objectif||'Objectif intermédiaire')+'</h3><p>'+esc(b.format||'')+'</p></div><div id="bright-summary"></div>'+brightQuestionHtml(b.listening,'Compréhension orale',true)+brightQuestionHtml(b.reading,'Compréhension écrite',false)+brightQuestionHtml(b.grammar,'Grammaire',false)+brightQuestionHtml(b.vocabulary,'Vocabulaire',false)+sourceBox('bright',b.sources,'Sources et format officiel')}
 function addCertSession(){const min=Math.max(0,Number(document.getElementById('cert-minutes').value||0));if(!min)return;certState.sessions++;certState.minutes+=min;store.set('cert_state',certState);document.getElementById('cert-minutes').value='';renderCertification();gainXP(Math.min(30,Math.round(min/5)),'certification')}
 function addDeliverable(){const el=document.getElementById('cert-deliverable'),v=el.value.trim();if(!v)return;certState.deliverables.push({text:v,date:todayKey});store.set('cert_state',certState);el.value='';renderCertification()}
-function renderCertification(){const z=document.getElementById('certification-lab');if(!z)return;const c=B.certification||{};z.innerHTML='<h3>🎓 '+esc(c.titre||'Certification')+'</h3><p style="margin-top:7px">'+esc(c.objectif||'')+'</p><div class="cert-grid"><div class="cert-metric"><b>'+certState.sessions+'</b><span>Séances enregistrées</span></div><div class="cert-metric"><b>'+certState.minutes+' min</b><span>Travail cumulé</span></div></div><div class="keybox"><b>Prochaine étape —</b> '+esc(c.prochaineEtape||'')+'</div><h3 style="margin-top:14px">Preuves à accumuler</h3><div class="chips">'+listify(c.evidence).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div><div class="cert-input"><input id="cert-minutes" type="number" min="1" inputmode="numeric" placeholder="Minutes travaillées"><button onclick="addCertSession()">Ajouter</button></div><div class="cert-input"><input id="cert-deliverable" placeholder="Preuve ou livrable terminé"><button onclick="addDeliverable()">Ajouter</button></div>'+(certState.deliverables.length?'<div class="weight-list">'+certState.deliverables.slice(-5).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.text)+'</span><b>'+esc(x.date)+'</b></div>').join('')+'</div>':'')+'<div class="keybox"><b>Soutenance —</b> '+esc(c.oral||'')+'</div>'}
+function renderCertification(){const z=document.getElementById('certification-lab');if(!z)return;const c=B.certification||{};z.innerHTML='<h3>🎓 '+esc(c.titre||'Certification')+'</h3><p style="margin-top:7px">'+esc(c.objectif||'')+'</p><div class="cert-grid"><div class="cert-metric"><b>'+certState.sessions+'</b><span>Séances enregistrées</span></div><div class="cert-metric"><b>'+certState.minutes+' min</b><span>Travail cumulé</span></div></div><div class="keybox"><b>Prochaine étape —</b> '+esc(c.prochaineEtape||'')+'</div><h3 style="margin-top:14px">Preuves à accumuler</h3><div class="chips">'+listify(c.evidence).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div><div class="cert-input"><input id="cert-minutes" type="number" min="1" inputmode="numeric" placeholder="Minutes travaillées"><button onclick="addCertSession()">Ajouter</button></div><div class="cert-input"><input id="cert-deliverable" placeholder="Preuve ou livrable terminé"><button onclick="addDeliverable()">Ajouter</button></div>'+(certState.deliverables.length?'<div class="weight-list">'+certState.deliverables.slice(-5).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.text)+'</span><b>'+esc(x.date)+'</b></div>').join('')+'</div>':'')+'<div class="keybox"><b>Soutenance —</b> '+esc(c.oral||'')+'</div>'+sourceBox('certification',c.sources)}
 function renderPerformance(){
   const d=document.getElementById('performance-diagnostic');if(d)d.innerHTML=diagnosticHtml();
   const f=document.getElementById('finance-deep');if(f)f.innerHTML=deepDiveHtml(B.financeDeepDive||{},'📈');
@@ -1301,6 +1780,7 @@ function renderEnglish(){
   renderRoadmap();
   bindAudioControls();
   bindRecorder();
+  renderBrightDiagnostic();
 }
 
 function renderFlash(){
@@ -1568,10 +2048,16 @@ function answerQ(btn,i){
 /* ---------- V6 : poids et forme ---------- */
 function weightTrend(){if(weightLog.length<2)return null;const a=weightLog[0].weight,b=weightLog[weightLog.length-1].weight;return +(b-a).toFixed(1)}
 function addWeight(){const w=Number(document.getElementById('weight-value').value);if(!w||w<30||w>250){toast('Poids invalide');return}const goal=document.getElementById('weight-goal').value,target=document.getElementById('weight-target').value;weightSettings.goal=goal;weightSettings.target=target;weightSettings.current=w;weightLog.push({date:todayKey,weight:w});weightLog=weightLog.slice(-90);store.set('weight_settings',weightSettings);store.set('weight_log',weightLog);renderWeight();toast('Mesure enregistrée')}
-function renderWeight(){const z=document.getElementById('weight-lab');if(!z)return;const last=weightLog.length?weightLog[weightLog.length-1].weight:'—',trend=weightTrend(),goalLabels={loss:'Perte de poids',maintain:'Maintien',gain:'Prise de poids'};z.innerHTML='<h3>⚖️ Poids & forme</h3><p class="small muted" style="margin-top:4px">Suivi de tendance, sans obsession quotidienne. L’objectif est configurable.</p><div class="weight-summary"><div><b>'+last+'</b><span>Dernière mesure kg</span></div><div><b>'+(trend===null?'—':(trend>0?'+':'')+trend)+'</b><span>Évolution kg</span></div><div><b>'+esc(weightSettings.target||'—')+'</b><span>Cible kg</span></div></div><div class="weight-form"><select id="weight-goal"><option value="loss" '+(weightSettings.goal==='loss'?'selected':'')+'>Perte de poids</option><option value="maintain" '+(weightSettings.goal==='maintain'?'selected':'')+'>Maintien</option><option value="gain" '+(weightSettings.goal==='gain'?'selected':'')+'>Prise de poids</option></select><input id="weight-target" type="number" step="0.1" inputmode="decimal" value="'+esc(weightSettings.target||'')+'" placeholder="Poids cible"><input id="weight-value" type="number" step="0.1" inputmode="decimal" placeholder="Poids du jour"><button onclick="addWeight()">Enregistrer</button></div>'+(weightLog.length?'<div class="weight-list">'+weightLog.slice(-7).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.date)+'</span><b>'+x.weight.toFixed(1)+' kg</b></div>').join('')+'</div>':'')+'<div class="keybox"><b>Lecture utile —</b> Regardez la tendance sur plusieurs semaines. Une mesure isolée varie avec l’eau, les repas et l’heure.</div>'}
-
-
-/* ---------- V7 : cockpit financier personnel ---------- */
+function renderWeight(){
+  const z=document.getElementById('weight-lab');if(!z)return;
+  const last=weightLog.length?weightLog[weightLog.length-1].weight:'—',trend=weightTrend();
+  const goalLabels={loss:'Perte de poids',maintain:'Maintien',gain:'Prise de poids'};
+  z.innerHTML='<h3>⚖️ Poids & forme</h3><p class="small muted" style="margin-top:4px">Objectif actuel : '+esc(goalLabels[weightSettings.goal]||'À définir')+'. Les valeurs sont conservées localement.</p>'+
+    '<div class="weight-summary"><div><b>'+last+'</b><span>Dernière mesure kg</span></div><div><b>'+(trend===null?'—':(trend>0?'+':'')+trend)+'</b><span>Évolution kg</span></div><div><b>'+esc(weightSettings.target||'—')+'</b><span>Cible kg</span></div></div>'+
+    '<button class="primary edit-data-btn" type="button" onclick="openDataSheet(\'weight\')">✏️ Saisir mon poids ou modifier ma cible</button>'+
+    (weightLog.length?'<div class="weight-list">'+weightLog.slice(-7).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.date)+'</span><b>'+Number(x.weight).toFixed(1)+' kg</b></div>').join('')+'</div>':'')+
+    '<div class="keybox"><b>Lecture utile —</b> Regarde la tendance sur plusieurs semaines. Une mesure isolée varie avec l’eau, les repas et l’heure.</div>';
+}
 function fnum(v, fallback=0){
   const n=Number(String(v??'').replace(',','.'));
   return Number.isFinite(n)?n:fallback;
@@ -1623,7 +2109,7 @@ function renderPeeCatalog(){
   return '<div class="pee-catalog">'+PEE_FUNDS_V9.map(f=>
     '<div class="pee-fund"><div class="pee-fund-top"><h5>'+esc(f.name)+'</h5><span class="pee-badge '+esc(f.role)+'">'+esc(f.badge)+'</span></div>'+
     '<div class="pee-meta"><span class="pee-chip">Risque '+f.risk+'/7</span><span class="pee-chip">Horizon '+esc(f.horizon)+'</span><span class="pee-chip">'+esc(f.target)+'</span></div>'+
-    '<p><b>Composition :</b> '+esc(f.exposure)+'</p><p><b>Pourquoi :</b> '+esc(f.why)+'</p><p><b>Frais :</b> '+esc(f.costs)+'</p><div class="pee-source">Source : '+esc(f.source)+'</div></div>'
+    '<p><b>Composition :</b> '+esc(f.exposure)+'</p><p><b>Pourquoi :</b> '+esc(f.why)+'</p><p><b>Frais :</b> '+esc(f.costs)+'</p>'+sourceBox('peeFund',[{title:f.name+' — document d’informations clés',publisher:'BNP Paribas Asset Management Europe',location:f.source,quality:'Document primaire',kind:'user'}],'Source du support')+'</div>'
   ).join('')+'</div>';
 }
 function renderFinancePersonal(){
@@ -1661,6 +2147,7 @@ function renderFinancePersonal(){
   z.innerHTML=
     '<h3>💶 Pilotage financier personnel · V9 PEE documentée</h3>'+
     '<p class="small muted" style="margin-top:4px">Abondement considéré comme déjà atteint. Les orientations sont fondées sur les DIC que tu as fournis, pas sur une promesse de rendement.</p>'+
+    '<button class="primary edit-data-btn" type="button" onclick="openDataSheet(\'finance\')">✏️ Saisir ou modifier mes montants</button>'+
     '<div class="finance-signal '+cls+'"><div class="dot"></div><div><b>'+esc(d.titre||'Lecture de votre trajectoire')+'</b><p class="small muted" style="margin-top:3px">'+esc(d.synthese||'')+'</p></div></div>'+
     '<h4 style="margin-top:16px">🧮 Vérité du financement</h4>'+
     '<div class="truth-grid">'+
@@ -1733,7 +2220,7 @@ function renderFinancePersonal(){
         finField('lldPayment','LLD mensuelle (€)',financeSettings.lldPayment)+
         finField('lldEnd','Fin de la LLD',financeSettings.lldEnd,'date')+
       '</div><button class="primary" onclick="saveFinanceSettings()">Enregistrer sur cet iPhone</button></details>'+
-    '<p class="finance-note">'+esc(d.note||'')+' Les scénarios des DIC sont des illustrations réglementaires et non des prévisions.</p>';
+    '<p class="finance-note">'+esc(d.note||'')+' Les scénarios des DIC sont des illustrations réglementaires et non des prévisions.</p>'+sourceBox('financePerso',d.sources,'Sources financières et fiscales')+sourceBox('pee',(B.peeV9||{}).sources,'Documents PEE utilisés');
 }
 function finField(id,label,value,type){
   return '<label>'+esc(label)+'<input id="fin-'+id+'" type="'+(type||'number')+'" '+(type==='date'?'':'step="0.1" inputmode="decimal"')+' value="'+esc(value??'')+'"></label>';
@@ -1792,7 +2279,7 @@ function renderProfile(){
   document.getElementById('prof-beststreak').textContent = profile.bestStreak+' j';
   document.getElementById('prof-vocab').textContent = Object.keys(srs).length+' (dont '+Object.values(srs).filter(v=>v.box>=3).length+' bien ancrés)';
   document.getElementById('prof-quiz').textContent = profile.quizOk;
-  const bp=brightStats.attempted?Math.round(brightStats.correct/brightStats.attempted*100):0;document.getElementById('prof-bright').textContent=bp+' % · cible '+brightStats.target;
+  const bp=brightStats.attempted?Math.round(brightStats.correct/brightStats.attempted*100):0;const brLast=brightExam.lastResult;document.getElementById('prof-bright').textContent=brLast?(brLast.level+' · '+brLast.score+' %'):(bp+' % · cible '+brightStats.target);
   document.getElementById('prof-cert').textContent=certState.sessions+' · '+certState.minutes+' min';
   const pm=document.getElementById('profile-mastery'); if(pm) pm.innerHTML=masteryHtml();
   const pc=document.getElementById('personal-caps'); if(pc) pc.innerHTML=PERSONAL_CAPS.map(x=>'<div class="cap"><div class="ci">'+x.i+'</div><b>'+esc(x.t)+'</b><span>'+esc(x.d)+'</span></div>').join('');
@@ -1801,12 +2288,13 @@ function renderProfile(){
   const st=document.getElementById('briefing-import-status');
   const imported=store.get('briefing_override',null);
   if(st && imported && imported.date) st.textContent='✅ Briefing local installé : '+imported.date+'. Collez le prochain JSON ici demain.';
+  renderSourceLibrary((document.getElementById('source-search')||{}).value||'');
 }
 function resetAll(){
   if(!confirm('Effacer toute la progression (XP, série, vocabulaire) ?')) return;
   store.clear();
   profile={xp:0,streak:1,bestStreak:1,lastVisit:todayKey,quizOk:0};
-  daily={read:[],quizDone:false,vocabDone:false,exoDone:false}; srs={}; knowledgeSrs={}; lifeLog={};performanceState={analystAnswers:{},executiveAnswers:{},selfScores:{},completedCases:0};brightStats={attempted:0,correct:0,listening:0,reading:0,grammar:0,vocabulary:0,target:'B1'};certState={sessions:0,minutes:0,deliverables:[],currentProject:'Certification Data Analyst'};weightLog=[];weightSettings={goal:'loss',target:'',current:''};financeSettings={projectCapitalNow:60,emergencyBuffer:'',expectedSaleEquity:60,monthlySavings:200,expectedFutureInflows:19.2,targetContribution:100,targetPropertyPrice:400,acquisitionCostsPct:8,targetDate:'2029-09-01',referenceMortgageRate:3.12,loanYears:25,targetMonthlyPayment:1220,currentMortgageRate:0.95,currentMortgagePayment:1070,lldPayment:500,lldEnd:'2029-04-30',householdNetIncome:'',peaBalance:0.8,abondementReached:true,peeHouseAmount:'',peeEntryFeePayer:'unknown',peeEntryFeePct:'',peeMonetaire:'',peeOblig:'',peeModere:'',peeEquilibre:'',peeDynamique:'',peeActionsEuro:'',peeCroissance:'',peeDiversifie:'',peeBnpStock:'',bnpConcentrationLimit:10};try{localStorage.removeItem('goa_finance_settings_v9')}catch(e){};
+  daily={read:[],quizDone:false,vocabDone:false,exoDone:false}; srs={}; knowledgeSrs={}; lifeLog={};performanceState={analystAnswers:{},executiveAnswers:{},selfScores:{},completedCases:0};brightStats={attempted:0,correct:0,listening:0,reading:0,grammar:0,vocabulary:0,target:'B1'};certState={sessions:0,minutes:0,deliverables:[],currentProject:'Certification Data Analyst'};weightLog=[];weightSettings={goal:'loss',target:'',current:''};privacySettings={masked:false,autoMask:true};brightExam={active:false,index:0,answers:[],startedAt:null,duration:2100,history:[],lastResult:null};financeSettings={projectCapitalNow:60,emergencyBuffer:'',expectedSaleEquity:60,monthlySavings:200,expectedFutureInflows:19.2,targetContribution:100,targetPropertyPrice:400,acquisitionCostsPct:8,targetDate:'2029-09-01',referenceMortgageRate:3.12,loanYears:25,targetMonthlyPayment:1220,currentMortgageRate:0.95,currentMortgagePayment:1070,lldPayment:500,lldEnd:'2029-04-30',householdNetIncome:'',peaBalance:0.8,abondementReached:true,peeHouseAmount:'',peeEntryFeePayer:'unknown',peeEntryFeePct:'',peeMonetaire:'',peeOblig:'',peeModere:'',peeEquilibre:'',peeDynamique:'',peeActionsEuro:'',peeCroissance:'',peeDiversifie:'',peeBnpStock:'',bnpConcentrationLimit:10};try{localStorage.removeItem('goa_finance_settings_v9')}catch(e){};
   save(); renderAll(); toast('Progression réinitialisée');
 }
 
@@ -1829,6 +2317,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){
   navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
 }
 
+applyPrivacy();
 loadBriefing();
 </script>
 </body>

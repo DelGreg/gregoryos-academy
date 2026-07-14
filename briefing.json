@@ -1,10 +1,11 @@
 {
   "date": "2026-07-14",
-  "edition": 1,
+  "edition": 11,
   "demo": true,
   "meta": {
     "titreDuJour": "Édition de démonstration v2",
-    "tempsEstime": 30
+    "tempsEstime": 30,
+    "interface": "V11"
   },
   "news": [
     {
@@ -871,5 +872,84 @@
       "Ne pas compter les scénarios intermédiaires des DIC comme rendements attendus."
     ],
     "verdict": "Si j’étais à ta place aujourd’hui, avec l’abondement déjà obtenu, je ne chercherais pas de rendement supplémentaire avec l’apport. Je construirais une trajectoire automatique vers le monétaire, avec une poche obligataire limitée et décroissante à l’approche de 2029."
+  },
+  "sources": {
+    "marches": [
+      {
+        "title": "Données de marché de l’édition",
+        "publisher": "Reuters, Associated Press et sources citées dans les actualités",
+        "date": "Clôtures disponibles lors de la génération",
+        "quality": "Données externes",
+        "kind": "primary",
+        "note": "Photographie retardée, pas un flux temps réel."
+      }
+    ],
+    "banque": [
+      {
+        "title": "IFRS 9 — Financial Instruments",
+        "publisher": "IFRS Foundation",
+        "date": "Norme en vigueur",
+        "url": "https://www.ifrs.org/issued-standards/list-of-standards/ifrs-9-financial-instruments/",
+        "quality": "Source primaire",
+        "kind": "primary"
+      }
+    ],
+    "financeDeepDive": [
+      {
+        "title": "Projections macroéconomiques et politique monétaire",
+        "publisher": "BCE, Fed, Banque de France et INSEE",
+        "date": "Sources datées dans les actualités",
+        "quality": "Sources primaires",
+        "kind": "primary"
+      }
+    ],
+    "dataDeepDive": [
+      {
+        "title": "Méthode de standardisation et contrôles",
+        "publisher": "Analyse pédagogique GrégoryOS",
+        "date": "14/07/2026",
+        "quality": "Analyse interne",
+        "kind": "analysis",
+        "note": "À adapter au dictionnaire de données et aux règles internes."
+      }
+    ],
+    "bright": [
+      {
+        "title": "Bright General — format officiel",
+        "publisher": "Bright Language",
+        "date": "Site officiel",
+        "url": "https://brightlanguage.com/bright-tests/",
+        "quality": "Source officielle",
+        "kind": "primary"
+      }
+    ],
+    "financePerso": [
+      {
+        "title": "Taux des crédits à l’habitat",
+        "publisher": "Banque de France",
+        "date": "Mise à jour mensuelle",
+        "url": "https://webstat.banque-france.fr/fr/themes/credit-et-titres-de-dette/credit/cout-du-credit/taux-des-credits-aux-menages/",
+        "quality": "Source primaire",
+        "kind": "primary"
+      },
+      {
+        "title": "Règles d’octroi des crédits immobiliers",
+        "publisher": "HCSF",
+        "date": "Règle en vigueur",
+        "url": "https://www.economie.gouv.fr/hcsf/mesures/mesure-relative-loctroi-de-credits-immobiliers",
+        "quality": "Source officielle",
+        "kind": "primary"
+      }
+    ],
+    "pee": [
+      {
+        "title": "Documents d’informations clés des supports du PEE",
+        "publisher": "BNP Paribas Asset Management Europe",
+        "date": "Documents 2025-2026 fournis par Grégory",
+        "quality": "Documents primaires",
+        "kind": "user",
+        "note": "Chaque support affiche la page exacte utilisée."
+      }
+    ]
   }
 }
