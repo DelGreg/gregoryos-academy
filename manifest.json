@@ -1,6 +1,6 @@
 {
-  "name": "GrégoryOS Academy V4",
-  "short_name": "Academy",
+  "name": "GrégoryOS Life V5",
+  "short_name": "GrégoryOS",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
@@ -16,5 +16,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "description": "Assistant personnel quotidien : veille, métier, anglais, culture, charisme et vie personnelle."
 }

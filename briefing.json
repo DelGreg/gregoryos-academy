@@ -477,5 +477,112 @@
       "explication": "Deadline = échéance. Un mot entendu dix fois par jour dans un open space anglophone.",
       "xp": 15
     }
-  ]
+  ],
+  "assistant": {
+    "titre": "Bonjour Grégory — votre progression est structurée",
+    "message": "Cette application relie votre veille, votre métier, votre anglais, votre culture, votre présence professionnelle et vos grands projets personnels.",
+    "prompts": [
+      {
+        "titre": "Préparer une réunion",
+        "description": "Construire un message clair et anticiper les objections.",
+        "prompt": "Aide-moi à préparer une réunion. Demande le contexte puis propose une ouverture de 30 secondes, trois messages clés, les objections probables et des réponses courtes."
+      },
+      {
+        "titre": "Expliquer une analyse",
+        "description": "Passer du détail technique à un message de management.",
+        "prompt": "Aide-moi à transformer mon analyse en restitution de management : constat, causes, contrôles, limites, recommandation et phrase de conclusion."
+      },
+      {
+        "titre": "Réduire ma charge mentale",
+        "description": "Trier ce qui mérite vraiment mon attention.",
+        "prompt": "Aide-moi à trier ce contenu en à décider, à faire, à planifier et à ignorer. Limite-toi aux prochaines étapes utiles."
+      }
+    ]
+  },
+  "charisme": {
+    "theme": "Commencer par la conclusion",
+    "concept": "Une personne paraît plus assurée lorsqu’elle hiérarchise son message et accepte les silences.",
+    "explication": [
+      "Annoncez le constat principal en une phrase.",
+      "Donnez ensuite deux causes maximum.",
+      "Terminez par ce que vous avez vérifié et ce qui reste incertain."
+    ],
+    "scenario": {
+      "question": "Votre manager demande pourquoi le taux de récupération baisse. Quelle réponse ouvre le mieux l’échange ?",
+      "options": [
+        "Je vais reprendre le fichier depuis le début.",
+        "La baisse vient principalement d’un effet de portefeuille et d’un décalage de flux ; je vous montre les deux contrôles.",
+        "C’est compliqué, il y a beaucoup de données."
+      ],
+      "reponse": 1,
+      "explication": "La réponse est concise, structurée et annonce immédiatement les deux axes d’analyse."
+    }
+  },
+  "cultureGenerale": {
+    "parcours": "Fondations — économie et institutions",
+    "titre": "Pourquoi les marchés réagissent aux attentes",
+    "lecon": "Un chiffre n’est jamais jugé seul. Les investisseurs le comparent au consensus déjà intégré dans les prix.",
+    "chronologie": [
+      "Avant la publication : formation du consensus",
+      "Publication : comparaison réel / attendu",
+      "Après : révision des scénarios et des prix"
+    ],
+    "question": {
+      "question": "Une entreprise annonce un bénéfice record mais inférieur aux attentes. Que peut faire l’action ?",
+      "options": [
+        "Monter obligatoirement",
+        "Baisser malgré le record",
+        "Ne jamais bouger"
+      ],
+      "reponse": 1,
+      "explication": "Le marché réagit à la surprise par rapport aux attentes."
+    }
+  },
+  "vie": {
+    "sante": {
+      "titre": "Santé et énergie",
+      "resume": "L’objectif est la régularité, avec une reprise progressive du tapis et une alimentation simple.",
+      "reperes": [
+        "Sommeil compatible avec les réveils tôt",
+        "Séances courtes mais régulières",
+        "Suivi du poids sans obsession quotidienne"
+      ]
+    },
+    "famille": {
+      "titre": "Famille",
+      "resume": "Le téléphone doit s’effacer pendant le repas et la lecture des enfants.",
+      "reperes": [
+        "Retour maison sans réseaux sociaux",
+        "Lecture de 20 à 30 minutes",
+        "Moments familiaux protégés"
+      ]
+    },
+    "immobilier": {
+      "titre": "Projet immobilier 2029",
+      "resume": "L’application gardera le cap sur l’apport, la mensualité supportable et les étapes jusqu’en 2029.",
+      "reperes": [
+        "Épargne et apport",
+        "Capacité d’emprunt",
+        "Veille du marché immobilier"
+      ]
+    },
+    "organisation": {
+      "titre": "Charge mentale",
+      "resume": "Tout capturer dans une boîte unique, puis transformer uniquement les sujets utiles en décisions.",
+      "reperes": [
+        "Boîte mentale",
+        "Agenda",
+        "Rappels ciblés"
+      ]
+    },
+    "numerique": {
+      "titre": "Discipline numérique",
+      "resume": "Le trajet RER est réservé à l’information, l’anglais, la culture et la préparation au travail.",
+      "reperes": [
+        "Truck Star Match hors trajet",
+        "Musique choisie",
+        "Briefing accessible directement"
+      ]
+    }
+  }
 }
