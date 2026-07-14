@@ -584,5 +584,179 @@
         "Briefing accessible directement"
       ]
     }
+  },
+  "performance": {
+    "diagnostic": [
+      {
+        "domaine": "Anglais · compréhension",
+        "niveau": "A2 indicatif",
+        "constat": "Compréhension des phrases professionnelles simples déjà correcte."
+      },
+      {
+        "domaine": "Anglais · production",
+        "niveau": "A1 indicatif",
+        "constat": "Structures de base, prépositions et ordre des mots à automatiser."
+      },
+      {
+        "domaine": "Banque & risque",
+        "niveau": "Bon opérationnel",
+        "constat": "Bons réflexes sur provisions, garanties, comparabilité et coût du risque."
+      },
+      {
+        "domaine": "Data & analyse",
+        "niveau": "Fort opérationnel",
+        "constat": "Capacité à distinguer volume, périmètre, qualité et méthode."
+      },
+      {
+        "domaine": "Marchés",
+        "niveau": "Fondations",
+        "constat": "Approfondir anticipations, consensus, scénarios et transmission macro."
+      },
+      {
+        "domaine": "Communication exécutive",
+        "niveau": "À accélérer",
+        "constat": "Conclusion d’abord, quantification et message sans atténuation."
+      }
+    ],
+    "objectif": "Transformer les bons réflexes techniques en expertise visible, mesurable et réutilisable."
+  },
+  "financeDeepDive": {
+    "titre": "Deep Dive Finance",
+    "these": "Un indicateur de marché doit être relié aux attentes, au mécanisme et aux scénarios.",
+    "mecanisme": [
+      "Fait vérifié",
+      "Consensus",
+      "Surprise",
+      "Transmission aux taux et actifs",
+      "Scénarios de validation"
+    ],
+    "scenarios": {
+      "central": "Inflation plus lente, taux stables puis détente progressive.",
+      "haut": "Choc énergétique durable et taux plus élevés.",
+      "bas": "Ralentissement marqué et baisse rapide des taux."
+    },
+    "question": "Quel chiffre invaliderait le scénario central ?"
+  },
+  "dataDeepDive": {
+    "titre": "Deep Dive Data",
+    "probleme": "Distinguer variation réelle, effet de périmètre et changement méthodologique.",
+    "methode": [
+      "Définir la métrique et son assiette",
+      "Recalculer à règle constante",
+      "Construire un pont de variation",
+      "Segmenter les populations",
+      "Documenter les limites"
+    ],
+    "controles": [
+      "Total de référence",
+      "Doublons",
+      "Nulls",
+      "Périmètre",
+      "Réconciliation"
+    ],
+    "question": "Quel contrôle prouve la comparabilité historique ?"
+  },
+  "analystCase": {
+    "titre": "Cas analyste · récupération",
+    "contexte": "Les récupérations progressent de 20 %, mais le volume entrant augmente et les garanties se renforcent.",
+    "donnees": [
+      "Récupérations +20 %",
+      "Volume entrant +12 points",
+      "Garanties +6 points",
+      "Effet opérationnel +2 points"
+    ],
+    "question": "Rédigez une conclusion exécutive en deux phrases.",
+    "attendus": [
+      "Conclusion d’abord",
+      "Effets portefeuille vs opérationnel",
+      "Quantification",
+      "Prudence causale"
+    ],
+    "modele": "La hausse de 20 % provient à 90 % d’effets de portefeuille : 60 % d’un volume entrant plus élevé et 30 % de dossiers mieux garantis. L’amélioration opérationnelle réelle n’explique que 10 % de la progression.",
+    "rubrique": [
+      {
+        "critere": "Conclusion",
+        "description": "Message principal dès la première phrase."
+      },
+      {
+        "critere": "Quantification",
+        "description": "Contributions chiffrées et cohérentes."
+      },
+      {
+        "critere": "Prudence",
+        "description": "Aucune causalité non prouvée."
+      }
+    ]
+  },
+  "executiveDrill": {
+    "titre": "Communication exécutive",
+    "situation": "Votre manager demande pourquoi l’indicateur progresse fortement.",
+    "contrainte": "Réponse en 30 secondes, conclusion puis deux causes maximum.",
+    "question": "Que répondez-vous ?",
+    "modele": "L’indicateur progresse, mais 80 % de la hausse provient du changement de méthode. L’amélioration opérationnelle réelle représente 20 % de la progression.",
+    "criteres": [
+      "Conclusion immédiate",
+      "Chiffres précis",
+      "Deux phrases maximum",
+      "Aucune formule défensive"
+    ]
+  },
+  "bright": {
+    "objectif": "B1 intermédiaire au plus tard fin 2026",
+    "format": "Compréhension orale et écrite, grammaire, vocabulaire et situations professionnelles.",
+    "listening": {
+      "audio": "Could you send me the updated report before the meeting?",
+      "question": "Que demande la personne ?",
+      "options": [
+        "Envoyer le rapport mis à jour avant la réunion",
+        "Annuler la réunion",
+        "Corriger uniquement le titre"
+      ],
+      "reponse": 0,
+      "explication": "before the meeting = avant la réunion."
+    },
+    "reading": {
+      "question": "The figures are accurate, but the comparison period has changed. What is the main risk?",
+      "options": [
+        "The figures are false",
+        "The analysis may not be comparable",
+        "The file cannot be opened"
+      ],
+      "reponse": 1,
+      "explication": "La période de comparaison modifiée menace la comparabilité."
+    },
+    "grammar": {
+      "question": "Choose the correct sentence.",
+      "options": [
+        "I need more time to verify the data.",
+        "I need to more time verify the data.",
+        "I need more time for verify data."
+      ],
+      "reponse": 0,
+      "explication": "Need + nom, puis to + verbe."
+    },
+    "vocabulary": {
+      "question": "In a financial report, “figures” usually means:",
+      "options": [
+        "Personnages",
+        "Chiffres",
+        "Dessins"
+      ],
+      "reponse": 1,
+      "explication": "Figures = chiffres dans ce contexte."
+    }
+  },
+  "certification": {
+    "titre": "Certification Data Analyst",
+    "objectif": "Transformer chaque projet en preuve de compétence et préparer des soutenances nettes.",
+    "prochaineEtape": "Définir le livrable, les critères d’évaluation et les preuves à montrer.",
+    "evidence": [
+      "README clair",
+      "Tests documentés",
+      "Choix techniques justifiés",
+      "Capture avant/après",
+      "Présentation de 3 minutes"
+    ],
+    "oral": "Conclusion, méthode, résultat, limites, prochaine étape."
   }
 }

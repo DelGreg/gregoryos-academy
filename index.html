@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<title>GrégoryOS Life V5</title>
+<title>GrégoryOS Performance V6</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GrégoryOS">
@@ -260,6 +260,20 @@ function answerScenario(btn,i,correct,explanation){
   background:var(--text);color:var(--bg);border-radius:20px;padding:10px 18px;font-weight:700;font-size:.9rem;
   opacity:0;transition:all .3s ease;z-index:60;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- V6 : centre d'entraînement adaptatif ---------- */
+.diagnostic-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.skill-card{background:var(--card2);border-radius:14px;padding:12px}.skill-card b{display:block;font-size:.9rem}.skill-card span{display:block;font-size:.78rem;color:var(--text2);line-height:1.35;margin-top:4px}.level-tag{display:inline-flex;margin-top:7px;padding:4px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:.72rem;font-weight:800}
+.labbox{border-left:4px solid var(--metier)}.deep-finance{border-left:4px solid var(--banque)}.deep-data{border-left:4px solid var(--ia)}.bright-card{border-left:4px solid var(--english)}.cert-card{border-left:4px solid var(--comprendre)}
+.lab-textarea{width:100%;min-height:120px;resize:vertical;margin-top:10px;padding:12px;border:1px solid var(--sep);border-radius:14px;background:var(--card2);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif}
+.lab-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.lab-actions button{border:none;border-radius:13px;padding:12px;font-weight:800}.reveal{background:var(--card2);color:var(--accent)}.saveanswer{background:var(--accent);color:#fff}.rubric{display:grid;gap:8px;margin-top:12px}.rubric-row{background:var(--card2);border-radius:12px;padding:10px 12px}.rubric-row b{font-size:.8rem}.rubric-row span{display:block;font-size:.8rem;color:var(--text2);margin-top:3px;line-height:1.35}
+.scenario-box{background:linear-gradient(145deg,var(--card2),var(--card));border-radius:14px;padding:13px;margin-top:10px}.scenario-box .qmeta{margin-bottom:5px}.model-answer{display:none;margin-top:12px}.model-answer.show{display:block}.score-choices{display:flex;gap:8px;margin-top:10px}.score-choices button{flex:1;border:none;border-radius:12px;padding:10px;background:var(--card2);color:var(--text);font-weight:700}.score-choices button.selected{background:var(--accent);color:#fff}
+.bright-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.bright-stat{background:var(--card2);border-radius:14px;padding:12px}.bright-stat b{font-size:1.15rem}.bright-stat span{display:block;font-size:.74rem;color:var(--text2);margin-top:3px}.timer{display:flex;align-items:center;justify-content:space-between;background:var(--card2);border-radius:13px;padding:10px 12px;margin-top:10px}.timer b{font-variant-numeric:tabular-nums}.listen-btn{border:none;background:var(--english);color:#fff;border-radius:13px;padding:11px 14px;font-weight:800;margin-top:10px}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.cert-metric{background:var(--card2);border-radius:14px;padding:12px}.cert-metric b{font-size:1.05rem}.cert-metric span{display:block;color:var(--text2);font-size:.76rem;margin-top:3px}.cert-input{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}.cert-input input{min-width:0;border:1px solid var(--sep);border-radius:12px;background:var(--card2);color:var(--text);padding:11px}.cert-input button{border:none;background:var(--comprendre);color:#111;border-radius:12px;padding:0 14px;font-weight:800}
+.weight-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.weight-form input,.weight-form select{width:100%;border:1px solid var(--sep);border-radius:12px;background:var(--card2);color:var(--text);padding:11px}.weight-form button{grid-column:1/-1;border:none;background:var(--health);color:#fff;border-radius:13px;padding:12px;font-weight:800}.weight-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.weight-summary div{background:var(--card2);border-radius:12px;padding:10px;text-align:center}.weight-summary b{display:block}.weight-summary span{font-size:.72rem;color:var(--text2)}.weight-list{display:grid;gap:7px;margin-top:10px}.weight-row{display:flex;justify-content:space-between;background:var(--card2);border-radius:11px;padding:9px 11px;font-size:.82rem}
+.exam-banner{background:linear-gradient(145deg,var(--english),#3c3fcf);color:#fff;border-radius:16px;padding:14px;margin-top:10px}.exam-banner h3,.exam-banner p{color:#fff}.exam-banner p{opacity:.9;margin-top:5px}.official-link{display:inline-flex;margin-top:10px;color:var(--english);font-weight:800;text-decoration:none}
+@media(max-width:410px){.diagnostic-grid,.cert-grid,.weight-form{grid-template-columns:1fr}.bright-grid{grid-template-columns:1fr 1fr}.weight-form button{grid-column:auto}.lab-actions{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -332,6 +346,13 @@ function answerScenario(btn,i,correct,explanation){
         <div class="method"><b>Méthode Feynman</b><span>Vous reformulez avec des mots simples.</span></div>
       </div>
     </div>
+    <div class="card" id="performance-diagnostic"></div>
+    <div class="card deep-finance" id="finance-deep"></div>
+    <div class="card deep-data" id="data-deep"></div>
+    <div class="card labbox" id="analyst-lab"></div>
+    <div class="card charisma-card" id="executive-lab"></div>
+    <div class="card bright-card" id="bright-lab"></div>
+    <div class="card cert-card" id="certification-lab"></div>
     <div class="card" id="academy-mastery"></div>
     <div class="card" id="academy-review"></div>
     <div class="card charisma-card" id="academy-charisma"></div>
@@ -348,7 +369,7 @@ function answerScenario(btn,i,correct,explanation){
     </header>
     <div class="card audio-panel">
       <h3>🔊 Laboratoire audio</h3>
-      <p class="small muted" style="margin-top:4px">Touchez d’abord « Tester le son ». La V5 charge explicitement une voix anglaise et affiche l’état de lecture.</p>
+      <p class="small muted" style="margin-top:4px">Touchez d’abord « Tester le son ». La V6 charge explicitement une voix anglaise et affiche l’état de lecture.</p>
       <div class="audio-controls">
         <button class="primary-audio" id="audio-test" type="button">Tester le son</button>
         <button id="audio-slow" type="button">🐢 Lent</button>
@@ -400,6 +421,7 @@ function answerScenario(btn,i,correct,explanation){
     </header>
     <div class="card" id="life-overview"></div>
     <div class="life-grid" id="life-cards"></div>
+    <div class="card" id="weight-lab"></div>
     <div class="card" id="habit-card"></div>
     <div class="card brainbox">
       <h3>🧠 Boîte mentale</h3>
@@ -429,6 +451,8 @@ function answerScenario(btn,i,correct,explanation){
       <div class="statline"><span class="k">Meilleure série</span><span class="v" id="prof-beststreak">—</span></div>
       <div class="statline"><span class="k">Mots d'anglais en mémoire</span><span class="v" id="prof-vocab">—</span></div>
       <div class="statline"><span class="k">Quiz réussis</span><span class="v" id="prof-quiz">—</span></div>
+      <div class="statline"><span class="k">Bright · précision</span><span class="v" id="prof-bright">—</span></div>
+      <div class="statline"><span class="k">Certification · séances</span><span class="v" id="prof-cert">—</span></div>
     </div>
     <div class="card">
       <h3>📊 Maîtrise par domaine</h3>
@@ -440,7 +464,7 @@ function answerScenario(btn,i,correct,explanation){
     </div>
     <div class="card audio-panel">
       <h3>🔈 Diagnostic du son</h3>
-      <p class="small muted" style="margin-top:5px">La V5 utilise une voix anglaise chargée par l’iPhone. Testez-la ici avant votre première séance.</p>
+      <p class="small muted" style="margin-top:5px">La V6 utilise une voix anglaise chargée par l’iPhone. Testez-la ici avant votre première séance.</p>
       <button class="primary" style="background:var(--english)" onclick="audioDiagnostic()">Tester : “Good morning, Grégory”</button>
       <div class="audio-status" id="profile-audio-status">Pas encore testé.</div>
     </div>
@@ -459,7 +483,7 @@ function answerScenario(btn,i,correct,explanation){
       <div class="update-status" id="briefing-import-status">Le dernier briefing installé reste enregistré uniquement sur cet iPhone.</div>
     </div>
     <div class="card">
-      <p class="small muted">Les données de progression, les notes, les habitudes et les enregistrements temporaires restent sur cet appareil.</p><p style="margin-top:8px"><span class="version">GrégoryOS Life · V5</span></p>
+      <p class="small muted">Les données de progression, les notes, les habitudes et les enregistrements temporaires restent sur cet appareil.</p><p style="margin-top:8px"><span class="version">GrégoryOS Performance · V6</span></p>
       <button class="primary" style="background:var(--down)" onclick="resetAll()">Réinitialiser la progression</button>
     </div>
   </section>
@@ -501,7 +525,7 @@ function answerScenario(btn,i,correct,explanation){
 </nav>
 <script>
 /* =====================================================================
-   GrégoryOS Life V5 — assistant personnel et moteur d’apprentissage
+   GrégoryOS Performance V6 — assistant personnel et moteur d’apprentissage
    Architecture : interface fixe + contenu quotidien dans briefing.json.
    Remplacez briefing.json chaque matin, ne touchez jamais à ce fichier.
    ===================================================================== */
@@ -522,6 +546,13 @@ let daily   = store.get('daily_'+todayKey, {read:[], quizDone:false, vocabDone:f
 let srs     = store.get('srs', {});  // vocabulaire anglais
 let knowledgeSrs = store.get('knowledge_srs', {}); // notions métiers, culture et charisme
 let lifeLog = store.get('life_'+todayKey, {});
+let performanceState = store.get('performance_state', {analystAnswers:{}, executiveAnswers:{}, selfScores:{}, completedCases:0});
+let brightStats = store.get('bright_stats', {attempted:0, correct:0, listening:0, reading:0, grammar:0, vocabulary:0, target:'B1'});
+let certState = store.get('cert_state', {sessions:0, minutes:0, deliverables:[], currentProject:'Certification Data Analyst'});
+let weightLog = store.get('weight_log', []);
+let weightSettings = store.get('weight_settings', {goal:'loss', target:'', current:''});
+let brightTimerHandle=null, brightSeconds=0;
+
 
 /* Objectifs du jour = rubriques + quiz */
 const SECTIONS = [
@@ -658,6 +689,30 @@ function normalizeBriefing(x){
     organisation:{titre:'Charge mentale',resume:'Capturer les pensées, décider plus tard et ne conserver que les prochaines étapes.',reperes:['Boîte mentale','Agenda','Rappels']},
     numerique:{titre:'Discipline numérique',resume:'Le trajet devient un temps de culture, d’anglais et de préparation au travail.',reperes:['Jeux hors trajet','Briefing','Musique choisie']}
   };
+  x.performance=x.performance||{
+    diagnostic:[
+      {domaine:'Anglais · compréhension',niveau:'A2 indicatif',constat:'Compréhension des phrases professionnelles simples déjà correcte.'},
+      {domaine:'Anglais · production',niveau:'A1 indicatif',constat:'Structures de base à automatiser : prépositions, ordre des mots et verbes fréquents.'},
+      {domaine:'Banque & risque',niveau:'Bon opérationnel',constat:'Bons réflexes sur provisions, garanties, comparabilité et coût du risque.'},
+      {domaine:'Data & analyse',niveau:'Fort opérationnel',constat:'Capacité à identifier volume, périmètre, qualité et effets de méthode.'},
+      {domaine:'Marchés',niveau:'Fondations',constat:'Approfondir anticipations, consensus, scénarios et transmission macro.'},
+      {domaine:'Communication exécutive',niveau:'À accélérer',constat:'Conclusion d’abord, quantification et message sans atténuation.'}
+    ],
+    objectif:'Transformer les bons réflexes techniques en expertise visible, mesurable et réutilisable.'
+  };
+  x.financeDeepDive=x.financeDeepDive||{titre:'Deep Dive Finance',these:'Un indicateur n’a de valeur que replacé dans un mécanisme, un scénario et une anticipation de marché.',mecanisme:['Fait vérifié','Attentes du marché','Canal de transmission','Scénarios','Indicateurs de validation'],scenarios:{central:'Scénario de base à confirmer.',haut:'Risque haussier.',bas:'Risque baissier.'},question:'Quel élément invaliderait votre scénario central ?'};
+  x.dataDeepDive=x.dataDeepDive||{titre:'Deep Dive Data',probleme:'Distinguer variation réelle, effet de périmètre et changement méthodologique.',methode:['Définir la métrique et l’assiette','Recalculer à règles constantes','Construire un pont de variation','Tester les ruptures','Documenter les limites'],controles:['Total de référence','Doublons','Valeurs nulles','Périmètre','Réconciliation'],question:'Quel contrôle prouve que le résultat est comparable ?'};
+  x.analystCase=x.analystCase||{titre:'Cas analyste',contexte:'Les récupérations progressent de 20 %, mais le volume entrant augmente et les garanties se renforcent.',donnees:['Récupérations +20 %','Volume entrant +12 %','Garanties +6 points','Effet opérationnel estimé +2 points'],question:'Rédigez une conclusion exécutive en deux phrases.',attendus:['Commencer par la conclusion','Distinguer effet portefeuille et opérationnel','Quantifier les contributions','Éviter une causalité non prouvée'],modele:'La hausse de 20 % provient à 90 % d’effets de portefeuille : 60 % d’un volume entrant plus élevé et 30 % de dossiers mieux garantis. L’amélioration opérationnelle réelle n’explique que 10 % de la progression.',rubrique:[{critere:'Conclusion',description:'Le message principal apparaît dès la première phrase.'},{critere:'Quantification',description:'Les contributions sont chiffrées et cohérentes.'},{critere:'Prudence',description:'Aucune causalité n’est affirmée sans preuve.'}]};
+  x.executiveDrill=x.executiveDrill||{titre:'Communication exécutive',situation:'Votre manager demande pourquoi l’indicateur progresse fortement.',contrainte:'Réponse en 30 secondes, conclusion puis deux causes maximum.',question:'Que répondez-vous ?',modele:'L’indicateur progresse, mais 80 % de la hausse provient du changement de méthode. L’amélioration opérationnelle réelle représente 20 % de la progression.',criteres:['Conclusion immédiate','Chiffres précis','Deux phrases maximum','Aucune formule défensive']};
+  x.bright=x.bright||{
+    objectif:'B1 intermédiaire au plus tard fin 2026',
+    format:'Préparation ciblée : compréhension orale et écrite, grammaire, vocabulaire et situations professionnelles.',
+    listening:{audio:'Could you send me the updated report before the meeting?',question:'Que demande la personne ?',options:['Envoyer le rapport mis à jour avant la réunion','Annuler la réunion','Corriger uniquement le titre'],reponse:0,explication:'before the meeting = avant la réunion.'},
+    reading:{question:'The figures are accurate, but the comparison period has changed. What is the main risk?',options:['The figures are false','The analysis may not be comparable','The file cannot be opened'],reponse:1,explication:'Le risque vient de la période de comparaison modifiée.'},
+    grammar:{question:'Choose the correct sentence.',options:['I need more time to verify the data.','I need to more time verify the data.','I need more time for verify data.'],reponse:0,explication:'Need + nom : I need more time. Puis to + verbe : to verify.'},
+    vocabulary:{question:'In a financial report, “figures” usually means:',options:['Personnages','Chiffres','Dessins'],reponse:1,explication:'Figures = chiffres/données dans un contexte professionnel.'}
+  };
+  x.certification=x.certification||{titre:'Certification Data Analyst',objectif:'Transformer chaque projet en preuve de compétence et préparer des soutenances nettes.',prochaineEtape:'Définir le livrable, les critères d’évaluation et les preuves à montrer.',evidence:['README clair','Tests documentés','Choix techniques justifiés','Capture avant/après','Présentation de 3 minutes'],oral:'Conclusion, méthode, résultat, limites, prochaine étape.'};
   return x;
 }
 
@@ -705,7 +760,7 @@ const DEMO_BRIEFING = {"date": "2026-07-14", "edition": 1, "demo": true, "meta":
    ===================================================================== */
 function renderAll(){
   renderHeader(); renderAssistantHeader(); renderSessions(); renderTiles(); renderUne(); renderMarkets();
-  renderEnglish(); renderAcademy(); renderQuiz(); renderLife(); renderProfile(); refreshStats();
+  renderEnglish(); renderAcademy(); renderPerformance(); renderQuiz(); renderLife(); renderProfile(); refreshStats();
 }
 
 function renderHeader(){
@@ -898,6 +953,54 @@ function openMarketsSheet(){
   const rows=listify(m.indices).map(x=>{const v=Number(x.variation)||0;return '<div class="mkt">'+sparkline(x.spark,v>=0)+'<div class="name"><b>'+esc(x.nom)+'</b><span>'+esc(x.commentaire||'')+'</span></div><div class="val"><b class="mono">'+esc(x.valeur)+'</b><span class="pill '+(v>=0?'up':'down')+'">'+(v>=0?'▲ +':'▼ ')+v.toFixed(2).replace('.',',')+' %</span></div></div>'}).join('');
   openSheet('📈 Marchés','<div class="card"><p>'+esc(m.commentaire||'')+'</p></div><div class="card">'+rows+'</div><div class="card"><h3>À surveiller</h3><ul class="watch">'+listify(m.aSurveiller).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>');
   if(!daily.marketsSeen){daily.marketsSeen=true;save();gainXP(10,'marchés consultés');refreshStats()}
+}
+
+
+/* ---------- V6 : centre d'entraînement adaptatif ---------- */
+function diagnosticHtml(){
+  const p=B.performance||{}, rows=listify(p.diagnostic);
+  return '<h3>🧭 Diagnostic adaptatif</h3><p class="small muted" style="margin-top:4px">Diagnostic indicatif issu de vos réponses, sans valeur de certification.</p><div class="diagnostic-grid">'+rows.map(x=>'<div class="skill-card"><b>'+esc(x.domaine)+'</b><span>'+esc(x.constat)+'</span><div class="level-tag">'+esc(x.niveau)+'</div></div>').join('')+'</div><div class="keybox"><b>Cap —</b> '+esc(p.objectif||'')+'</div>';
+}
+function deepDiveHtml(obj,icon){
+  const scenarios=obj.scenarios||{};
+  return '<h3>'+icon+' '+esc(obj.titre||'Deep Dive')+'</h3><p style="margin-top:7px">'+esc(obj.these||obj.probleme||'')+'</p>'+
+    (listify(obj.mecanisme||obj.methode).length?'<div class="flow">'+listify(obj.mecanisme||obj.methode).map((x,i)=>'<div><b>'+(i+1)+'.</b> '+esc(x)+'</div>').join('')+'</div>':'')+
+    (listify(obj.controles).length?'<h3 style="margin-top:14px">Contrôles</h3><div class="chips">'+listify(obj.controles).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div>':'')+
+    (obj.scenarios?'<div class="impact" style="margin-top:12px"><div class="imp"><b>Central</b><span>'+esc(scenarios.central||'')+'</span></div><div class="imp"><b>Haussier</b><span>'+esc(scenarios.haut||'')+'</span></div><div class="imp"><b>Baissier</b><span>'+esc(scenarios.bas||'')+'</span></div></div>':'')+
+    '<div class="keybox"><b>Question d’analyste —</b> '+esc(obj.question||'')+'</div>';
+}
+function answerKey(prefix){return prefix+'-'+(B.date||todayKey)}
+function saveLabAnswer(type){
+  const id=type==='analyst'?'analyst-answer':'executive-answer', el=document.getElementById(id); if(!el)return;
+  const key=answerKey(type); performanceState[type+'Answers']=performanceState[type+'Answers']||{};performanceState[type+'Answers'][key]=el.value.trim();store.set('performance_state',performanceState);toast('Réponse enregistrée');
+}
+function revealModel(type){const id=type==='analyst'?'analyst-model':'executive-model';const z=document.getElementById(id);if(z)z.classList.add('show')}
+async function coachLab(type,tool){const isA=type==='analyst',obj=isA?(B.analystCase||{}):(B.executiveDrill||{}),el=document.getElementById(isA?'analyst-answer':'executive-answer');const ans=(el&&el.value.trim())||'';if(!ans){toast('Écrivez d’abord votre réponse');return}const prompt='Agis comme un manager exécutif et coach exigeant. Évalue ma réponse sans complaisance. Sujet : '+(obj.question||obj.situation||'')+'\nMa réponse : '+ans+'\nCritères : '+listify(isA?obj.attendus:obj.criteres).join('; ')+'\nDonne : 1) note sur 10, 2) ce qui est fort, 3) ce qui dilue le message, 4) une version améliorée en deux phrases, 5) un exercice ciblé.';await copyText(prompt);toast('Demande de correction copiée');setTimeout(()=>window.open(tool==='claude'?'https://claude.ai/new':'https://chatgpt.com/','_blank'),250)}
+function setSelfScore(type,score,btn){performanceState.selfScores[answerKey(type)]=score;store.set('performance_state',performanceState);btn.parentElement.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');if(score>=3)gainXP(20,type==='analyst'?'cas analyste':'communication exécutive')}
+function analystLabHtml(){
+  const a=B.analystCase||{}, saved=((performanceState.analystAnswers||{})[answerKey('analyst')]||'');
+  return '<h3>🧪 '+esc(a.titre||'Cas analyste')+'</h3><p style="margin-top:7px">'+esc(a.contexte||'')+'</p><div class="chips">'+listify(a.donnees).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div><div class="scenario-box"><div class="qmeta">PRODUCTION ATTENDUE</div><b>'+esc(a.question||'')+'</b><textarea class="lab-textarea" id="analyst-answer" placeholder="Écrivez votre conclusion avant de regarder le modèle…">'+esc(saved)+'</textarea><div class="lab-actions"><button class="saveanswer" onclick="saveLabAnswer(\'analyst\')">Enregistrer</button><button class="reveal" onclick="revealModel(\'analyst\')">Comparer au modèle</button></div><div class="lab-actions"><button class="saveanswer" onclick="coachLab(\'analyst\',\'chatgpt\')">Correction ChatGPT</button><button class="reveal" onclick="coachLab(\'analyst\',\'claude\')">Correction Claude</button></div><div class="model-answer" id="analyst-model"><div class="keybox"><b>Réponse modèle —</b> '+esc(a.modele||'')+'</div><div class="rubric">'+listify(a.rubrique).map(x=>'<div class="rubric-row"><b>'+esc(x.critere)+'</b><span>'+esc(x.description)+'</span></div>').join('')+'</div><p class="small muted" style="margin-top:10px">Auto-évaluation honnête :</p><div class="score-choices"><button onclick="setSelfScore(\'analyst\',1,this)">1 · À refaire</button><button onclick="setSelfScore(\'analyst\',2,this)">2 · Correct</button><button onclick="setSelfScore(\'analyst\',3,this)">3 · Exécutif</button></div></div></div>';
+}
+function executiveLabHtml(){
+  const a=B.executiveDrill||{}, saved=((performanceState.executiveAnswers||{})[answerKey('executive')]||'');
+  return '<h3>🎙️ '+esc(a.titre||'Communication exécutive')+'</h3><p style="margin-top:7px">'+esc(a.situation||'')+'</p><div class="keybox"><b>Contrainte —</b> '+esc(a.contrainte||'')+'</div><textarea class="lab-textarea" id="executive-answer" placeholder="Votre réponse en deux phrases maximum…">'+esc(saved)+'</textarea><div class="lab-actions"><button class="saveanswer" onclick="saveLabAnswer(\'executive\')">Enregistrer</button><button class="reveal" onclick="revealModel(\'executive\')">Voir la réponse forte</button></div><div class="lab-actions"><button class="saveanswer" onclick="coachLab(\'executive\',\'chatgpt\')">Correction ChatGPT</button><button class="reveal" onclick="coachLab(\'executive\',\'claude\')">Correction Claude</button></div><div class="model-answer" id="executive-model"><div class="keybox"><b>Réponse forte —</b> '+esc(a.modele||'')+'</div><div class="chips">'+listify(a.criteres).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div><div class="score-choices"><button onclick="setSelfScore(\'executive\',1,this)">1 · Flou</button><button onclick="setSelfScore(\'executive\',2,this)">2 · Clair</button><button onclick="setSelfScore(\'executive\',3,this)">3 · Impactant</button></div></div>';
+}
+function startBrightTimer(){clearInterval(brightTimerHandle);brightSeconds=45;const z=document.getElementById('bright-timer');if(z)z.textContent='00:45';brightTimerHandle=setInterval(()=>{brightSeconds--;if(z)z.textContent='00:'+String(Math.max(0,brightSeconds)).padStart(2,'0');if(brightSeconds<=0){clearInterval(brightTimerHandle);toast('Temps écoulé : répondez puis lisez l’explication.')}},1000)}
+function brightQuestionHtml(q,type,listen){if(!q)return '';return '<div class="scenario-box"><div class="qmeta">'+esc(type)+'</div>'+(listen?'<button class="listen-btn" onclick="speak('+jsq(q.audio||'')+',\'en-GB\',.72);startBrightTimer()">🔊 Écouter · 45 s</button>':'<div class="timer"><span>Temps conseillé</span><b>45 s</b></div>')+'<h3 style="margin-top:10px">'+esc(q.question||'')+'</h3>'+listify(q.options).map((o,i)=>'<button class="qopt" onclick="answerBright(this,'+i+','+Number(q.reponse||0)+','+jsq(q.explication||'')+','+jsq(type)+')">'+esc(o)+'</button>').join('')+'<div class="bright-explain"></div></div>'}
+function answerBright(btn,i,correct,explanation,type){const box=btn.closest('.scenario-box');box.querySelectorAll('.qopt').forEach((b,j)=>{b.disabled=true;if(j===correct)b.classList.add('correct')});if(i!==correct)btn.classList.add('wrong');box.querySelector('.bright-explain').innerHTML='<div class="explain">'+esc(explanation)+'</div>';brightStats.attempted++;if(i===correct){brightStats.correct++;const key=String(type).toLowerCase().includes('oral')?'listening':String(type).toLowerCase().includes('écrit')?'reading':String(type).toLowerCase().includes('gram')?'grammar':'vocabulary';brightStats[key]=(brightStats[key]||0)+1;gainXP(10,'Bright')};store.set('bright_stats',brightStats);renderBrightHeader()}
+function renderBrightHeader(){const z=document.getElementById('bright-summary');if(!z)return;const pct=brightStats.attempted?Math.round(brightStats.correct/brightStats.attempted*100):0;z.innerHTML='<div class="bright-grid"><div class="bright-stat"><b>'+pct+' %</b><span>Précision cumulée</span></div><div class="bright-stat"><b>'+brightStats.attempted+'</b><span>Questions traitées</span></div><div class="bright-stat"><b>'+esc(brightStats.target)+'</b><span>Cible fin 2026</span></div><div class="bright-stat"><b>120</b><span>Questions test complet</span></div></div>'}
+function brightLabHtml(){const b=B.bright||{};return '<h3>🇬🇧 Bright Accelerator</h3><div class="exam-banner"><h3>'+esc(b.objectif||'Objectif intermédiaire')+'</h3><p>'+esc(b.format||'')+'</p></div><div id="bright-summary"></div>'+brightQuestionHtml(b.listening,'Compréhension orale',true)+brightQuestionHtml(b.reading,'Compréhension écrite',false)+brightQuestionHtml(b.grammar,'Grammaire',false)+brightQuestionHtml(b.vocabulary,'Vocabulaire',false)+'<a class="official-link" href="https://brightlanguage.com/bright-tests/" target="_blank" rel="noopener">Format officiel Bright ↗</a>'}
+function addCertSession(){const min=Math.max(0,Number(document.getElementById('cert-minutes').value||0));if(!min)return;certState.sessions++;certState.minutes+=min;store.set('cert_state',certState);document.getElementById('cert-minutes').value='';renderCertification();gainXP(Math.min(30,Math.round(min/5)),'certification')}
+function addDeliverable(){const el=document.getElementById('cert-deliverable'),v=el.value.trim();if(!v)return;certState.deliverables.push({text:v,date:todayKey});store.set('cert_state',certState);el.value='';renderCertification()}
+function renderCertification(){const z=document.getElementById('certification-lab');if(!z)return;const c=B.certification||{};z.innerHTML='<h3>🎓 '+esc(c.titre||'Certification')+'</h3><p style="margin-top:7px">'+esc(c.objectif||'')+'</p><div class="cert-grid"><div class="cert-metric"><b>'+certState.sessions+'</b><span>Séances enregistrées</span></div><div class="cert-metric"><b>'+certState.minutes+' min</b><span>Travail cumulé</span></div></div><div class="keybox"><b>Prochaine étape —</b> '+esc(c.prochaineEtape||'')+'</div><h3 style="margin-top:14px">Preuves à accumuler</h3><div class="chips">'+listify(c.evidence).map(x=>'<span class="chipk">'+esc(x)+'</span>').join('')+'</div><div class="cert-input"><input id="cert-minutes" type="number" min="1" inputmode="numeric" placeholder="Minutes travaillées"><button onclick="addCertSession()">Ajouter</button></div><div class="cert-input"><input id="cert-deliverable" placeholder="Preuve ou livrable terminé"><button onclick="addDeliverable()">Ajouter</button></div>'+(certState.deliverables.length?'<div class="weight-list">'+certState.deliverables.slice(-5).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.text)+'</span><b>'+esc(x.date)+'</b></div>').join('')+'</div>':'')+'<div class="keybox"><b>Soutenance —</b> '+esc(c.oral||'')+'</div>'}
+function renderPerformance(){
+  const d=document.getElementById('performance-diagnostic');if(d)d.innerHTML=diagnosticHtml();
+  const f=document.getElementById('finance-deep');if(f)f.innerHTML=deepDiveHtml(B.financeDeepDive||{},'📈');
+  const da=document.getElementById('data-deep');if(da)da.innerHTML=deepDiveHtml(B.dataDeepDive||{},'🧮');
+  const a=document.getElementById('analyst-lab');if(a)a.innerHTML=analystLabHtml();
+  const e=document.getElementById('executive-lab');if(e)e.innerHTML=executiveLabHtml();
+  const br=document.getElementById('bright-lab');if(br){br.innerHTML=brightLabHtml();renderBrightHeader()}
+  renderCertification();
 }
 
 /* ---------- English Academy ---------- */
@@ -1198,6 +1301,12 @@ function answerQ(btn,i){
     '<button class="primary" onclick="qIdx++;showQuestion()">'+(qIdx+1<(B.quiz||[]).length?'Question suivante':'Voir le résultat')+'</button>';
 }
 
+
+/* ---------- V6 : poids et forme ---------- */
+function weightTrend(){if(weightLog.length<2)return null;const a=weightLog[0].weight,b=weightLog[weightLog.length-1].weight;return +(b-a).toFixed(1)}
+function addWeight(){const w=Number(document.getElementById('weight-value').value);if(!w||w<30||w>250){toast('Poids invalide');return}const goal=document.getElementById('weight-goal').value,target=document.getElementById('weight-target').value;weightSettings.goal=goal;weightSettings.target=target;weightSettings.current=w;weightLog.push({date:todayKey,weight:w});weightLog=weightLog.slice(-90);store.set('weight_settings',weightSettings);store.set('weight_log',weightLog);renderWeight();toast('Mesure enregistrée')}
+function renderWeight(){const z=document.getElementById('weight-lab');if(!z)return;const last=weightLog.length?weightLog[weightLog.length-1].weight:'—',trend=weightTrend(),goalLabels={loss:'Perte de poids',maintain:'Maintien',gain:'Prise de poids'};z.innerHTML='<h3>⚖️ Poids & forme</h3><p class="small muted" style="margin-top:4px">Suivi de tendance, sans obsession quotidienne. L’objectif est configurable.</p><div class="weight-summary"><div><b>'+last+'</b><span>Dernière mesure kg</span></div><div><b>'+(trend===null?'—':(trend>0?'+':'')+trend)+'</b><span>Évolution kg</span></div><div><b>'+esc(weightSettings.target||'—')+'</b><span>Cible kg</span></div></div><div class="weight-form"><select id="weight-goal"><option value="loss" '+(weightSettings.goal==='loss'?'selected':'')+'>Perte de poids</option><option value="maintain" '+(weightSettings.goal==='maintain'?'selected':'')+'>Maintien</option><option value="gain" '+(weightSettings.goal==='gain'?'selected':'')+'>Prise de poids</option></select><input id="weight-target" type="number" step="0.1" inputmode="decimal" value="'+esc(weightSettings.target||'')+'" placeholder="Poids cible"><input id="weight-value" type="number" step="0.1" inputmode="decimal" placeholder="Poids du jour"><button onclick="addWeight()">Enregistrer</button></div>'+(weightLog.length?'<div class="weight-list">'+weightLog.slice(-7).reverse().map(x=>'<div class="weight-row"><span>'+esc(x.date)+'</span><b>'+x.weight.toFixed(1)+' kg</b></div>').join('')+'</div>':'')+'<div class="keybox"><b>Lecture utile —</b> Regardez la tendance sur plusieurs semaines. Une mesure isolée varie avec l’eau, les repas et l’heure.</div>'}
+
 /* ---------- Assistant personnel & vie ---------- */
 const PERSONAL_CAPS=[
   {i:'💼',t:'Carrière',d:'Devenir un analyste reconnu, clair et fiable'},
@@ -1216,7 +1325,7 @@ function lifeCard(cls,icon,obj){return '<div class="card life-card '+cls+'"><h3>
 function renderLife(){
   const v=B.vie||{}, a=B.assistant||{};
   document.getElementById('life-overview').innerHTML='<h3>🧭 Votre cap</h3><p style="margin-top:7px">'+esc(a.message||'Un système simple pour progresser sans dépendre de la motivation.')+'</p><div class="cap-grid">'+PERSONAL_CAPS.map(x=>'<div class="cap"><div class="ci">'+x.i+'</div><b>'+esc(x.t)+'</b><span>'+esc(x.d)+'</span></div>').join('')+'</div>';
-  document.getElementById('life-cards').innerHTML=lifeCard('health','🏃',v.sante||{})+lifeCard('family','👨‍👩‍👦',v.famille||{})+lifeCard('home','🏠',v.immobilier||{})+lifeCard('','🧠',v.organisation||{})+lifeCard('digital','📵',v.numerique||{});
+  document.getElementById('life-cards').innerHTML=lifeCard('health','🏃',v.sante||{})+lifeCard('family','👨‍👩‍👦',v.famille||{})+lifeCard('home','🏠',v.immobilier||{})+lifeCard('','🧠',v.organisation||{})+lifeCard('digital','📵',v.numerique||{});renderWeight();
   const habits=[['briefing','📰 Briefing ouvert','Trajet utile'],['english','🇬🇧 Anglais pratiqué','Même 5 minutes'],['sport','🏃 Activité physique','Tapis ou marche'],['family','👨‍👩‍👦 Temps famille','Téléphone posé']];
   document.getElementById('habit-card').innerHTML='<h3>📊 Suivi personnel</h3><p class="small muted" style="margin-top:4px">Un constat, pas une injonction. Touchez seulement ce qui a réellement été fait.</p><div class="habit-grid">'+habits.map(h=>'<button class="habit '+(lifeLog[h[0]]?'done':'')+'" onclick="toggleHabit('+jsq(h[0])+')"><b>'+h[1]+(lifeLog[h[0]]?' ✓':'')+'</b><span>'+h[2]+'</span></button>').join('')+'</div>';
   document.getElementById('brain-dump').value=store.get('brain_dump','');
@@ -1251,6 +1360,8 @@ function renderProfile(){
   document.getElementById('prof-beststreak').textContent = profile.bestStreak+' j';
   document.getElementById('prof-vocab').textContent = Object.keys(srs).length+' (dont '+Object.values(srs).filter(v=>v.box>=3).length+' bien ancrés)';
   document.getElementById('prof-quiz').textContent = profile.quizOk;
+  const bp=brightStats.attempted?Math.round(brightStats.correct/brightStats.attempted*100):0;document.getElementById('prof-bright').textContent=bp+' % · cible '+brightStats.target;
+  document.getElementById('prof-cert').textContent=certState.sessions+' · '+certState.minutes+' min';
   const pm=document.getElementById('profile-mastery'); if(pm) pm.innerHTML=masteryHtml();
   const pc=document.getElementById('personal-caps'); if(pc) pc.innerHTML=PERSONAL_CAPS.map(x=>'<div class="cap"><div class="ci">'+x.i+'</div><b>'+esc(x.t)+'</b><span>'+esc(x.d)+'</span></div>').join('');
   document.getElementById('badge-zone').innerHTML = BADGES.map(b=>
@@ -1263,7 +1374,7 @@ function resetAll(){
   if(!confirm('Effacer toute la progression (XP, série, vocabulaire) ?')) return;
   store.clear();
   profile={xp:0,streak:1,bestStreak:1,lastVisit:todayKey,quizOk:0};
-  daily={read:[],quizDone:false,vocabDone:false,exoDone:false}; srs={}; knowledgeSrs={}; lifeLog={};
+  daily={read:[],quizDone:false,vocabDone:false,exoDone:false}; srs={}; knowledgeSrs={}; lifeLog={};performanceState={analystAnswers:{},executiveAnswers:{},selfScores:{},completedCases:0};brightStats={attempted:0,correct:0,listening:0,reading:0,grammar:0,vocabulary:0,target:'B1'};certState={sessions:0,minutes:0,deliverables:[],currentProject:'Certification Data Analyst'};weightLog=[];weightSettings={goal:'loss',target:'',current:''};
   save(); renderAll(); toast('Progression réinitialisée');
 }
 
@@ -1275,7 +1386,7 @@ function switchTab(view, btn){
   btn.classList.add('active');
   closeSheet();
   window.scrollTo(0,0);
-  if(view==='academy'){renderAcademy();renderQuiz();}
+  if(view==='academy'){renderAcademy();renderPerformance();renderQuiz();}
   if(view==='life') renderLife();
   if(view==='english'){bindAudioControls();bindRecorder();}
   if(view==='profile') renderProfile();
